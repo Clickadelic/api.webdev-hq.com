@@ -1,4 +1,3 @@
-require("dotenv").config();
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -26,7 +25,6 @@ app.use("*", (req, res) => {
 });
 
 app.listen(port, async () => {
-  console.log(`Environment: ${process.env.NODE_ENV}`);
   console.log(`APP url:     ${process.env.APP_URL}`);
   console.log(`API url:     ${process.env.API_URL}`);
 });

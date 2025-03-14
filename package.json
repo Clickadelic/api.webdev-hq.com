@@ -1,10 +1,11 @@
 {
   "name": "api.webdev-hq.com",
   "version": "1.0.0",
-  "description": "WebDev HQ API powered by ExpressJS",
+  "description": "WebDev HQ API",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./src/index.js"
+    "dev": "nodemon app/index.js",
+    "build": "nodemon app/index.js"
   },
   "repository": {
     "type": "git",
@@ -19,9 +20,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
-    "express": "^4.21.2"
-  },
-  "devDependencies": {
+    "express": "^4.21.2",
     "nodemon": "^3.1.9"
   }
 }
