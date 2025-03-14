@@ -1,8 +1,8 @@
 {
   "name": "api.webdev-hq.com",
   "version": "1.0.0",
-  "description": "WebDev HQ API powered by ExpressJS",
-  "main": "index.js",
+  "description": "WebDev HQ API",
+  "main": "app/index.js",
   "scripts": {
     "dev": "nodemon app/index.js",
     "build": "node app/index.js"
