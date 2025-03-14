@@ -6,7 +6,7 @@ const path = require("path");
 
 const port = process.env.PORT || 5000;
 
-app.set("view engine", "twig");
+app.set("view engine", "pug");
 app.set("views", __dirname + "/views");
 
 app.use(express.static(path.join(__dirname, "/public")));
@@ -26,8 +26,7 @@ app.use("*", (req, res) => {
 });
 
 app.listen(port, async () => {
-  console.log(`APP url:     ${process.env.APP_URL}`);
-  console.log(`API url:     ${process.env.API_URL}`);
+  console.log("http://localhost:" + port);
 });
 
 module.exports = app;
