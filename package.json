@@ -4,8 +4,8 @@
   "description": "WebDev HQ API",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon app/index.js",
-    "build": "npm install; npm run build"
+    "dev": "nodemon api/index.js",
+    "build": "node api/index.js"
   },
   "repository": {
     "type": "git",
