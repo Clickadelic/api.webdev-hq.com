@@ -1,6 +1,9 @@
 # env
 .env
 .env.*
+#IDEs
+.vscode
+.idea
 # Logs
 logs
 *.log
