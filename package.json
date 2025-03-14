@@ -2,7 +2,7 @@
   "name": "api.webdev-hq.com",
   "version": "1.0.0",
   "description": "WebDev HQ API",
-  "main": "app/index.js",
+  "main": "index.js",
   "scripts": {
     "dev": "nodemon app/index.js",
     "build": "nodemon app/index.js"
