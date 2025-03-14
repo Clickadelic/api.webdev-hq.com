@@ -4,8 +4,8 @@
   "description": "WebDev HQ API powered by ExpressJS",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "build": "node api/index.js"
+    "dev": "nodemon app/index.js",
+    "build": "node app/index.js"
   },
   "repository": {
     "type": "git",
