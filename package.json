@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "build": "node api/index.js --watch"
+    "build": "node api/index.js"
   },
   "repository": {
     "type": "git",
