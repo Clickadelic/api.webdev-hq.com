@@ -6,7 +6,7 @@ const path = require("path");
 
 const port = process.env.PORT || 5000;
 
-app.set("view engine", "pug");
+app.set("view engine", "twig");
 app.set("views", __dirname + "/views");
 
 app.use(express.static(path.join(__dirname, "/public")));
@@ -17,6 +17,10 @@ app.disable("x-powered-by");
 
 app.get("/", (req, res) => {
   res.render("./pages");
+});
+
+app.get("/about", (req, res) => {
+  res.render("./pages/about");
 });
 
 // app.use("/common/v1", infoRouter);
