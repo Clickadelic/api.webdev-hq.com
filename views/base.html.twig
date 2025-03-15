@@ -13,7 +13,7 @@
 	<meta name="msapplication-TileColor" content="#da532c">
 	<meta name="theme-color" content="#ffffff">
 	<meta name="keywords" content="WebDev HQ - a webdevelopers daily web extension">
-	<meta name="description" content="WebAPI of WebDev HQ.">
+	<meta name="description" content="WebAPI of WebDev HQ">
 	<meta name="language" content="En-us">
 	<meta name="robots" content="index, nofollow">
 	<meta name="author" content="WebDev HQ, admin@webdev-hq.com">
@@ -142,60 +142,74 @@
 	</style>
 </head>
 <body id="top" class="font-poppins">
-    <div class="flex flex-col min-h-screen bg-blurred bg-cover">
-	<header class="bg-white/30 bg-backdrop-blur h-[60px]">
-		<div class="container flex justify-between">
-			<h1 class="mt-2.5 text-2xl">
-				<a href="/" title="Home">
-					<span class="font-normal text-slate-200 hover:text-emerald-500 font-laBelleAurore">Toby's</span>
-					<span class="font-medium text-md text-slate-400 md:flex">Rest {API}</span>
-				</a>
-			</h1>
-			<nav class="flex justify-end mt-3.5">
-				<ul class="flex justify-between space-x-2">
-					<li>
-						<a href="/register"
-							class="flex justify-between p-1 px-4 space-x-3 text-white border rounded-md hover:text-fuchsia-600"
-							title="Home">
-							Register
-						</a>
-					</li>
-					<li>
-						<a href="/login"
-							class="flex justify-between p-1 px-4 space-x-3 text-white border rounded-md hover:text-sky-600"
-							title="Login">
-							Login
-						</a>
-					</li>
-					<li>
-						<a href="/newsletter"
-							class="flex justify-between p-1 px-4 space-x-3 text-white border rounded-md hover:text-sky-600"
-							title="Newsletter">
-							Newsletter
-						</a>
-					</li>
-				</ul>
-			</nav>
-		</div>
-	</header>
+    <div class="flex flex-col min-h-screen bg-slate-100">
+	{% block header %}
+		<header class="bg-white h-[60px]">
+			<div class="container flex justify-between">
+				{% block logo %}
+				<h1 className="text-3xl text-white">
+					<a href="https://webdev-hq.com/" className="flex flex-row text-slate-800">
+						<img
+						src="./logo.png"
+						className="logo inline mr-2 -mt-1"
+						alt="WebDev HQ Logo"
+						/>
+						<span className="font-light">
+						<span className="web">Web</span>
+						<span className="dev-hq font-medium">Dev HQ</span>
+						</span>
+					</a>
+				</h1>
+				{% endblock %}
+				<nav class="flex justify-end mt-3.5">
+					<ul class="flex justify-between space-x-2">
+						<li>
+							<a href="/register"
+								class="flex justify-between p-1 px-4 space-x-3 text-white border rounded-md hover:text-fuchsia-600"
+								title="Home">
+								Register
+							</a>
+						</li>
+						<li>
+							<a href="/login"
+								class="flex justify-between p-1 px-4 space-x-3 text-white border rounded-md hover:text-sky-600"
+								title="Login">
+								Login
+							</a>
+						</li>
+						<li>
+							<a href="/newsletter"
+								class="flex justify-between p-1 px-4 space-x-3 text-white border rounded-md hover:text-sky-600"
+								title="Newsletter">
+								Newsletter
+							</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+	{% endblock %}
     <main>
         {% block content %}Main Content{% endblock %}
     </main>
-    <footer class="w-full py-5 mx-auto bg-white/30 bg-backdrpop-blur">
+	
+	{% block footer %}
+    <footer class="w-full py-5 mx-auto bg-sky-600">
         <div class="container">
             <p class="mb-5 text-center text-white">
                 <a href="/about" class="text-slate-200 hover:underline">About</a>
                 &middot;
                 <a href="/disclaimer" class="text-slate-200 hover:underline">Disclaimer</a>
             </p>
+			{% block credits %}
             <p class="text-center text-slate-200">All rights reserved. <a href="https://www.tobias-hopp.de/"
-                    class="hover:underline text-slate-200" target="_blank">Tobias Hopp</a> &copy; <%= copyrightYear %>.
+                    class="hover:underline text-slate-200" target="_blank">WebDev HQ</a> &copy; 2025.
             </p>
-
+			{% endblock %}
         </div>
     </footer>
+	{% endblock %}
 </div>
-</body>
 <script src="./assets/js/scripts.min.js" type="module"></script>
-
+</body>
 </html>

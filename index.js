@@ -1,6 +1,8 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const chalk = require("chalk");
 const path = require("path");
 const infoRouter = require("./routers/info.router");
 const userRouter = require("./routers/user.router");
@@ -21,10 +23,6 @@ app.get("/", (req, res) => {
   res.render("./pages");
 });
 
-app.get("/about", (req, res) => {
-  res.render("./pages/about.twig");
-});
-
 app.use("/common/v1", infoRouter);
 app.use("/common/v1", userRouter);
 app.use("/common/v1", subscriberRouter);
@@ -34,9 +32,11 @@ app.use("*", (req, res) => {
 });
 
 app.listen(port, async () => {
-  console.log(`Environment: ${process.env.NODE_ENV}`);
-  console.log(`APP url:     ${process.env.APP_URL}`);
-  console.log(`API url:     ${process.env.API_URL}`);
+  console.log(chalk.blueBright("----------------------------------------"));
+  console.log(chalk.blue("----- Welcome to WebDev HQ Web API -----"));
+  console.log(chalk.blueBright("----------------------------------------"));
+  console.log(chalk.blue(">>>>>>>> http://localhost:5000 <<<<<<<<<"));
+  console.log(chalk.blueBright("----------------------------------------"));
 });
 
 module.exports = app;
