@@ -1,10 +1,20 @@
 {# base.html.twig #}
 <!DOCTYPE html>
 <html lang="en">
+{% block head %}
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>{% block title %}WebDev HQ API{% endblock %}</title>
+	{% block favicons %}
+	{# favicons new #}
+	<link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96" />
+	<link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg" />
+	<link rel="shortcut icon" href="/favicons/favicon.ico" />
+	<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
+	<meta name="apple-mobile-web-app-title" content="WebDev HQ" />
+	<link rel="manifest" href="/favicons/site.webmanifest" />
+	{# favicons old #}
 	<link rel="apple-touch-icon" sizes="152x152" href="./favicon/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
@@ -27,7 +37,11 @@
 	<meta name="target" content="all">
 	<meta name="HandheldFriendly" content="True">
 	<meta name="MobileOptimized" content="320">
+	{% endblock %}
+	{% block stylesheet %}
 	<link rel="stylesheet" href="./assets/css/style.min.css" />
+	{% endblock %}
+	{% block head_inline_css %}
 	<style id="custom-fonts-css">
 		@font-face {
 			font-family: "La Belle Aurore";
@@ -140,59 +154,63 @@
 		}
 
 	</style>
-</head>
-<body id="top" class="font-poppins">
-    <div class="flex flex-col min-h-screen bg-slate-100">
-	{% block header %}
-		<header class="bg-white h-[60px]">
-			<div class="container flex justify-between">
-				{% block logo %}
-				<h1 className="text-3xl text-white">
-					<a href="https://webdev-hq.com/" className="flex flex-row text-slate-800">
-						<img
-						src="./logo.png"
-						className="logo inline mr-2 -mt-1"
-						alt="WebDev HQ Logo"
-						/>
-						<span className="font-light">
-						<span className="web">Web</span>
-						<span className="dev-hq font-medium">Dev HQ</span>
-						</span>
-					</a>
-				</h1>
-				{% endblock %}
-				<nav class="flex justify-end mt-3.5">
-					<ul class="flex justify-between space-x-2">
-						<li>
-							<a href="/register"
-								class="flex justify-between p-1 px-4 space-x-3 text-white border rounded-md hover:text-fuchsia-600"
-								title="Home">
-								Register
-							</a>
-						</li>
-						<li>
-							<a href="/login"
-								class="flex justify-between p-1 px-4 space-x-3 text-white border rounded-md hover:text-sky-600"
-								title="Login">
-								Login
-							</a>
-						</li>
-						<li>
-							<a href="/newsletter"
-								class="flex justify-between p-1 px-4 space-x-3 text-white border rounded-md hover:text-sky-600"
-								title="Newsletter">
-								Newsletter
-							</a>
-						</li>
-					</ul>
-				</nav>
-			</div>
-		</header>
 	{% endblock %}
+</head>
+{% endblock %}
+<body id="top" class="font-poppins">
+{% block after_body_before_header %}
+<div class="flex flex-col min-h-screen bg-slate-100">
+	{% block header %}
+	<header class="bg-white h-[60px]">
+		<div class="container flex justify-between">
+			{% block logo %}
+			<h1 className="text-3xl text-white">
+				<a href="https://webdev-hq.com/" className="flex flex-row text-slate-800">
+					<img
+					src="./logo.png"
+					className="logo inline mr-2 -mt-1"
+					alt="WebDev HQ Logo"
+					/>
+					<span className="font-light">
+					<span className="web">Web</span>
+					<span className="dev-hq font-medium">Dev HQ</span>
+					</span>
+				</a>
+			</h1>
+			{% endblock %}
+			<nav class="flex justify-end mt-3.5">
+				<ul class="flex justify-between space-x-2">
+					<li>
+						<a href="/register"
+							class="flex justify-between p-1 px-4 space-x-3 text-white border rounded-md hover:text-fuchsia-600"
+							title="Home">
+							Register
+						</a>
+					</li>
+					<li>
+						<a href="/login"
+							class="flex justify-between p-1 px-4 space-x-3 text-white border rounded-md hover:text-sky-600"
+							title="Login">
+							Login
+						</a>
+					</li>
+					<li>
+						<a href="/newsletter"
+							class="flex justify-between p-1 px-4 space-x-3 text-white border rounded-md hover:text-sky-600"
+							title="Newsletter">
+							Newsletter
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	{% endblock %}
+	{% block header %}
     <main>
         {% block content %}Main Content{% endblock %}
     </main>
-	
+	{% endblock %}
 	{% block footer %}
     <footer class="w-full py-5 mx-auto bg-sky-600">
         <div class="container">
@@ -210,6 +228,9 @@
     </footer>
 	{% endblock %}
 </div>
+{% endblock %}
+{% block scripts %}
 <script src="./assets/js/scripts.min.js" type="module"></script>
+{% endblock %}
 </body>
 </html>
