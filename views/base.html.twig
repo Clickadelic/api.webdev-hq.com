@@ -1,10 +1,10 @@
+{# base.html.twig #}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Toby&apos;s Rest API</title>
+	<title>{% block title %}WebDev HQ API{% endblock %}</title>
 	<link rel="apple-touch-icon" sizes="152x152" href="./favicon/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
@@ -12,18 +12,18 @@
 	<link rel="mask-icon" href="./favicon/safari-pinned-tab.svg" color="#5bbad5">
 	<meta name="msapplication-TileColor" content="#da532c">
 	<meta name="theme-color" content="#ffffff">
-	<meta name="keywords" content="Full-Stack Developer Tobias Hopp, Tobias Hopp">
-	<meta name="description" content="Tobias Hopp's private Rest-API.">
+	<meta name="keywords" content="WebDev HQ - a webdevelopers daily web extension">
+	<meta name="description" content="WebAPI of WebDev HQ.">
 	<meta name="language" content="En-us">
 	<meta name="robots" content="index, nofollow">
-	<meta name="author" content="Tobias Hopp, mail@tobias-hopp.de">
+	<meta name="author" content="WebDev HQ, admin@webdev-hq.com">
 	<meta name="designer" content="Tobias Hopp">
 	<meta name="reply-to" content="mail@tobias-hopp.de">
 	<meta name="coverage" content="Worldwide">
 	<meta name="distribution" content="Global">
 	<meta name="rating" content="General">
 	<meta name="revisit-after" content="30 days">
-	<meta name="subtitle" content="Toby's private Rest-API">
+	<meta name="subtitle" content="WebDev HQ Rest-API">
 	<meta name="target" content="all">
 	<meta name="HandheldFriendly" content="True">
 	<meta name="MobileOptimized" content="320">
@@ -141,5 +141,61 @@
 
 	</style>
 </head>
-
 <body id="top" class="font-poppins">
+    <div class="flex flex-col min-h-screen bg-blurred bg-cover">
+	<header class="bg-white/30 bg-backdrop-blur h-[60px]">
+		<div class="container flex justify-between">
+			<h1 class="mt-2.5 text-2xl">
+				<a href="/" title="Home">
+					<span class="font-normal text-slate-200 hover:text-emerald-500 font-laBelleAurore">Toby's</span>
+					<span class="font-medium text-md text-slate-400 md:flex">Rest {API}</span>
+				</a>
+			</h1>
+			<nav class="flex justify-end mt-3.5">
+				<ul class="flex justify-between space-x-2">
+					<li>
+						<a href="/register"
+							class="flex justify-between p-1 px-4 space-x-3 text-white border rounded-md hover:text-fuchsia-600"
+							title="Home">
+							Register
+						</a>
+					</li>
+					<li>
+						<a href="/login"
+							class="flex justify-between p-1 px-4 space-x-3 text-white border rounded-md hover:text-sky-600"
+							title="Login">
+							Login
+						</a>
+					</li>
+					<li>
+						<a href="/newsletter"
+							class="flex justify-between p-1 px-4 space-x-3 text-white border rounded-md hover:text-sky-600"
+							title="Newsletter">
+							Newsletter
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+    <main>
+        {% block content %}Main Content{% endblock %}
+    </main>
+    <footer class="w-full py-5 mx-auto bg-white/30 bg-backdrpop-blur">
+        <div class="container">
+            <p class="mb-5 text-center text-white">
+                <a href="/about" class="text-slate-200 hover:underline">About</a>
+                &middot;
+                <a href="/disclaimer" class="text-slate-200 hover:underline">Disclaimer</a>
+            </p>
+            <p class="text-center text-slate-200">All rights reserved. <a href="https://www.tobias-hopp.de/"
+                    class="hover:underline text-slate-200" target="_blank">Tobias Hopp</a> &copy; <%= copyrightYear %>.
+            </p>
+
+        </div>
+    </footer>
+</div>
+</body>
+<script src="./assets/js/scripts.min.js" type="module"></script>
+
+</html>
