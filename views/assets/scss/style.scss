@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "utilities";
+
+.alert {
+	@apply bg-rose-500;
+	@apply text-white;
+	@apply font-medium;
+	@apply py-2;
+	@apply px-4;
+	@apply rounded-md;
+}
+
+.success {
+	@apply bg-emerald-500;
+	@apply text-white;
+	@apply font-medium;
+	@apply py-2;
+	@apply px-4;
+	@apply rounded-md;
+}
