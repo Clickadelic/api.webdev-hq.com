@@ -161,22 +161,10 @@
 {% block after_body_before_header %}
 <div class="flex flex-col min-h-screen bg-slate-100">
 	{% block header %}
-	<header class="bg-rose-400 h-[60px]">
+	<header class="bg-slate-200 h-[60px]">
 		<div class="container flex justify-between">
 			{% block logo %}
-			<h1 className="flex text-3xl text-white">
-				<a href="https://webdev-hq.com/" className="flex flex-row text-slate-800">
-					<img
-					src="./logo.png"
-					className="logo inline mr-2 -mt-1"
-					alt="WebDev HQ Logo"
-					/>
-					<span className="font-light">
-					<span className="web">Web</span>
-					<span className="dev-hq font-medium">Dev HQ</span>
-					</span>
-				</a>
-			</h1>
+				{% include 'partials/logo.html' %}
 			{% endblock %}
 			<nav class="flex justify-end mt-3.5">
 				<ul class="flex justify-between space-x-2">
@@ -208,7 +196,9 @@
 	{% endblock %}
 	{% block header %}
     <main>
+		{% block before_content %}{% endblock %}
         {% block content %}Main Content{% endblock %}
+		{% block after_content %}{% endblock %}
     </main>
 	{% endblock %}
 	{% block footer %}

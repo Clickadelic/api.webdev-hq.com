@@ -11,6 +11,7 @@ const middleware = require("./middleware/middleware");
 const port = process.env.PORT || 5000;
 
 app.set("view engine", "twig");
+app.set("view cache", false);
 app.set("views", __dirname + "/views");
 
 app.use(express.static(path.join(__dirname, "/public")));
