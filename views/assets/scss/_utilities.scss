@@ -1,4 +1,0 @@
-@function inRem($pxValue) {
-	$remValue: $pxValue / 16px;
-	@return #{$remValue}rem;
-}

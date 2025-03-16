@@ -1,3 +1,1 @@
-require("./register");
-require("./login");
-require("./subscribe");
+require("./some-module.js");

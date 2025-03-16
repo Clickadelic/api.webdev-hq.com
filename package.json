@@ -6,11 +6,10 @@
   "scripts": {
     "tools-update-check": "npx npm-check-updates",
     "tools-update-execute": "npx npm-check-updates -u -x chalk",
-    "dev-run-dev": "nodemon api/index.js --watch",
+    "dev": "nodemon api/index.js --watch",
     "build-scripts": "esbuild ./views/assets/js/index.js --outfile=/public/assets/js/scripts.min.js --bundle --minify --watch",
     "tailwind": "npx tailwindcss -i ./views/assets/scss/style.scss -o ./public/assets/css/style.min.css --watch --bundle --minify",
     "prod-run-production": "SET NODE_ENV=production && node api/index.js --watch",
-    "prod-vercel-build": "echo Building API...",
     "postinstall": "prisma generate"
   },
   "keywords": [],
@@ -29,9 +28,7 @@
     "nodemailer": "^6.9.16",
     "npm-check-updates": "^17.1.14",
     "path": "^0.12.7",
-    "postcss-cli": "^11.0.0",
-    "twig": "^1.17.1",
-    "yamljs": "^0.3.0"
+    "twig": "^1.17.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",
@@ -39,10 +36,7 @@
     "css-loader": "^7.1.2",
     "esbuild": "0.24.2",
     "nodemon": "^3.1.9",
-    "postcss": "^8.5.1",
-    "postcss-loader": "^8.1.1",
     "prettier": "^3.4.2",
-    "prisma": "^6.2.1",
-    "tailwindcss": "^3.4.17"
+    "prisma": "^6.2.1"
   }
 }
