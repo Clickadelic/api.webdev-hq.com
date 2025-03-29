@@ -158,49 +158,30 @@
 </head>
 {% endblock %}
 <body id="top" class="font-poppins">
-{% block after_body_before_header %}
+{% block after_body %}
 <div class="flex flex-col min-h-screen bg-slate-100">
+	{% block before_header %}{% endblock %}
 	{% block header %}
-	<header class="bg-slate-200 h-[60px]">
+	<header class="bg-white shadow-sm h-[60px]">
 		<div class="container flex justify-between">
 			{% block logo %}
 				{% include 'partials/logo.html' %}
 			{% endblock %}
-			<nav class="flex justify-end mt-3.5">
-				<ul class="flex justify-between space-x-2">
-					<li>
-						<a href="/register"
-							class="flex justify-between p-1 px-4 space-x-3 text-white border rounded-md hover:text-fuchsia-600"
-							title="Home">
-							Register
-						</a>
-					</li>
-					<li>
-						<a href="/login"
-							class="flex justify-between p-1 px-4 space-x-3 text-white border rounded-md hover:text-sky-600"
-							title="Login">
-							Login
-						</a>
-					</li>
-					<li>
-						<a href="/newsletter"
-							class="flex justify-between p-1 px-4 space-x-3 text-white border rounded-md hover:text-sky-600"
-							title="Newsletter">
-							Newsletter
-						</a>
-					</li>
-				</ul>
-			</nav>
+			{% block logo %}
+				{% include 'partials/nav.html' %}
+			{% endblock %}
 		</div>
 	</header>
 	{% endblock %}
-	{% block header %}
+	{% block after_header %}{% endblock %}
+	{% block main %}
     <main>
 		{% block before_content %}{% endblock %}
         {% block content %}Main Content{% endblock %}
 		{% block after_content %}{% endblock %}
     </main>
 	{% endblock %}
+	{% block before_footer %}{% endblock %}
 	{% block footer %}
     <footer class="w-full py-5 mx-auto bg-sky-600">
         <div class="container">
@@ -217,6 +198,7 @@
         </div>
     </footer>
 	{% endblock %}
+	{% block after_footer %}{% endblock %}
 </div>
 {% endblock %}
 {% block scripts %}
