@@ -182,7 +182,7 @@
 	{% endblock %}
 	{% block after_header %}{% endblock %}
 	{% block main %}
-    <main>
+    <main class="container mx-auto py-2 min-h-96 flex flex-col justify-center align-center">
 		{% block before_content %}{% endblock %}
         {% block content %}Main Content{% endblock %}
 		{% block after_content %}{% endblock %}
@@ -190,16 +190,62 @@
 	{% endblock %}
 	{% block before_footer %}{% endblock %}
 	{% block footer %}
-	<footer class="w-full py-5 mx-auto bg-sky-600">
-		<div class="container">
-			<p class="mb-5 text-center text-white">
-				<a href="/about" class="text-slate-200 hover:underline">About</a>
-				&middot;
-				<a href="/disclaimer" class="text-slate-200 hover:underline">Disclaimer</a>
-			</p>
-			{% block credits %}
-			<p class="text-center text-slate-200">All rights reserved. <a href="https://www.tobias-hopp.de/" class="hover:underline text-slate-200" target="_blank">WebDev HQ</a> &copy; 2025.</p>
-			{% endblock %}
+	<footer class="w-full py-5 mx-auto">
+		<div class="w-full bg-white">
+			<div class="container mx-auto">
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 py-6">
+					<div class="footer-col p-2">
+						<h2 class="text-2xl text-slate-900 mb-6">Footer column</h2>
+						<ul class="space-y-2">
+							<li><a href="https://webdev-hq.com" target="_blank" class="text-white hover:text-slate-200">Homepage</a></li>
+							<li><a href="#" class="text-white hover:text-slate-200">Link</a></li>
+							<li><a href="#" class="text-white hover:text-slate-200">Link</a></li>
+							<li><a href="#" class="text-white hover:text-slate-200">Link</a></li>
+							<li><a href="#" class="text-white hover:text-slate-200">Link</a></li>
+						</ul>
+					</div>
+					<div class="footer-col p-2">
+						<h2 class="text-2xl text-slate-900 mb-6">Footer column</h2>
+						<ul>
+							<li><a href="#">Link</a></li>
+							<li><a href="#">Link</a></li>
+							<li><a href="#">Link</a></li>
+							<li><a href="#">Link</a></li>
+							<li><a href="#">Link</a></li>
+						</ul>
+					</div>
+					<div class="footer-col p-2">
+						<h2 class="text-2xl text-slate-900 mb-6">Newsletter</h2>
+						<form class="space-y-3">
+							<input type="text" class="w-full bg-white rounded-sm px-2 py-1" placeholder="Your Name">
+							<input type="email" class="w-full bg-white rounded-sm px-2 py-1" placeholder="Your E-Mail">
+							<button type="submit" class="w-full bg-white p-2 rounded-sm text-white hover:cursor-pointer hover:bg-slate-500">Subscribe</button>
+						</form>
+					</div>
+					<div class="footer-col p-2">
+						<h2 class="text-2xl text-slate-900 mb-6">Legal information</h2>
+						<ul>
+							<li><a href="/disclaimer">Disclaimer</a></li>
+							<li><a href="#">Link</a></li>
+							<li><a href="#">Link</a></li>
+							<li><a href="#">Link</a></li>
+							<li><a href="#">Link</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="w-full bg-sky-800 py-6">
+			<div class="container mx-auto">
+				<p class="mb-5 text-center text-white">
+					<a href="/about" class="text-slate-200 hover:underline">About</a>
+					&middot;
+					<a href="/disclaimer" class="text-slate-200 hover:underline">Disclaimer</a>
+				</p>
+				{% block credits %}
+				<p class="text-center text-slate-200">All rights reserved. <a href="https://www.tobias-hopp.de/" class="hover:underline text-slate-200" target="_blank">WebDev HQ</a> &copy; 2025.</p>
+				{% endblock %}
+			</div>
 		</div>
 	</footer>
 	{% endblock %}
