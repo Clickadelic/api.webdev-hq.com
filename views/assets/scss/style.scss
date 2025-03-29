@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+@theme {
+	--color-mantis-primary: #1a90fd;
+	--color-mantis-primary-hover: #1581e6;
+	--color-mantis-secondary: #f1f5f9;
+	--color-tahiti: #3ab7bf;
+	--color-bermuda: #78dcca;
+}
+
+.bg-pattern {
+	background: #f7f7f7 radial-gradient(gray 10%, transparent 5%) 0 0/10px 10px;
+}
 
 .wdhq-center {
 	left: 50%;

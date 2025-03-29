@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			ctx.beginPath()
 			ctx.moveTo(connection.from.x, connection.from.y)
 			ctx.lineTo(connection.to.x, connection.to.y)
-			ctx.strokeStyle = "rgba(3, 3, 3, 0.5)"
+			ctx.strokeStyle = "rgba(133, 133, 133, 0.25)"
 			ctx.lineWidth = 1
 			ctx.stroke()
 		})
