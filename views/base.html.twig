@@ -163,10 +163,16 @@
 	{% block before_header %}{% endblock %}
 	{% block header %}
 	<header class="bg-white shadow-sm h-[60px]">
-		<div class="container mx-auto bg-rose-200">
-			{% block logo %}
-				{% include 'partials/logo.html' %}
-			{% endblock %}
+		<div class="container mx-auto flex justify-between">
+			<h1 class="text-2xl mt-1.5 p-2 rounded-sm hover:bg-slate-100">
+				<a href="/" class="flex justify-between space-x-3">
+					<img src="./logo.png" alt="WebDev HQ Logo" />
+					<span class="font-light">
+						<span class="web">Web</span>
+						<span class="dev-hq font-medium">Dev HQ</span>
+					</span>
+				</a>
+			</h1>
 			{% block logo %}
 				{% include 'partials/nav.html' %}
 			{% endblock %}
@@ -183,20 +189,18 @@
 	{% endblock %}
 	{% block before_footer %}{% endblock %}
 	{% block footer %}
-    <footer class="w-full py-5 mx-auto bg-sky-600">
-        <div class="container">
-            <p class="mb-5 text-center text-white">
-                <a href="/about" class="text-slate-200 hover:underline">About</a>
-                &middot;
-                <a href="/disclaimer" class="text-slate-200 hover:underline">Disclaimer</a>
-            </p>
+	<footer class="w-full py-5 mx-auto bg-sky-600">
+		<div class="container">
+			<p class="mb-5 text-center text-white">
+				<a href="/about" class="text-slate-200 hover:underline">About</a>
+				&middot;
+				<a href="/disclaimer" class="text-slate-200 hover:underline">Disclaimer</a>
+			</p>
 			{% block credits %}
-            <p class="text-center text-slate-200">All rights reserved. <a href="https://www.tobias-hopp.de/"
-                    class="hover:underline text-slate-200" target="_blank">WebDev HQ</a> &copy; 2025.
-            </p>
+			<p class="text-center text-slate-200">All rights reserved. <a href="https://www.tobias-hopp.de/" class="hover:underline text-slate-200" target="_blank">WebDev HQ</a> &copy; 2025.</p>
 			{% endblock %}
-        </div>
-    </footer>
+		</div>
+	</footer>
 	{% endblock %}
 	{% block after_footer %}{% endblock %}
 </div>
