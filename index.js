@@ -7,7 +7,7 @@ const chalk = require("chalk")
 const path = require("path")
 const infoRouter = require("./routers/info.router")
 const userRouter = require("./routers/user.router")
-const subscriberRouter = require("./routers/subscriber.router")
+const newsletterRouter = require("./routers/newsletter.router")
 const middleware = require("./middleware/middleware")
 const port = process.env.PORT || 5000
 const twig = require("twig")
@@ -41,7 +41,7 @@ app.get("/about", (req, res) => {
 
 app.use("/common/v1", infoRouter)
 app.use("/common/v1", userRouter)
-app.use("/common/v1", subscriberRouter)
+app.use("/common/v1", newsletterRouter)
 
 app.use("*", (req, res) => {
 	res.status(200).send({ message: "Error 404, file or page not found" })
