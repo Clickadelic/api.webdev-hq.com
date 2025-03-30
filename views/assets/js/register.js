@@ -1,44 +1,63 @@
-console.log("Registering...")
-
-if (window.location.pathname === "/") {
-	document.addEventListener("DOMContentLoaded", function () {
-		const register = document.getElementById("register")
-		const username = document.getElementById("username")
-		const password = document.getElementById("password")
-		const passwordRepeat = document.getElementById("password_repeat")
-		const agreedToTerms = document.getElementById("agreedToTerms")
-
-		register.addEventListener("click", () => {
-			if (!username.value || username.value.length < 4) {
-				return alert("min_3_characters")
-			}
-			if (!password.value || password.value.length < 6) {
-				return alert("min_6_characters")
-			}
-			if (!passwordRepeat.value || password.value != passwordRepeat.value) {
-				return alert("both_passwords_must_match")
-			}
-			if (!agreedToTerms.checked) {
-				return alert("terms_not_accepted")
-			}
-			const form = document.getElementById("register-form")
-			const response = fetch("/common/v1/auth/register", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json"
-				},
-				body: JSON.stringify({
-					username: username.value,
-					email: username.value,
-					password: password.value
-				})
-			})
-				.then(res => res.json())
-				.then(res => {
-					if (res.error) {
-						return alert(res.error)
-					}
-				})
+if (window.location.pathname === "/register") {
+	document.addEventListener("DOMContentLoaded", () => {
+		document.getElementsByTagName("form")[0].addEventListener("submit", e => {
+			handleRegister(e)
 		})
 	})
+}
+
+const handleRegister = async e => {
+	e.preventDefault()
+
+	const username = document.querySelector("input[name='username']").value
+	const email = document.querySelector("input[name='email']").value
+	const password = document.querySelector("input[name='password']").value
+	const passwordRepeat = document.querySelector("input[name='password-repeat']").value
+	const agreedToTerms = document.querySelector("input[name='agreed-to-terms']").checked
+
+	if (!username || !password || !passwordRepeat || !agreedToTerms) {
+		showUserMessage("bg-rose-200", "Please fill out all fields.")
+		return
+	}
+
+	if (password !== passwordRepeat) {
+		showUserMessage("bg-rose-200", "Passwords do not match.")
+		return
+	}
+
+	const formData = {
+		username,
+		email,
+		password,
+		passwordRepeat,
+		agreedToTerms
+	}
+	console.log({ formData })
+
+	try {
+		await fetch("https://api.webdev-hq.com/common/v1/auth/register", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(formData)
+		}).then(response => {
+			if (response.ok) {
+				showUserMessage("bg-green-200", "Registration successful.")
+			}
+		})
+	} catch (error) {
+		console.log(error)
+	}
+}
+
+const showUserMessage = (messageClasses, message) => {
+	const messageBox = document.getElementById("message-box")
+	messageBox.classList.add(messageClasses)
+	messageBox.innerHTML = message
+	setTimeout(() => {
+		messageBox.classList.remove(messageClasses)
+		messageBox.innerHTML = ""
+	}, 2000)
+	return
 }
