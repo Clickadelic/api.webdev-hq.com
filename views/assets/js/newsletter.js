@@ -8,20 +8,19 @@ if (window.location.pathname === "/newsletter") {
 
 const handleNewsletterSubscribtion = async e => {
 	e.preventDefault()
+	const subscribername = document.querySelector("input[name='subscribername']").value
 	const email = document.querySelector("input[name='email']").value
-	const agreedToTerms = document.querySelector("input[name='agreed-to-terms']").checked
+	const agreedToSubscription = document.querySelector("input[name='agreed-to-subscription']").checked
 
-	if (!email || !agreedToTerms) {
-		showUserMessage("bg-rose-200", "Please fill out your e-mail address.")
+	if (!subscribername || !email || !agreedToSubscription) {
+		showUserMessage("bg-rose-200", "Please fill out all fields.")
 		return
 	}
 
 	const formData = {
-		username,
+		subscribername,
 		email,
-		password,
-		passwordRepeat,
-		agreedToTerms
+		agreedToSubscription
 	}
 
 	try {
@@ -33,6 +32,9 @@ const handleNewsletterSubscribtion = async e => {
 			body: JSON.stringify(formData)
 		}).then(response => {
 			if (response.ok) {
+				subscribername.value = ""
+				email.value = ""
+				agreedToSubscription.checked = false
 				showUserMessage("bg-green-200", "Subscribtion successful.")
 			}
 		})
