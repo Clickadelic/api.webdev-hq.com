@@ -5,10 +5,10 @@
 	<h2 class="font-medium text-2xl mb-2">Register</h2>
 	<h3 class="font-light text-xl text-slate-400 mb-12">Become a member.</h3>
 	<form class="space-y-3" action="/common/v1/auth/register" method="post">
-		<input type="text" name="username" class="w-full bg-slate-200 rounded-sm p-3" placeholder="Username">
-		<input type="email" name="email" class="w-full bg-slate-200 rounded-sm p-3" placeholder="E-Mail">
-		<input type="password" name="password" class="w-full bg-slate-200 rounded-sm p-3" placeholder="Password">
-		<input type="password" name="password-repeat" class="w-full bg-slate-200 rounded-sm p-3" placeholder="Password Repeat">
+		<input type="text" name="username" id="username" class="w-full bg-slate-200 rounded-sm p-3" autocomplete="new-username" placeholder="Username">
+		<input type="email" name="email" id="email" class="w-full bg-slate-200 rounded-sm p-3" autocomplete="current-email" placeholder="E-Mail">
+		<input type="password" name="password" id="password" class="w-full bg-slate-200 rounded-sm p-3" autocomplete="new-password" placeholder="Password">
+		<input type="password" name="password-repeat" id="password-repeat" class="w-full bg-slate-200 rounded-sm p-3" autocomplete="password-repeat" placeholder="Password Repeat">
 		<div class="p-4">
 			<input type="checkbox" id="agreed-to-terms" class="mt-1.5 mr-1" />
 			<label for="agreed-to-terms">I agree to the <a href="/terms-of-use" class="text-mantis-primary hover:text-mantis-primary-hover" target="_blank" title="I agree to the terms of use">terms of use</a></label>

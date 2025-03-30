@@ -36,7 +36,7 @@ chokidar.watch("./views").on("change", () => {
 // Routes
 app.use("/", middleware.logRequest, publicRouter)
 app.use("/common/v1", middleware.logRequest, infoRouter)
-app.use("/common/v1", middleware.verifyToken, middleware.logRequest, userRouter)
+app.use("/common/v1", middleware.logRequest, userRouter)
 app.use("/common/v1", middleware.logRequest, newsletterRouter)
 
 // 404 error Fallback

@@ -13,6 +13,11 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+enum Role {
+    USER
+    ADMIN
+}
+
 model User {
     id             String   @id @default(uuid())
     username       String   @unique @db.VarChar(20)
@@ -20,7 +25,7 @@ model User {
     emailConfirmed Boolean  @default(false)
     password       String
     agreedToTerms  Boolean  @default(false)
-    isAdmin        Boolean  @default(false)
+    role           Role     @default(USER)
     createdAt      DateTime @default(now())
     updatedAt      DateTime @default(now())
 }
