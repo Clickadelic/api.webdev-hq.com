@@ -2,7 +2,7 @@ const express = require("express")
 const newsletterRouter = express.Router()
 const newsletterController = require("../controllers/newsletter.controller")
 
-newsletterRouter.post("/subscribers/subscribe", newsletterController.registerSubscriber)
-newsletterRouter.post("/subscribers/unsubscribe", newsletterController.unregisterSubscriber)
+newsletterRouter.post("/newsletter/subscribe", newsletterController.registerSubscriber)
+newsletterRouter.post("/newsletter/unsubscribe", newsletterController.unregisterSubscriber)
 
 module.exports = newsletterRouter

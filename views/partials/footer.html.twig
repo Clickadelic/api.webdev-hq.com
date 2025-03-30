@@ -1,0 +1,45 @@
+<footer class="w-full mx-auto">
+	<div class="w-full bg-slate-400 text-slate-800">
+		<div class="container mx-auto">
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 py-6 gap-4">
+				<div class="footer-col p-2">
+					<h2 class="text-2xl font-medium text-slate-800 mb-6">What is this?</h2>
+					<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et.</p>
+				</div>
+				<div class="footer-col p-2">
+					<h2 class="text-2xl font-medium text-slate-900 mb-6">Footer column</h2>
+					<ul>
+						<li><a href="#">Link</a></li>
+						<li><a href="#">Link</a></li>
+						<li><a href="#">Link</a></li>
+						<li><a href="#">Link</a></li>
+						<li><a href="#">Link</a></li>
+					</ul>
+				</div>
+				<div class="footer-col p-2">
+					<h2 class="text-2xl font-medium text-slate-900 mb-6">Legal information</h2>
+					<ul class="ml-4">
+						<li><a href="/disclaimer">Disclaimer</a></li>
+						<li><a href="/terms-of-privacy">Terms of privacy</a></li>
+					</ul>
+				</div>
+				<div class="footer-col p-2">
+					<h2 class="text-2xl font-medium text-slate-900 mb-6">Newsletter</h2>
+					<p class="mb-4 text-slate-800">We rarely send newsletters to registered users. Just to keep them informed.</p>
+					<form class="space-y-3">
+						<input type="text" class="w-full bg-white rounded-sm p-3" placeholder="Your Name">
+						<input type="email" class="w-full bg-white rounded-sm p-3" placeholder="Your E-Mail">
+						<button type="submit" class="w-full p-3 rounded-sm text-white bg-slate-800 hover:cursor-pointer hover:bg-mantis-primary hover:text-white">Subscribe</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% block credits %}
+	<div class="w-full bg-slate-800 py-6">
+		<div class="container mx-auto">
+			<p class="text-center text-slate-200">All rights reserved. <a href="https://webdev-hq.com/" class="hover:underline text-slate-200" target="_blank">WebDev HQ</a> &copy; 2025.</p>
+		</div>
+	</div>
+	{% endblock %}
+</footer>

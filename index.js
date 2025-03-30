@@ -12,6 +12,9 @@ const middleware = require("./middleware/middleware")
 const port = process.env.PORT || 5000
 const twig = require("twig")
 const chokidar = require("chokidar")
+const clearTwigCache = () => {
+	twig.cache(false)
+}
 
 app.set("view engine", "twig")
 app.set("view cache", false)
@@ -22,9 +25,6 @@ app.use(cors({ credentials: true, origin: "*" }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.disable("x-powered-by")
-const clearTwigCache = () => {
-	twig.cache(false)
-}
 
 chokidar.watch("./views").on("change", () => {
 	clearTwigCache()
@@ -37,6 +37,22 @@ app.get("/", (req, res) => {
 
 app.get("/about", (req, res) => {
 	res.render("./pages/about")
+})
+
+app.get("/register", (req, res) => {
+	res.render("./pages/register")
+})
+
+app.get("/login", (req, res) => {
+	res.render("./pages/login")
+})
+
+app.get("/disclaimer", (req, res) => {
+	res.render("./pages/disclaimer")
+})
+
+app.get("/terms-of-privacy", (req, res) => {
+	res.render("./pages/terms-of-privacy")
 })
 
 app.use("/common/v1", infoRouter)
