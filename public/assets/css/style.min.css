@@ -17,7 +17,8 @@
     --color-slate-600: oklch(0.446 0.043 257.281);
     --color-slate-800: oklch(0.279 0.041 260.031);
     --color-gray-700: oklch(0.373 0.034 259.733);
-    --color-white: #fff;
+    --color-neutral-500: oklch(0.556 0 0);
+    --color-white: #ffffff;
     --spacing: 0.25rem;
     --text-xs: 0.75rem;
     --text-xs--line-height: calc(1 / 0.75);
@@ -226,6 +227,9 @@
   }
   .mt-1\.5 {
     margin-top: calc(var(--spacing) * 1.5);
+  }
+  .mt-2 {
+    margin-top: calc(var(--spacing) * 2);
   }
   .mt-4 {
     margin-top: calc(var(--spacing) * 4);
@@ -453,6 +457,9 @@
   }
   .text-mantis-primary {
     color: var(--color-mantis-primary);
+  }
+  .text-neutral-500 {
+    color: var(--color-neutral-500);
   }
   .text-slate-400 {
     color: var(--color-slate-400);

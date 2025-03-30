@@ -136,23 +136,29 @@
 <body id="top" class="h-screen flex items-center justify-center bg-white font-poppins">
 {% block after_body %}
 <div class="w-full h-full flex flex-col items-start justify-between bg-slate-100 bg-pattern">
-	{% block before_header %}{% endblock %}
+	{% block before_header %}
+	{% endblock %}
 	{% block header %}
 		{% include 'partials/header.html.twig' %}
 	{% endblock %}
-	{% block after_header %}{% endblock %}
-	{% block before_main %}{% endblock %}
+	{% block after_header %}
+	{% endblock %}
+	{% block before_main %}
+	{% endblock %}
 	{% block main %}
     <main class="container mx-auto flex flex-col justify-center align-center">
         {% block content %}Main Content{% endblock %}
     </main>
 	{% endblock %}
-	{% block after_main %}{% endblock %}
-	{% block before_footer %}{% endblock %}
+	{% block after_main %}
+	{% endblock %}
+	{% block before_footer %}
+	{% endblock %}
 	{% block footer %}
 		{% include 'partials/footer.html.twig' %}
 	{% endblock %}
-	{% block after_footer %}{% endblock %}
+	{% block after_footer %}
+	{% endblock %}
 </div>
 {% endblock %}
 {% block scripts %}
