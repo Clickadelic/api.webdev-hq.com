@@ -66,6 +66,11 @@ app.get("/terms-of-privacy", (req, res) => {
 	res.render("./pages/terms-of-privacy", { pathSegments, fullPath: req.path })
 })
 
+app.get("/cookie-information", (req, res) => {
+	const pathSegments = req.path.split("/").filter(segment => segment)
+	res.render("./pages/cookie-information", { pathSegments, fullPath: req.path })
+})
+
 app.use("/common/v1", infoRouter)
 app.use("/common/v1", userRouter)
 app.use("/common/v1", newsletterRouter)
