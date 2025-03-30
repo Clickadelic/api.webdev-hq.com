@@ -32,7 +32,6 @@ const handleRegister = async e => {
 		passwordRepeat,
 		agreedToTerms
 	}
-	console.log({ formData })
 
 	try {
 		await fetch("/common/v1/auth/register", {

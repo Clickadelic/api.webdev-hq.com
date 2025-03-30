@@ -16,7 +16,7 @@ module.exports = {
 				message: "min_6_characters"
 			})
 		}
-		if (!req.body.password_repeat || req.body.password != req.body.password_repeat) {
+		if (!req.body.passwordRepeat || req.body.password != req.body.passwordRepeat) {
 			return res.status(400).send({
 				message: "both_passwords_must_match"
 			})
