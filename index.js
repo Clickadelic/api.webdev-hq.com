@@ -32,35 +32,51 @@ chokidar.watch("./views").on("change", () => {
 })
 
 app.get("/", (req, res) => {
-	res.render("./pages")
+	const pathSegments = req.path.split("/").filter(segment => segment)
+	res.render("./pages", { pathSegments, fullPath: req.path })
 })
 
 app.get("/about", (req, res) => {
-	res.render("./pages/about")
+	const pathSegments = req.path.split("/").filter(segment => segment)
+	res.render("./pages/about", { pathSegments, fullPath: req.path })
 })
 
-app.get("/register", (req, res) => {
-	res.render("./pages/register")
+app.get("/auth/register", (req, res) => {
+	const pathSegments = req.path.split("/").filter(segment => segment)
+	res.render("./pages/register", { pathSegments, fullPath: req.path })
 })
 
-app.get("/login", (req, res) => {
+app.get("/auth/login", (req, res) => {
+	const pathSegments = req.path.split("/").filter(segment => segment)
+	res.render("./pages/login", { pathSegments, fullPath: req.path })
+})
+
+app.get("/auth/forgot-password", (req, res) => {
+	const pathSegments = req.path.split("/").filter(segment => segment)
+	res.render("./pages/forgot-password", { pathSegments, fullPath: req.path })
+})
+
+app.get("/auth/login", (req, res) => {
 	res.render("./pages/login")
 })
 
 app.get("/disclaimer", (req, res) => {
-	res.render("./pages/disclaimer")
+	const pathSegments = req.path.split("/").filter(segment => segment)
+	res.render("./pages/disclaimer", { pathSegments, fullPath: req.path })
 })
 
 app.get("/terms-of-privacy", (req, res) => {
-	res.render("./pages/terms-of-privacy")
+	const pathSegments = req.path.split("/").filter(segment => segment)
+	res.render("./pages/terms-of-privacy", { pathSegments, fullPath: req.path })
 })
 
 app.use("/common/v1", infoRouter)
 app.use("/common/v1", userRouter)
 app.use("/common/v1", newsletterRouter)
 
-app.use("*", (req, res) => {
-	res.status(200).send({ message: "Error 404, file or page not found" })
+app.get("*", (req, res) => {
+	const pathSegments = req.path.split("/").filter(segment => segment) // URL-Segmente extrahieren
+	res.render("breadcrumb.twig", { pathSegments, fullPath: req.path })
 })
 
 app.listen(port, async () => {

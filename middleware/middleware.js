@@ -1,65 +1,65 @@
-const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken")
 
 module.exports = {
 	validateRegistration: (req, res, next) => {
 		if (!req.body.username || req.body.username.length < 4) {
 			return res.status(400).send({
 				message: "min_3_characters"
-			});
+			})
 		}
 		if (!req.body.password || req.body.password.length < 6) {
 			return res.status(400).send({
 				message: "min_6_characters"
-			});
+			})
 		}
 		if (!req.body.password_repeat || req.body.password != req.body.password_repeat) {
 			return res.status(400).send({
 				message: "both_passwords_must_match"
-			});
+			})
 		}
 		if (!req.body.agreedToTerms) {
 			return res.status(400).send({
 				message: "terms_not_accepted"
-			});
+			})
 		}
-		next();
+		next()
 	},
 	isLoggedIn: (req, res, next) => {
 		try {
-			const authHeader = req.headers.authorization;
-			const token = authHeader.split(" ")[1];
-			const decoded = jwt.verify(token, process.env.JWT_SECRET);
-			req.userData = decoded;
-			next();
+			const authHeader = req.headers.authorization
+			const token = authHeader.split(" ")[1]
+			const decoded = jwt.verify(token, process.env.JWT_SECRET)
+			req.userData = decoded
+			next()
 		} catch (err) {
 			return res.status(401).send({
 				message: "restricted_content_login_first"
-			});
+			})
 		}
 	},
 	verifyToken(req, res, next) {
 		// Get auth header value
-		const bearerHeader = req.headers["authorization"];
+		const bearerHeader = req.headers["authorization"]
 		// Check if bearer is undefined
 		if (typeof bearerHeader !== "undefined") {
 			// Split the bearer token from "Bearer <token>"
-			const bearer = bearerHeader.split(" ");
+			const bearer = bearerHeader.split(" ")
 			// Get token from array
-			const token = bearer[1];
+			const token = bearer[1]
 			// Verify token
 			jwt.verify(token, process.env.JWT_SECRET, (err, authData) => {
 				if (err) {
 					// If token is invalid, return forbidden (403)
-					res.sendStatus(403);
+					res.sendStatus(403)
 				} else {
 					// If token is valid, attach the decoded user information to the request object
-					req.authData = authData;
-					next();
+					req.authData = authData
+					next()
 				}
-			});
+			})
 		} else {
 			// If no token, return forbidden (403)
-			res.sendStatus(403);
+			res.sendStatus(403)
 		}
 	}
-};
+}

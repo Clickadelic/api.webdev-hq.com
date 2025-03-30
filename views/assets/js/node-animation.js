@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-	const canvas = document.getElementById("apiCanvas")
+	const canvas = document.getElementById("api-nodes")
 	const ctx = canvas.getContext("2d")
 
 	canvas.width = window.innerWidth

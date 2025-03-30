@@ -157,17 +157,14 @@
 	{% endblock %}
 </head>
 {% endblock %}
-<body id="top" class="font-poppins">
+<body id="top" class="h-screen flex items-center justify-center bg-white font-poppins">
 {% block after_body %}
-<div class="min-h-screen flex flex-col bg-slate-100">
+<div class="w-full h-full flex flex-col items-start justify-between bg-slate-100">
 	{% block before_header %}{% endblock %}
 	{% block header %}
 		{% include 'partials/header.html.twig' %}
 	{% endblock %}
 	{% block after_header %}{% endblock %}
-	{% block breadcrumbs %}
-		{% include 'partials/breadcrumbs.html.twig' %}
-	{% endblock %}
 	{% block before_main %}{% endblock %}
 	{% block main %}
     <main class="container mx-auto flex flex-col justify-center align-center">
