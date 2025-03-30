@@ -1,8 +1,15 @@
 const jwt = require("jsonwebtoken")
 const chalk = require("chalk")
-module.exports = {
+
+const middleware = {
 	logRequest: (req, res, next) => {
-		console.log("Method:", chalk.yellowBright(req.method), chalk.cyanBright(req.url))
+		console.log(
+			chalk.yellowBright("Method:"),
+			chalk.yellowBright(req.method),
+			chalk.cyanBright("URL:", req.url),
+			chalk.green("Timestamp:"),
+			chalk.green(new Intl.DateTimeFormat("de-DE", { dateStyle: "short", timeStyle: "medium" }).format(new Date()))
+		)
 		next()
 	},
 	validateRegistration: (req, res, next) => {
@@ -67,3 +74,5 @@ module.exports = {
 		}
 	}
 }
+
+module.exports = middleware

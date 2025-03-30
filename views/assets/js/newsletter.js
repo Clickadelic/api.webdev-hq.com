@@ -8,18 +8,11 @@ if (window.location.pathname === "/newsletter") {
 
 const handleNewsletterSubscribtion = async e => {
 	e.preventDefault()
-
-	const username = document.querySelector("input[name='username']").value
 	const email = document.querySelector("input[name='email']").value
 	const agreedToTerms = document.querySelector("input[name='agreed-to-terms']").checked
 
-	if (!username || !password || !passwordRepeat || !agreedToTerms) {
-		showUserMessage("bg-rose-200", "Please fill out all fields.")
-		return
-	}
-
-	if (password !== passwordRepeat) {
-		showUserMessage("bg-rose-200", "Passwords do not match.")
+	if (!email || !agreedToTerms) {
+		showUserMessage("bg-rose-200", "Please fill out your e-mail address.")
 		return
 	}
 
@@ -32,7 +25,7 @@ const handleNewsletterSubscribtion = async e => {
 	}
 
 	try {
-		await fetch("/common/v1/auth/register", {
+		await fetch("/common/v1/newsletter/subscribe", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
@@ -40,7 +33,7 @@ const handleNewsletterSubscribtion = async e => {
 			body: JSON.stringify(formData)
 		}).then(response => {
 			if (response.ok) {
-				showUserMessage("bg-green-200", "Registration successful.")
+				showUserMessage("bg-green-200", "Subscribtion successful.")
 			}
 		})
 	} catch (error) {
