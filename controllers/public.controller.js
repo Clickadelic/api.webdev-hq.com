@@ -1,27 +1,30 @@
 const publicController = {
-	getIndex: async (req, res) => {
+	getIndexPage: async (req, res) => {
 		return res.render("./pages/index")
 	},
-	getAbout: async (req, res) => {
-		return res.render("./pages/about")
-	},
-	getRegister: async (req, res) => {
+	getRegisterPage: async (req, res) => {
 		return res.render("./pages/register")
 	},
-	getLogin: async (req, res) => {
+	getLoginPage: async (req, res) => {
 		return res.render("./pages/login")
 	},
-	getForgotPassword: async (req, res) => {
+	getForgotPasswordPage: async (req, res) => {
 		return res.render("./pages/forgot-password")
 	},
-	getDisclaimer: async (req, res) => {
+	getDisclaimerPage: async (req, res) => {
 		return res.render("./pages/disclaimer")
 	},
-	getCookieInformation: async (req, res) => {
+	getCookieInformationPage: async (req, res) => {
 		return res.render("./pages/cookie-information")
 	},
-	getTermsOfPrivacy: async (req, res) => {
+	getTermsOfPrivacyPage: async (req, res) => {
 		return res.render("./pages/terms-of-privacy")
+	},
+	getTermsOfUsePage: async (req, res) => {
+		return res.render("./pages/terms-of-use")
+	},
+	getNewsletterPage: async (req, res) => {
+		return res.render("./pages/newsletter")
 	}
 }
 
