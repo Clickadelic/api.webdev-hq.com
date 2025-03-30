@@ -1,6 +1,10 @@
 const jwt = require("jsonwebtoken")
-
+const chalk = require("chalk")
 module.exports = {
+	logRequest: (req, res, next) => {
+		console.log("Method:", chalk.yellowBright(req.method), chalk.cyanBright(req.url))
+		next()
+	},
 	validateRegistration: (req, res, next) => {
 		if (!req.body.username || req.body.username.length < 4) {
 			return res.status(400).send({
