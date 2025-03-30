@@ -1,21 +1,23 @@
 require("dotenv").config()
-
+// Imports
 const express = require("express")
 const app = express()
 const cors = require("cors")
 const chalk = require("chalk")
 const path = require("path")
+const twig = require("twig")
+const port = process.env.PORT || 5000
+const chokidar = require("chokidar")
+const middleware = require("./middleware/middleware")
+const publicRouter = require("./routers/public.router")
 const infoRouter = require("./routers/info.router")
 const userRouter = require("./routers/user.router")
 const newsletterRouter = require("./routers/newsletter.router")
-const middleware = require("./middleware/middleware")
-const port = process.env.PORT || 5000
-const twig = require("twig")
-const chokidar = require("chokidar")
+
+// Config and setup
 const clearTwigCache = () => {
 	twig.cache(false)
 }
-
 app.set("view engine", "twig")
 app.set("view cache", false)
 app.set("views", __dirname + "/views")
@@ -31,54 +33,18 @@ chokidar.watch("./views").on("change", () => {
 	console.log(chalk.bgGreenBright.white("Twig cache cleared"))
 })
 
-app.get("/", (req, res) => {
-	const pathSegments = req.path.split("/").filter(segment => segment)
-	res.render("./pages", { pathSegments, fullPath: req.path })
-})
+// Routes
+app.use("/", middleware.logRequest, publicRouter)
+app.use("/common/v1", middleware.logRequest, infoRouter)
+app.use("/common/v1", middleware.verifyToken, middleware.logRequest, userRouter)
+app.use("/common/v1", middleware.logRequest, newsletterRouter)
 
-app.get("/about", (req, res) => {
-	const pathSegments = req.path.split("/").filter(segment => segment)
-	res.render("./pages/about", { pathSegments, fullPath: req.path })
-})
-
-app.get("/register", (req, res) => {
-	const pathSegments = req.path.split("/").filter(segment => segment)
-	res.render("./pages/register", { pathSegments, fullPath: req.path })
-})
-
-app.get("/login", (req, res) => {
-	const pathSegments = req.path.split("/").filter(segment => segment)
-	res.render("./pages/login", { pathSegments, fullPath: req.path })
-})
-
-app.get("/forgot-password", (req, res) => {
-	const pathSegments = req.path.split("/").filter(segment => segment)
-	res.render("./pages/forgot-password", { pathSegments, fullPath: req.path })
-})
-
-app.get("/disclaimer", (req, res) => {
-	const pathSegments = req.path.split("/").filter(segment => segment)
-	res.render("./pages/disclaimer", { pathSegments, fullPath: req.path })
-})
-
-app.get("/terms-of-privacy", (req, res) => {
-	const pathSegments = req.path.split("/").filter(segment => segment)
-	res.render("./pages/terms-of-privacy", { pathSegments, fullPath: req.path })
-})
-
-app.get("/cookie-information", (req, res) => {
-	const pathSegments = req.path.split("/").filter(segment => segment)
-	res.render("./pages/cookie-information", { pathSegments, fullPath: req.path })
-})
-
-app.use("/common/v1", infoRouter)
-app.use("/common/v1", userRouter)
-app.use("/common/v1", newsletterRouter)
-
+// 404 error Fallback
 app.use("*", (req, res) => {
 	res.status(200).send({ message: "Error 404, file or page not found" })
 })
 
+// Server console
 app.listen(port, async () => {
 	console.log(chalk.blueBright("----------------------------------------"))
 	console.log(chalk.blue("----- Welcome to WebDev HQ Web API -----"))
