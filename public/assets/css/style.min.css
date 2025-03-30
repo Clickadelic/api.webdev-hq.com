@@ -288,8 +288,14 @@
   .w-100 {
     width: calc(var(--spacing) * 100);
   }
+  .w-\[220px\] {
+    width: 220px;
+  }
   .w-full {
     width: 100%;
+  }
+  .max-w-\[220px\] {
+    max-width: 220px;
   }
   .border-collapse {
     border-collapse: collapse;
