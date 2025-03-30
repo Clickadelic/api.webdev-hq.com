@@ -1,5 +1,16 @@
-<form class="space-y-3">
-	<input type="text" class="w-full bg-white rounded-sm p-3" placeholder="Your Name">
-	<input type="email" class="w-full bg-white rounded-sm p-3" placeholder="Your E-Mail">
-	<button type="submit" class="w-full p-3 rounded-sm text-white bg-mantis-primary hover:cursor-pointer hover:bg-mantis-primary hover:text-white">Login</button>
-</form>
+<div class="w-100 m-4 lg:mx-auto lg:w-[420px] text-center bg-white p-12 shadow-md rounded-md">
+	<div class="w-42 mx-auto mb-4">
+		{% include 'partials/logo.html.twig' %}
+	</div>
+	<h2 class="font-medium text-2xl mb-2">Login</h2>
+	<h3 class="font-light text-xl text-slate-400 mb-12">Welcome back.</h3>
+	<form class="space-y-3">
+		<input type="text" class="w-full bg-slate-200 rounded-sm p-3" placeholder="Your Name">
+		<input type="email" class="w-full bg-slate-200 rounded-sm p-3" placeholder="Your E-Mail">
+		<div class="p-4">
+			<input type="checkbox" id="remember-me" class="mt-1.5 mr-1" />
+			<label for="remember-me">Keep me logged in</label>
+		</div>
+		<button type="submit" class="w-full p-3 text-white bg-mantis-primary hover:bg-mantis-primary-hover rounded-sm hover:cursor-pointer">Register</button>
+	</form>
+</div>
