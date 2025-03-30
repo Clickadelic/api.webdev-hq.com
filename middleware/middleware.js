@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken")
 const chalk = require("chalk")
 module.exports = {
 	logRequest: (req, res, next) => {
-		console.log(chalk.yellowBright("Method"), req.method, chalk.cyanBright("Url", req.url))
+		console.log("Method:", chalk.yellowBright(req.method), chalk.cyanBright(req.url))
 		next()
 	},
 	validateRegistration: (req, res, next) => {
