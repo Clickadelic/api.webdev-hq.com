@@ -1,8 +1,8 @@
 if (window.location.pathname === "/") {
-	document.addEventListener("DOMContentLoaded", function () {
-		const copyToClipboard = document.getElementById("copy-to-clipboard")
-		copyToClipboard.addEventListener("click", () => {
-			navigator.clipboard.writeText(window.location.href)
-		})
+	const copyToClipboard = document.getElementById("copy-to-clipboard")
+	const apiUrl = document.querySelector("code").innerText
+	copyToClipboard.addEventListener("click", () => {
+		navigator.clipboard.writeText(apiUrl)
+		alert("Copied to clipboard")
 	})
 }
