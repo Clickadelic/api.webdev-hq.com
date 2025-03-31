@@ -3,6 +3,7 @@ const pageRouter = express.Router()
 const pageController = require("../controllers/page.controller")
 
 pageRouter.get("/", pageController.getIndexPage)
+pageRouter.get("/docs", pageController.getDocsPage)
 pageRouter.get("/login", pageController.getLoginPage)
 pageRouter.get("/register", pageController.getRegisterPage)
 pageRouter.get("/forgot-password", pageController.getForgotPasswordPage)

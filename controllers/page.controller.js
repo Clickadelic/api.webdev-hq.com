@@ -2,6 +2,9 @@ const pageController = {
 	getIndexPage: async (req, res) => {
 		return res.render("./pages/index")
 	},
+	getDocsPage: async (req, res) => {
+		return res.render("./pages/docs")
+	},
 	getRegisterPage: async (req, res) => {
 		return res.render("./pages/register")
 	},

@@ -3,6 +3,7 @@ const chalk = require("chalk")
 
 const middleware = {
 	logRequest: (req, res, next) => {
+		res.locals.currentPath = req.url
 		console.log(
 			chalk.yellowBright("Method:"),
 			chalk.yellowBright(req.method),
