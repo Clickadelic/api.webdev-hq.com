@@ -2,6 +2,9 @@ const pageController = {
 	getIndexPage: async (req, res) => {
 		return res.render("./pages/index")
 	},
+	getDocsPage: async (req, res) => {
+		return res.render("./pages/docs")
+	},
 	getRegisterPage: async (req, res) => {
 		return res.render("./pages/register")
 	},
@@ -25,6 +28,9 @@ const pageController = {
 	},
 	getNewsletterPage: async (req, res) => {
 		return res.render("./pages/newsletter", { currentPath: res.locals.currentPath })
+	},
+	getDashboardPage: async (req, res) => {
+		return res.render("./pages/dashboard", { currentPath: res.locals.currentPath, user: req.authData })
 	}
 }
 
