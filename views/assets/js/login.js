@@ -1,46 +1,53 @@
-console.log("Login...")
-
-if (window.location.pathname === "/") {
-	document.addEventListener("DOMContentLoaded", function () {
-		const email = document.getElementById("email")
-		const password = document.getElementById("password")
-		const passwordRepeat = document.getElementById("password_repeat")
-		const agreedToTerms = document.getElementById("agreedToTerms")
-
-		login.addEventListener("click", e => {
-			e.preventDefault()
-			if (!email.value || email.value.length < 4) {
-				return alert("min_3_characters")
-			}
-			if (!password.value || password.value.length < 6) {
-				return alert("min_6_characters")
-			}
-			if (!passwordRepeat.value || password.value != passwordRepeat.value) {
-				return alert("both_passwords_must_match")
-			}
-			if (!agreedToTerms.checked) {
-				return alert("terms_not_accepted")
-			}
-			const form = document.getElementById("register-form")
-			const response = fetch("/common/v1/auth/register", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json"
-				},
-				body: JSON.stringify({
-					username: username.value,
-					email: username.value,
-					password: password.value,
-					passwordRepeat: passwordRepeat.value,
-					agreedToTerms: agreedToTerms.checked
-				})
-			})
-				.then(res => res.json())
-				.then(res => {
-					if (res.error) {
-						return alert(res.error)
-					}
-				})
+if (window.location.pathname === "/login") {
+	document.addEventListener("DOMContentLoaded", () => {
+		document.getElementsByTagName("form")[0].addEventListener("submit", e => {
+			handleLogin(e)
 		})
 	})
+}
+
+const handleLogin = async e => {
+	e.preventDefault()
+
+	const username = document.querySelector("input[name='username']").value
+	const password = document.querySelector("input[name='password']").value
+
+	if (!username || !password) {
+		showUserMessage("bg-rose-200", "Please fill out all fields.")
+		return
+	}
+
+	const formData = { username, password }
+
+	try {
+		const response = await fetch("/common/v1/auth/login", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(formData)
+		})
+
+		const data = await response.json() // Server-Antwort parsen
+
+		if (response.ok) {
+			localStorage.setItem("token", data.token) // Token speichern
+			showUserMessage("bg-green-200", "Login successful.")
+			setTimeout(() => (window.location.href = "/dashboard"), 1000) // Weiterleitung nach Login
+		} else {
+			showUserMessage("bg-rose-200", data.message || "Login failed.")
+		}
+	} catch (error) {
+		console.log(error)
+		showUserMessage("bg-rose-200", "Something went wrong.")
+	}
+}
+
+const showUserMessage = (messageClasses, message) => {
+	const messageBox = document.getElementById("message-box")
+	messageBox.classList.add(messageClasses)
+	messageBox.innerHTML = message
+	setTimeout(() => {
+		messageBox.classList.remove(messageClasses)
+		messageBox.innerHTML = ""
+	}, 2000)
+	return
 }

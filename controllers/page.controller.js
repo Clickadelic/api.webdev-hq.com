@@ -28,6 +28,9 @@ const pageController = {
 	},
 	getNewsletterPage: async (req, res) => {
 		return res.render("./pages/newsletter", { currentPath: res.locals.currentPath })
+	},
+	getDashboardPage: async (req, res) => {
+		return res.render("./pages/dashboard", { currentPath: res.locals.currentPath, user: req.authData })
 	}
 }
 

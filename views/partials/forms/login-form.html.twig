@@ -6,12 +6,12 @@
 	<h3 class="font-light text-xl text-slate-400 mb-12">Welcome back.</h3>
 	<div id="message-box" class="text-left block w-full p-3 rounded-md mb-3"></div>
 	<form class="space-y-3">
-		<input type="text" class="w-full bg-slate-200 rounded-sm p-3" placeholder="Username">
-		<input type="password" class="w-full bg-slate-200 rounded-sm p-3" placeholder="Password">
-		<div class="p-4">
-			<input type="checkbox" id="remember-me" class="mt-1.5 mr-1" />
+		<input type="text" name="username" class="w-full bg-slate-200 rounded-sm p-3" autocomplete="current-user" placeholder="Username">
+		<input type="password" name="password" class="w-full bg-slate-200 rounded-sm p-3" autocomplete="current-password" placeholder="Password">
+		<!-- <div class="p-4">
+			<input type="checkbox" name="remember-me" id="remember-me" class="mt-1.5 mr-1" />
 			<label for="remember-me">Keep me logged in</label>
-		</div>
+		</div> -->
 		<button type="submit" class="w-full p-3 text-white bg-mantis-primary hover:bg-mantis-primary-hover rounded-sm hover:cursor-pointer">Login</button>
 	</form>
 	<p>Don't have an account? <a href="/register" class="inline-block mt-4 hover:text-mantis-primary text-slate-800" title="Register">Register</a>.</p>
