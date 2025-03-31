@@ -41,6 +41,7 @@ const handleRegister = async e => {
 			},
 			body: JSON.stringify(formData)
 		}).then(response => {
+			console.log(response)
 			if (response.ok) {
 				showUserMessage("bg-green-200", "Registration successful.")
 			}

@@ -10,7 +10,7 @@ const userController = {
 		const mailOptions = {
 			from: process.env.MAIL_EMAIL,
 			to: req.body.email,
-			cc: "api@webdev-hq.com",
+			cc: "toby.hopp@gmail.com",
 			subject: "Your API-Registration",
 			text: "Hi, Thank you for your API-Registration. Please activate your account."
 		}
@@ -41,7 +41,7 @@ const userController = {
 				}
 				// TODO Kombinieren der beiden Fälle
 				// res.status(200).send({ message: "Email sent", info });
-				console.log(info)
+				console.log(email)
 			})
 			res.status(201).send({ message: "user_successfully_registered" })
 		} catch (error) {
