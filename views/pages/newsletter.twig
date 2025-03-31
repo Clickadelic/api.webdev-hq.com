@@ -3,6 +3,8 @@
 
 {% block title %}Newsletter &middot; WebDev HQ API{% endblock %}
 
-{% block content %}
-    <h2 class="text-3xl font-medium mb-6">Newsletter</h2>
+{% block main %}
+<main class="container mx-auto flex flex-col justify-center align-center">
+    {% include 'partials/forms/newsletter-form.html.twig' %}
+</main>
 {% endblock %}

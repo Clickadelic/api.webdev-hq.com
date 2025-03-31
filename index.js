@@ -9,7 +9,7 @@ const twig = require("twig")
 const port = process.env.PORT || 5000
 const chokidar = require("chokidar")
 const middleware = require("./middleware/middleware")
-const publicRouter = require("./routers/public.router")
+const pageRouter = require("./routers/page.router")
 const infoRouter = require("./routers/info.router")
 const userRouter = require("./routers/user.router")
 const newsletterRouter = require("./routers/newsletter.router")
@@ -34,14 +34,14 @@ chokidar.watch("./views").on("change", () => {
 })
 
 // Routes
-app.use("/", middleware.logRequest, publicRouter)
+app.use("/", middleware.logRequest, pageRouter)
 app.use("/common/v1", middleware.logRequest, infoRouter)
 app.use("/common/v1", middleware.logRequest, userRouter)
 app.use("/common/v1", middleware.logRequest, newsletterRouter)
 
 // 404 error Fallback
 app.use("*", (req, res) => {
-	res.status(200).send({ message: "Error 404, file or page not found" })
+	res.status(404).send({ message: "Endpoint not found" })
 })
 
 // Server console

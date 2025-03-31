@@ -1,4 +1,4 @@
-const publicController = {
+const pageController = {
 	getIndexPage: async (req, res) => {
 		return res.render("./pages/index")
 	},
@@ -24,8 +24,8 @@ const publicController = {
 		return res.render("./pages/terms-of-use")
 	},
 	getNewsletterPage: async (req, res) => {
-		return res.render("./pages/newsletter")
+		return res.render("./pages/newsletter", { currentPath: res.locals.currentPath })
 	}
 }
 
-module.exports = publicController
+module.exports = pageController

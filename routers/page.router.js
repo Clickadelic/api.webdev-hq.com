@@ -1,0 +1,15 @@
+const express = require("express")
+const pageRouter = express.Router()
+const pageController = require("../controllers/page.controller")
+
+pageRouter.get("/", pageController.getIndexPage)
+pageRouter.get("/login", pageController.getLoginPage)
+pageRouter.get("/register", pageController.getRegisterPage)
+pageRouter.get("/forgot-password", pageController.getForgotPasswordPage)
+pageRouter.get("/disclaimer", pageController.getDisclaimerPage)
+pageRouter.get("/cookie-information", pageController.getCookieInformationPage)
+pageRouter.get("/terms-of-privacy", pageController.getTermsOfPrivacyPage)
+pageRouter.get("/terms-of-use", pageController.getTermsOfUsePage)
+pageRouter.get("/newsletter", pageController.getNewsletterPage)
+
+module.exports = pageRouter
