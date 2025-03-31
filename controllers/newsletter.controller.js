@@ -4,12 +4,12 @@ const prisma = new PrismaClient()
 const newsletterController = {
 	registerSubscriber: async (req, res) => {
 		try {
-			const subscriber = await prisma.subscriber.findUnique({
+			const email = await prisma.subscriber.findUnique({
 				where: {
 					email: req.body.email
 				}
 			})
-			if (subscriber) {
+			if (email) {
 				return res.status(409).send({ message: "email_already_subscribed" })
 			}
 			const newSubscriber = {

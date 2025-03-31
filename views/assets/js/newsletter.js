@@ -31,6 +31,9 @@ const handleNewsletterSubscribtion = async e => {
 			},
 			body: JSON.stringify(formData)
 		}).then(response => {
+			if (response.status === 409) {
+				showUserMessage("bg-rose-200", "E-mail is already subscribed.")
+			}
 			if (response.ok) {
 				document.querySelector("input[name='subscribername']").value = ""
 				document.querySelector("input[name='email']").value = ""
