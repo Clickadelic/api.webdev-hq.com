@@ -32,9 +32,9 @@ const handleNewsletterSubscribtion = async e => {
 			body: JSON.stringify(formData)
 		}).then(response => {
 			if (response.ok) {
-				subscribername.value = ""
-				email.value = ""
-				agreedToSubscription.checked = false
+				document.querySelector("input[name='subscribername']").value = ""
+				document.querySelector("input[name='email']").value = ""
+				document.querySelector("input[name='agreed-to-subscription']").checked = false
 				showUserMessage("bg-green-200", "Subscribtion successful.")
 			}
 		})
