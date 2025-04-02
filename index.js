@@ -49,7 +49,7 @@ app.listen(port, async () => {
 	console.log(chalk.blueBright("----------------------------------------"))
 	console.log(chalk.blue("----- Welcome to WebDev HQ Web API -----"))
 	console.log(chalk.blueBright("----------------------------------------"))
-	console.log(chalk.blue(">>>>>>>> http://localhost:5000 <<<<<<<<<"))
+	console.log(chalk.blue(">>>>>>>> " + `${process.env.APP_URL}:${process.env.PORT}`, " <<<<<<<<"))
 	console.log(chalk.blueBright("----------------------------------------"))
 })
 

@@ -2,14 +2,14 @@ const infoController = {
 	getInfo: async (req, res) => {
 		try {
 			const info = {
-				title: "WebDev HQ API",
+				title: "WebDev HQ API-Service",
 				version: "1",
-				author: "Tobias Hopp",
+				website: "https://webdev-hq.com",
 				platform: "web",
 				license: "MIT",
-				website: "https://webdev-hq.com",
 				contact: "admin@webdev-hq.com",
-				schema: "https://api.webdev-hq.com/docs"
+				schema: "https://api.webdev-hq.com/docs",
+				author: "Tobias Hopp"
 			}
 			res.status(200).json(info)
 		} catch (error) {
