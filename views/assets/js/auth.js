@@ -1,4 +1,4 @@
-export const fetchProtectedData = async () => {
+export const isLoggedIn = async () => {
 	const token = localStorage.getItem("token")
 
 	if (!token) {

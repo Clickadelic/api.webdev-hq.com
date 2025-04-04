@@ -16,6 +16,6 @@ pageRouter.get("/terms-of-use", pageController.getTermsOfUsePage)
 pageRouter.get("/newsletter", pageController.getNewsletterPage)
 
 // Protected Routes
-pageRouter.get("/dashboard", middleware.verifyToken, pageController.getDashboardPage)
+pageRouter.get("/dashboard", middleware.isLoggedIn, pageController.getDashboardPage)
 
 module.exports = pageRouter
