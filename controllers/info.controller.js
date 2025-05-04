@@ -11,9 +11,9 @@ const infoController = {
 				schema: "https://api.webdev-hq.com/docs",
 				author: "Tobias Hopp"
 			}
-			res.status(200).json(info)
+			res.sendStatus(200).json(info)
 		} catch (error) {
-			res.status(400).json({ error: error })
+			res.sendStatus(400).json({ error: error })
 		}
 	}
 }

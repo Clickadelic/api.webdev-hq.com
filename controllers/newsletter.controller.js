@@ -10,7 +10,7 @@ const newsletterController = {
 				}
 			})
 			if (email) {
-				return res.status(409).send({ message: "email_already_subscribed" })
+				return res.sendStatus(409).send({ message: "email_already_subscribed" })
 			}
 			const newSubscriber = {
 				subscribername: req.body.subscribername,
@@ -20,9 +20,9 @@ const newsletterController = {
 			await prisma.subscriber.create({
 				data: newSubscriber
 			})
-			res.status(201).send({ message: "user_successfully_subscribed" })
+			res.sendStatus(201).send({ message: "user_successfully_subscribed" })
 		} catch (error) {
-			res.status(504).send({ message: error })
+			res.sendStatus(504).send({ message: error })
 		}
 	},
 	unregisterSubscriber: async (req, res) => {
@@ -33,11 +33,11 @@ const newsletterController = {
 				}
 			})
 			if (subscriber) {
-				return res.status(200).send({ message: "email_unsubscribed" })
+				return res.sendStatus(200).send({ message: "email_unsubscribed" })
 			}
-			res.status(200).send({ message: "email_not_subscribed" })
+			res.sendStatus(200).send({ message: "email_not_subscribed" })
 		} catch (error) {
-			res.status(504).send({ message: error })
+			res.sendStatus(504).send({ message: error })
 		}
 	}
 }

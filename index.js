@@ -40,8 +40,8 @@ app.use("/common/v1", middleware.logRequest, userRouter)
 app.use("/common/v1", middleware.logRequest, newsletterRouter)
 
 // 404 error Fallback
-app.use("*", (req, res) => {
-	res.status(404).send({ message: "Endpoint not found" })
+app.use("/{*splat}", (req, res) => {
+	res.sendStatus(404).send({ message: "Endpoint not found" })
 })
 
 // Server console

@@ -1,20 +1,20 @@
-const Recipe = require("../database/models/recipe.model");
+const Recipe = require("../database/models/recipe.model")
 
 const recipeController = {
 	getRecipes: async (req, res) => {
 		try {
-			const recipes = await Recipe.findAll();
+			const recipes = await Recipe.findAll()
 			if (recipes === null || recipes === undefined || recipes <= 1) {
-				res.status(200).json({ message: "There are currently no recipes in the database." });
+				res.sendStatus(200).json({ message: "There are currently no recipes in the database." })
 			}
-			res.status(200).json(recipes);
+			res.sendStatus(200).json(recipes)
 		} catch (error) {
-			res.status(400).json({ error: error });
+			res.sendStatus(400).json({ error: error })
 		}
 	},
 	addRecipe: async (req, res) => {
 		try {
-			const { title, subtitle, imageurl, teasertext, bodytext, numberOfPersons, category, preparationTime, cookingTime, rating } = req.body;
+			const { title, subtitle, imageurl, teasertext, bodytext, numberOfPersons, category, preparationTime, cookingTime, rating } = req.body
 			const newRecipe = await Recipe.build({
 				title: title,
 				subtitle: subtitle,
@@ -26,11 +26,11 @@ const recipeController = {
 				preparationTime: preparationTime,
 				cookingTime: cookingTime,
 				rating: rating
-			});
-			newRecipe.save();
-			res.status(201).json({ message: "recipe_created" });
+			})
+			newRecipe.save()
+			res.sendStatus(201).json({ message: "recipe_created" })
 		} catch (error) {
-			res.status(400).json({ message: error });
+			res.sendStatus(400).json({ message: error })
 		}
 	},
 	getRecipe: async (req, res) => {
@@ -39,10 +39,10 @@ const recipeController = {
 				where: {
 					id: req.params.id
 				}
-			});
-			res.status(200).json(recipe);
+			})
+			res.sendStatus(200).json(recipe)
 		} catch (error) {
-			res.status(400).json({ message: error });
+			res.sendStatus(400).json({ message: error })
 		}
 	},
 	patchRecipe: async (req, res) => {
@@ -51,15 +51,15 @@ const recipeController = {
 				where: {
 					id: req.params.id
 				}
-			});
-			const { bodytext } = req.body;
+			})
+			const { bodytext } = req.body
 			recipe.set({
 				bodytext: bodytext
-			});
-			await recipe.save();
-			res.status(200).json(recipe);
+			})
+			await recipe.save()
+			res.sendStatus(200).json(recipe)
 		} catch (error) {
-			res.status(400).json({ message: error });
+			res.sendStatus(400).json({ message: error })
 		}
 	},
 	putRecipe: async (req, res) => {
@@ -67,8 +67,8 @@ const recipeController = {
 			where: {
 				id: req.params.id
 			}
-		});
-		const { title, subtitle, imageurl, teasertext, bodytext, numberOfPersons, category, preparationTime, cookingTime, rating } = req.body;
+		})
+		const { title, subtitle, imageurl, teasertext, bodytext, numberOfPersons, category, preparationTime, cookingTime, rating } = req.body
 		recipe.set({
 			title: title,
 			subtitle: subtitle,
@@ -79,19 +79,19 @@ const recipeController = {
 			category: category,
 			preparationTime: preparationTime,
 			rating: rating
-		});
-		await recipe.save();
-		res.status(200).json(recipe);
+		})
+		await recipe.save()
+		res.sendStatus(200).json(recipe)
 	},
 	deleteRecipe: async (req, res) => {
 		const recipe = await Recipe.findOne({
 			where: {
 				id: req.params.id
 			}
-		});
-		await recipe.destroy();
-		res.status(200).json({ message: "recipe_deleted" });
+		})
+		await recipe.destroy()
+		res.sendStatus(200).json({ message: "recipe_deleted" })
 	}
-};
+}
 
-module.exports = recipeController;
+module.exports = recipeController

@@ -21,7 +21,7 @@ const userController = {
 				}
 			})
 			if (user) {
-				return res.status(409).send({ message: "username_already_taken" })
+				return res.sendStatus(409).send({ message: "username_already_taken" })
 			}
 			const salt = await bcrypt.genSalt(10)
 			const hashedPassword = await bcrypt.hash(req.body.password, salt)
@@ -37,15 +37,15 @@ const userController = {
 			// TODO bessere Prüfung z.b: E-mail succes && Register success
 			transporter.sendMail(mailOptions, (error, info) => {
 				if (error) {
-					return res.status(500).send({ message: "error_sending_email", error })
+					return res.sendStatus(500).send({ message: "error_sending_email", error })
 				}
 				// TODO Kombinieren der beiden Fälle
-				// res.status(200).send({ message: "Email sent", info });
+				// res.sendStatus(200).send({ message: "Email sent", info });
 				console.log(email)
 			})
-			res.status(201).send({ message: "user_successfully_registered" })
+			res.sendStatus(201).send({ message: "user_successfully_registered" })
 		} catch (error) {
-			res.status(504).send({ message: error })
+			res.sendStatus(504).send({ message: error })
 		}
 	},
 	login: async (req, res) => {
@@ -72,22 +72,22 @@ const userController = {
 							}
 						)
 						user.password = undefined
-						return res.status(200).json({
+						return res.sendStatus(200).json({
 							message: "login_successful",
 							token,
 							user: user
 						})
 					} else {
-						return res.status(401).json({
+						return res.sendStatus(401).json({
 							message: "login_error_no_pw_match"
 						})
 					}
 				})
 			} else {
-				return res.status(404).json({ message: "no_such_user_in_database" })
+				return res.sendStatus(404).json({ message: "no_such_user_in_database" })
 			}
 		} catch (error) {
-			res.status(400).json({ message: error })
+			res.sendStatus(400).json({ message: error })
 		}
 	},
 	getUsers: async (req, res) => {
@@ -96,9 +96,9 @@ const userController = {
 			users.forEach(user => {
 				user.password = undefined
 			})
-			res.status(200).json(users)
+			res.sendStatus(200).json(users)
 		} catch (error) {
-			res.status(400).json({ message: error })
+			res.sendStatus(400).json({ message: error })
 		}
 	},
 	getUser: async (req, res) => {
@@ -110,10 +110,10 @@ const userController = {
 			})
 			if (user) {
 				user.password = undefined
-				res.status(200).json(user)
+				res.sendStatus(200).json(user)
 			}
 		} catch (error) {
-			res.status(400).json({ message: error })
+			res.sendStatus(400).json({ message: error })
 		}
 	}
 }
