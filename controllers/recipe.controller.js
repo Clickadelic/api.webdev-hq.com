@@ -5,11 +5,11 @@ const recipeController = {
 		try {
 			const recipes = await Recipe.findAll()
 			if (recipes === null || recipes === undefined || recipes <= 1) {
-				res.sendStatus(200).json({ message: "There are currently no recipes in the database." })
+				res.status(200).json({ message: "There are currently no recipes in the database." })
 			}
-			res.sendStatus(200).json(recipes)
+			res.status(200).json(recipes)
 		} catch (error) {
-			res.sendStatus(400).json({ error: error })
+			res.status(400).json({ error: error })
 		}
 	},
 	addRecipe: async (req, res) => {
@@ -28,9 +28,9 @@ const recipeController = {
 				rating: rating
 			})
 			newRecipe.save()
-			res.sendStatus(201).json({ message: "recipe_created" })
+			res.status(201).json({ message: "recipe_created" })
 		} catch (error) {
-			res.sendStatus(400).json({ message: error })
+			res.status(400).json({ message: error })
 		}
 	},
 	getRecipe: async (req, res) => {
@@ -40,9 +40,9 @@ const recipeController = {
 					id: req.params.id
 				}
 			})
-			res.sendStatus(200).json(recipe)
+			res.status(200).json(recipe)
 		} catch (error) {
-			res.sendStatus(400).json({ message: error })
+			res.status(400).json({ message: error })
 		}
 	},
 	patchRecipe: async (req, res) => {
@@ -57,9 +57,9 @@ const recipeController = {
 				bodytext: bodytext
 			})
 			await recipe.save()
-			res.sendStatus(200).json(recipe)
+			res.status(200).json(recipe)
 		} catch (error) {
-			res.sendStatus(400).json({ message: error })
+			res.status(400).json({ message: error })
 		}
 	},
 	putRecipe: async (req, res) => {
@@ -81,7 +81,7 @@ const recipeController = {
 			rating: rating
 		})
 		await recipe.save()
-		res.sendStatus(200).json(recipe)
+		res.status(200).json(recipe)
 	},
 	deleteRecipe: async (req, res) => {
 		const recipe = await Recipe.findOne({
@@ -90,7 +90,7 @@ const recipeController = {
 			}
 		})
 		await recipe.destroy()
-		res.sendStatus(200).json({ message: "recipe_deleted" })
+		res.status(200).json({ message: "recipe_deleted" })
 	}
 }
 

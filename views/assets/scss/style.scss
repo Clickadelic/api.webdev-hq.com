@@ -32,3 +32,14 @@
 	left: 2rem;
 	transform: translate(-50%, 0);
 }
+
+@media screen and (max-width: 640px) {
+	.wdhq-center {
+		left: 0;
+		transform: translate(0, 0);
+	}
+
+	.mega-menu:before {
+		left: 4.5rem;
+	}
+}
