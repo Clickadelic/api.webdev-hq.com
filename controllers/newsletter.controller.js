@@ -14,33 +14,44 @@ const newsletterController = {
 		const email = req.body.email
 		const agreedToSubscription = req.body.agreedToSubscription
 
-		console.log("data", name, email, agreedToSubscription)
-
 		if (!name || !email || !agreedToSubscription) {
 			return res.status(400).send({ message: "missing_fields" })
 		}
-		const subscriber = await prisma.subscriber.findUnique({
-			where: {
-				email
-			}
-		})
-		if (subscriber) {
-			return res.status(409).send({ message: "email_already_subscribed" })
-		}
 		try {
-			await prisma.subscriber.create({
+			const subscriber = await prisma.subscriber.findUnique({
+				where: {
+					email
+				}
+			})
+			if (subscriber) {
+				return res.status(409).send({ message: "email_already_subscribed" })
+			}
+			const token = crypto.randomBytes(32).toString("hex")
+			const newSubscriber = await prisma.subscriber.create({
 				data: {
 					name,
 					email,
 					agreedToSubscription
+					// confirmationToken: token, // Spalte muss in der DB existieren
+					// confirmed: false
 				}
+			})
+			const templatePath = path.join(__dirname, "../mail/templates/confirm-subscribtion.hbs")
+			const source = fs.readFileSync(templatePath, "utf8")
+			const template = handlebars.compile(source)
+			const confirmationLink = `https://webdev-hq.com/confirm-subscription?token=${token}`
+
+			const html = template({
+				name: newSubscriber.name,
+				confirmationLink
 			})
 			const mailOptions = {
 				from: process.env.MAIL_FROM,
 				to: email,
-				cc: "toby.hopp@gmail.com",
-				subject: "Your API-Registration",
-				text: "Hi, Thank you for your API-Registration. Please activate your account."
+				// cc: process.env.MAIL_ADMIN,
+				bcc: process.env.MAIL_ADMIN,
+				subject: "Confirm your subscribtion",
+				html
 			}
 			transporter.sendMail(mailOptions, (error, info) => {
 				if (error) {

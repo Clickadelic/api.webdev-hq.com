@@ -204,6 +204,21 @@
   .left-1 {
     left: calc(var(--spacing) * 1);
   }
+  .row-1 {
+    grid-row: 1;
+  }
+  .row-2 {
+    grid-row: 2;
+  }
+  .row-3 {
+    grid-row: 3;
+  }
+  .row-4 {
+    grid-row: 4;
+  }
+  .row-5 {
+    grid-row: 5;
+  }
   .container {
     width: 100%;
     @media (width >= 40rem) {
@@ -296,6 +311,9 @@
   }
   .inline-flex {
     display: inline-flex;
+  }
+  .table {
+    display: table;
   }
   .h-\[48px\] {
     height: 48px;
