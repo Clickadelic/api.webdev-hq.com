@@ -10,7 +10,7 @@
 		"build-scripts": "esbuild ./views/assets/js/index.js --outfile=/public/assets/js/scripts.min.js --bundle --minify --watch",
 		"watch-tailwind": "npx @tailwindcss/cli -i ./views/assets/scss/style.scss -o ./public/assets/css/style.min.css --watch",
 		"prod": "SET NODE_ENV=production && node api/index.js --watch",
-		"postinstall": "prisma generate"
+		"postinstall": "prisma generate --schema=prisma/schema.prisma"
 	},
 	"keywords": [],
 	"author": "Tobias Hopp",

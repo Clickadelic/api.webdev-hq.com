@@ -10,66 +10,48 @@ const transporter = require("../mail/transporter")
 
 const newsletterController = {
 	registerSubscriber: async (req, res) => {
-		try {
-			const existingSubscriber = await prisma.subscriber.findUnique({
-				where: {
-					email: req.body.email
-				}
-			})
+		const name = req.body.name
+		const email = req.body.email
+		const agreedToSubscription = req.body.agreedToSubscription
 
-			if (existingSubscriber) {
-				return res.status(409).send({ message: "email_already_subscribed" })
-			}
+		console.log("data", name, email, agreedToSubscription)
 
-			// Token generieren
-			const token = crypto.randomBytes(32).toString("hex")
-
-			// Neuen Abonnenten inkl. Token anlegen
-			const newSubscriber = await prisma.subscriber.create({
-				data: {
-					subscribername: req.body.subscribername,
-					email: req.body.email,
-					agreedToSubscription: req.body.agreedToSubscription,
-					confirmationToken: token,
-					confirmed: true
-				}
-			})
-
-			// Template laden
-			const templatePath = path.join(__dirname, "../templates/confirmation-email.hbs")
-			const source = fs.readFileSync(templatePath, "utf8")
-			const template = handlebars.compile(source)
-
-			// Bestätigungslink erzeugen
-			const confirmationLink = `${process.env.BASE_URL}/confirm-subscription?token=${token}`
-
-			// HTML erzeugen
-			const html = template({
-				subscribername: newSubscriber.subscribername,
-				confirmationLink
-			})
-
-			// Mail senden
-			try {
-				const sendResult = await transporter.sendMail({
-					sender: process.env.MAIL_SENDER,
-					from: process.env.MAIL_FROM,
-					to: newSubscriber.email,
-					subject: "WebDev HQ Newsletter – Bitte bestätige deine Anmeldung",
-					html
-				})
-
-				console.log("E-Mail erfolgreich gesendet:", sendResult)
-			} catch (mailError) {
-				console.error("Fehler beim Senden der E-Mail:", mailError)
-				return res.status(500).send({ message: "email_sending_failed" })
-			}
-
-			res.status(201).send({ message: "user_successfully_subscribed" })
-		} catch (error) {
-			console.error("Fehler beim Speichern des Abonnenten:", error)
-			res.status(500).send({ message: "internal_server_error" })
+		if (!name || !email || !agreedToSubscription) {
+			return res.status(400).send({ message: "missing_fields" })
 		}
+		const subscriber = await prisma.subscriber.findUnique({
+			where: {
+				email
+			}
+		})
+		if (subscriber) {
+			return res.status(409).send({ message: "email_already_subscribed" })
+		}
+		try {
+			await prisma.subscriber.create({
+				data: {
+					name,
+					email,
+					agreedToSubscription
+				}
+			})
+			const mailOptions = {
+				from: process.env.MAIL_FROM,
+				to: email,
+				cc: "toby.hopp@gmail.com",
+				subject: "Your API-Registration",
+				text: "Hi, Thank you for your API-Registration. Please activate your account."
+			}
+			transporter.sendMail(mailOptions, (error, info) => {
+				if (error) {
+					return res.status(504).send({ message: error })
+				}
+				console.log("Success sending mail.", info)
+			})
+		} catch (error) {
+			return res.status(504).send({ message: error })
+		}
+		res.status(201).send({ message: "subscribtion_success" })
 	},
 	confirmSubscription: async (req, res) => {
 		try {

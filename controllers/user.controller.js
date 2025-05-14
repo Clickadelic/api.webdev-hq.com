@@ -39,11 +39,11 @@ const userController = {
 				if (error) {
 					return res.status(500).send({ message: "error_sending_email", error })
 				}
-				// TODO Kombinieren der beiden Fälle
-				// res.status(200).send({ message: "Email sent", info });
-				console.log(email)
+				// 	// TODO Kombinieren der beiden Fälle
+				// 	// res.status(200).send({ message: "Email sent", info })
+				// 	console.log(email)
 			})
-			res.status(201).send({ message: "user_successfully_registered" })
+			res.status(201)
 		} catch (error) {
 			res.status(504).send({ message: error })
 		}
