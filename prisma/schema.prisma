@@ -6,6 +6,7 @@
 
 generator client {
     provider = "prisma-client-js"
+    // output   = "generated"
 }
 
 datasource db {
@@ -32,10 +33,12 @@ model User {
 
 model Subscriber {
     id                   String   @id @default(uuid())
-    subscribername       String   @unique @db.VarChar(20)
+    name                 String
     email                String   @unique
     emailConfirmed       Boolean  @default(false)
     agreedToSubscription Boolean  @default(false)
+    confirmationToken    String
+    confirmed            Boolean  @default(false)
     createdAt            DateTime @default(now())
     updatedAt            DateTime @default(now())
 }

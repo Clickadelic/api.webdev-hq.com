@@ -15,22 +15,22 @@ const middleware = {
 	},
 	validateRegistration: (req, res, next) => {
 		if (!req.body.username || req.body.username.length < 4) {
-			return res.status(400).send({
+			return res.sendStatus(400).send({
 				message: "min_3_characters"
 			})
 		}
 		if (!req.body.password || req.body.password.length < 6) {
-			return res.status(400).send({
+			return res.sendStatus(400).send({
 				message: "min_6_characters"
 			})
 		}
 		if (!req.body.passwordRepeat || req.body.password != req.body.passwordRepeat) {
-			return res.status(400).send({
+			return res.sendStatus(400).send({
 				message: "both_passwords_must_match"
 			})
 		}
 		if (!req.body.agreedToTerms) {
-			return res.status(400).send({
+			return res.sendStatus(400).send({
 				message: "terms_not_accepted"
 			})
 		}
@@ -44,7 +44,7 @@ const middleware = {
 			req.userData = decoded
 			next()
 		} catch (err) {
-			return res.status(401).send({
+			return res.sendStatus(401).send({
 				message: "restricted_content_login_first"
 			})
 		}

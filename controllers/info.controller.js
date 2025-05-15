@@ -1,5 +1,5 @@
 const infoController = {
-	getInfo: async (req, res) => {
+	getInfo: (req, res) => {
 		try {
 			const info = {
 				title: "WebDev HQ API-Service",

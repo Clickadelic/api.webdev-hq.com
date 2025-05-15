@@ -12,6 +12,7 @@ const middleware = require("./middleware/middleware")
 const pageRouter = require("./routers/page.router")
 const infoRouter = require("./routers/info.router")
 const userRouter = require("./routers/user.router")
+const extensionRouter = require("./routers/extension.router")
 const newsletterRouter = require("./routers/newsletter.router")
 
 // Config and setup
@@ -38,9 +39,10 @@ app.use("/", middleware.logRequest, pageRouter)
 app.use("/common/v1", middleware.logRequest, infoRouter)
 app.use("/common/v1", middleware.logRequest, userRouter)
 app.use("/common/v1", middleware.logRequest, newsletterRouter)
+app.use("/common/v1", middleware.logRequest, extensionRouter)
 
 // 404 error Fallback
-app.use("*", (req, res) => {
+app.use("/{*splat}", (req, res) => {
 	res.status(404).send({ message: "Endpoint not found" })
 })
 

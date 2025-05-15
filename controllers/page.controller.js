@@ -1,35 +1,38 @@
 const pageController = {
-	getIndexPage: async (req, res) => {
+	getIndexPage: (req, res) => {
 		return res.render("./pages/index")
 	},
-	getDocsPage: async (req, res) => {
+	getDocsPage: (req, res) => {
 		return res.render("./pages/docs")
 	},
-	getRegisterPage: async (req, res) => {
+	getRegisterPage: (req, res) => {
 		return res.render("./pages/register")
 	},
-	getLoginPage: async (req, res) => {
+	getLoginPage: (req, res) => {
 		return res.render("./pages/login")
 	},
-	getForgotPasswordPage: async (req, res) => {
+	getForgotPasswordPage: (req, res) => {
 		return res.render("./pages/forgot-password")
 	},
-	getDisclaimerPage: async (req, res) => {
+	getDisclaimerPage: (req, res) => {
 		return res.render("./pages/disclaimer")
 	},
-	getCookieInformationPage: async (req, res) => {
+	getCookieInformationPage: (req, res) => {
 		return res.render("./pages/cookie-information")
 	},
-	getTermsOfPrivacyPage: async (req, res) => {
+	getTermsOfPrivacyPage: (req, res) => {
 		return res.render("./pages/terms-of-privacy")
 	},
-	getTermsOfUsePage: async (req, res) => {
+	getTermsOfUsePage: (req, res) => {
 		return res.render("./pages/terms-of-use")
 	},
-	getNewsletterPage: async (req, res) => {
+	getNewsletterPage: (req, res) => {
 		return res.render("./pages/newsletter", { currentPath: res.locals.currentPath })
 	},
-	getDashboardPage: async (req, res) => {
+	getNewsletterConfirmationPage: (req, res) => {
+		return res.render("./pages/newsletter-confirm", { currentPath: res.locals.currentPath, confirmationLink: req.query.token })
+	},
+	getDashboardPage: (req, res) => {
 		return res.render("./pages/dashboard", { currentPath: res.locals.currentPath, user: req.authData })
 	}
 }
