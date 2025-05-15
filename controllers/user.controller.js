@@ -7,13 +7,6 @@ const prisma = new PrismaClient()
 
 const userController = {
 	registerUser: async (req, res) => {
-		const mailOptions = {
-			from: process.env.MAIL_EMAIL,
-			to: req.body.email,
-			bcc: process.env.MAIL_ADMIN,
-			subject: "Your API-Registration",
-			text: "Hi, Thank you for your API-Registration. Please activate your account."
-		}
 		try {
 			const user = await prisma.user.findUnique({
 				where: {
@@ -34,15 +27,24 @@ const userController = {
 			await prisma.user.create({
 				data: newUser
 			})
-			// TODO bessere Prüfung z.b: E-mail succes && Register success
-			transporter.sendMail(mailOptions, (error, info) => {
-				if (error) {
-					return res.status(500).send({ message: "error_sending_email", error })
-				}
-				// 	// TODO Kombinieren der beiden Fälle
-				// 	// res.status(200).send({ message: "Email sent", info })
-				console.log(info)
+			// E-Mail Template
+			const templatePath = path.join(__dirname, "../mail/templates/confirm-registration.hbs")
+			const source = fs.readFileSync(templatePath, "utf8")
+			const template = handlebars.compile(source)
+			const confirmationLink = `${process.env.APP_URL}:${process.env.PORT}/register-confirm?token=${token}`
+
+			const html = template({
+				name: newUser.name,
+				confirmationLink
 			})
+			const mailOptions = {
+				from: process.env.MAIL_FROM,
+				to: email,
+				// cc: process.env.MAIL_ADMIN,
+				bcc: process.env.MAIL_ADMIN,
+				subject: "Confirm your registration",
+				html
+			}
 			res.status(201).send({ message: "user_created" })
 		} catch (error) {
 			res.status(504).send({ message: error })
