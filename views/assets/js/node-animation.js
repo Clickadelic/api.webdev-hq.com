@@ -67,7 +67,7 @@ if (window.location.pathname === "/") {
 			requestAnimationFrame(animate)
 		}
 
-		createNodes(25)
+		createNodes(18)
 		createConnections()
 		animate()
 	})
