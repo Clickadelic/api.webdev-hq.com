@@ -14,6 +14,7 @@ pageRouter.get("/cookie-information", pageController.getCookieInformationPage)
 pageRouter.get("/terms-of-privacy", pageController.getTermsOfPrivacyPage)
 pageRouter.get("/terms-of-use", pageController.getTermsOfUsePage)
 pageRouter.get("/newsletter", pageController.getNewsletterPage)
+pageRouter.get("/newsletter-confirm", pageController.getNewsletterConfirmationPage)
 
 // Protected Routes
 pageRouter.get("/dashboard", middleware.verifyToken, pageController.getDashboardPage)

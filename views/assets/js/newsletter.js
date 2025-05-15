@@ -8,6 +8,19 @@ if (window.location.pathname === "/newsletter") {
 	})
 }
 
+if (window.location.pathname === "/newsletter-confirm") {
+	const params = new URLSearchParams(window.location.search)
+
+	if (params.get("token")) {
+		const token = params.get("token")
+		fetch("/common/v1/newsletter/confirm", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ token })
+		})
+	}
+}
+
 const handleNewsletterSubscribtion = async e => {
 	e.preventDefault()
 	const name = document.querySelector("input[name='name']").value

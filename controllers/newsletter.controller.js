@@ -31,15 +31,16 @@ const newsletterController = {
 				data: {
 					name,
 					email,
-					agreedToSubscription
-					// confirmationToken: token, // Spalte muss in der DB existieren
-					// confirmed: false
+					agreedToSubscription,
+					confirmationToken: token,
+					confirmed: false
 				}
 			})
+			// E-Mail Template
 			const templatePath = path.join(__dirname, "../mail/templates/confirm-subscribtion.hbs")
 			const source = fs.readFileSync(templatePath, "utf8")
 			const template = handlebars.compile(source)
-			const confirmationLink = `https://webdev-hq.com/confirm-subscription?token=${token}`
+			const confirmationLink = `${process.env.APP_URL}:${process.env.PORT}/newsletter-confirm?token=${token}`
 
 			const html = template({
 				name: newSubscriber.name,
@@ -67,6 +68,7 @@ const newsletterController = {
 	confirmSubscription: async (req, res) => {
 		try {
 			const token = req.query.token
+			console.log(token)
 
 			if (!token) {
 				return res.status(400).send({ message: "confirmation_token_missing" })
@@ -94,7 +96,7 @@ const newsletterController = {
 				},
 				data: {
 					confirmed: true,
-					confirmationToken: null
+					confirmationToken: token
 				}
 			})
 

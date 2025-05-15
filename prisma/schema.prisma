@@ -37,6 +37,8 @@ model Subscriber {
     email                String   @unique
     emailConfirmed       Boolean  @default(false)
     agreedToSubscription Boolean  @default(false)
+    confirmationToken    String
+    confirmed            Boolean  @default(false)
     createdAt            DateTime @default(now())
     updatedAt            DateTime @default(now())
 }
