@@ -18,12 +18,12 @@ const handleRegister = async e => {
 	const agreedToTerms = document.querySelector("input[name='agreed-to-terms']").checked
 
 	if (!username || !password || !passwordRepeat || !agreedToTerms) {
-		showUserMessage("bg-rose-200", "Please fill out all fields.")
+		showUserMessage("bg-rose-200 text-muted-foreground", "Please fill out all fields.")
 		return
 	}
 
 	if (password !== passwordRepeat) {
-		showUserMessage("bg-rose-200", "Passwords do not match.")
+		showUserMessage("bg-rose-200 text-muted-foreground", "Passwords do not match.")
 		return
 	}
 
@@ -43,7 +43,9 @@ const handleRegister = async e => {
 			},
 			body: JSON.stringify(formData)
 		}).then(response => {
-			console.log(response)
+			if (response.status === 409) {
+				showUserMessage("bg-rose-200", "Username or e-mail is already taken.")
+			}
 			if (response.ok) {
 				showUserMessage("bg-green-200", "Registration successful.")
 			}

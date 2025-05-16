@@ -14,7 +14,7 @@ const userController = {
 				}
 			})
 			if (user) {
-				return res.status(409).send({ message: "username_already_taken" })
+				res.status(409).send({ message: "username_already_taken" })
 			}
 			const salt = await bcrypt.genSalt(10)
 			const hashedPassword = await bcrypt.hash(req.body.password, salt)
@@ -28,6 +28,7 @@ const userController = {
 				data: newUser
 			})
 			// E-Mail Template
+			/*
 			const templatePath = path.join(__dirname, "../mail/templates/confirm-registration.hbs")
 			const source = fs.readFileSync(templatePath, "utf8")
 			const template = handlebars.compile(source)
@@ -44,7 +45,7 @@ const userController = {
 				bcc: process.env.MAIL_ADMIN,
 				subject: "Confirm your registration",
 				html
-			}
+			} */
 			res.status(201).send({ message: "user_created" })
 		} catch (error) {
 			res.status(504).send({ message: error })

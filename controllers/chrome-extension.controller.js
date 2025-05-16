@@ -27,18 +27,17 @@ const extensionController = {
 	getRandomImage: async (req, res) => {
 		try {
 			const result = await unsplash.photos.getRandom({
-				collectionIds: ["9LE6ljYNQlE"], // Deine Unsplash-Kollektion-ID
+				collectionIds: [process.env.UNSPLASH_COLLECTION_ID],
 				orientation: "landscape"
 			})
-
-			console.log("Unsplash API Result:", result)
 
 			const image = result && "response" in result ? result.response : undefined
 
 			if (!image || !image.urls) {
-				return res.status(500).json({ error: "Kein Bild gefunden oder ungültige Antwortstruktur." })
+				return res.status(500).json({ error: "No image found or bad response." })
 			}
 
+			// TODO wieder auf normal umschreiben, kein Custom-Objekt
 			// Du kannst hier z.B. nur die URL oder das ganze Bildobjekt zurückgeben
 			res.status(200).json({
 				id: image.id,
