@@ -17,7 +17,7 @@
 	{% block stylesheet %}
 	<link rel="stylesheet" href="./assets/css/style.min.css" />
 	{% endblock %}
-	{% block head_inline_css %}
+	{% block custom_fonts_css %}
 	<style id="custom-fonts-css">
 		@font-face {
 			font-family: "La Belle Aurore";
@@ -130,6 +130,8 @@
 		}
 
 	</style>
+	{% endblock %}
+	{% block custom_inline_css %}
 	{% endblock %}
 </head>
 {% endblock %}

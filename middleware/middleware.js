@@ -13,6 +13,28 @@ const middleware = {
 		)
 		next()
 	},
+	setBreadcrumbs: (req, res, next) => {
+		// JWT aus Cookie lesen (z. B. via cookie-parser Middleware)
+		const token = req.cookies?.token
+		if (token) {
+			try {
+				const decoded = jwt.verify(token, process.env.JWT_SECRET)
+				res.locals.user = decoded
+				req.user = decoded // Optional für weitere Verarbeitung
+			} catch (err) {
+				res.locals.user = null
+			}
+		} else {
+			res.locals.user = null
+		}
+
+		// Breadcrumbs vorbereiten
+		const segments = req.path.split("/").filter(Boolean)
+		res.locals.currentPath = req.path
+		res.locals.pathSegments = segments
+
+		next()
+	},
 	validateRegistration: (req, res, next) => {
 		if (!req.body.username || req.body.username.length < 4) {
 			return res.sendStatus(400).send({
@@ -86,6 +108,21 @@ const middleware = {
 		} catch (err) {
 			return res.redirect("/login")
 		}
+	},
+	checkAuthStatus: (req, res, next) => {
+		const token = req.cookies?.token
+		if (token) {
+			try {
+				const decoded = jwt.verify(token, process.env.JWT_SECRET)
+				res.locals.user = decoded
+				req.user = decoded
+			} catch (err) {
+				res.locals.user = null
+			}
+		} else {
+			res.locals.user = null
+		}
+		next()
 	}
 }
 

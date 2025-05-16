@@ -2,9 +2,10 @@
 {% extends "base.html.twig" %}
 
 {% block title %}Account &middot; WebDev HQ API{% endblock %}
-
-{% block content %}
-	<h2 class="text-3xl font-medium mb-6">Account</h2>
-	<p>Hi {{ user.username }}, welcome to the super secret dashboard.</p>
-	<button class="px-5 py-2 bg-mantis-primary text-white rounded-md hover:cursor-pointer hover:bg-mantis-primary-hover" id="logout-btn">Logout</button>
+{% block main %}
+    <main class="container mx-auto flex-1 p-4 my-4 text-center">
+		<h2 class="text-3xl font-medium mb-6">Account</h2>
+		<p>Hi {{ user.username }}, welcome to the super secret dashboard.</p>
+		<button class="px-5 py-2 bg-mantis-primary text-white rounded-md hover:cursor-pointer hover:bg-mantis-primary-hover" id="logout-btn">Logout</button>
+	</main>
 {% endblock %}

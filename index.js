@@ -36,28 +36,16 @@ chokidar.watch("./views").on("change", () => {
 	console.log(chalk.bgGreenBright.white("Twig cache cleared"))
 })
 
-app.use((req, res, next) => {
-	const token = req.cookies.token
-	if (token) {
-		try {
-			const decoded = jwt.verify(token, process.env.JWT_SECRET)
-			res.locals.user = decoded
-		} catch (err) {
-			// Wenn der Token ungültig ist, setzen wir user nicht
-			res.locals.user = null
-		}
-	} else {
-		res.locals.user = null
-	}
-	next()
-})
+app.use(middleware.logRequest)
+app.use(middleware.setBreadcrumbs)
+app.use(middleware.checkAuthStatus)
 
-app.use("/", middleware.logRequest, pageRouter)
+app.use("/", pageRouter)
 
-app.use("/common/v1", middleware.logRequest, infoRouter)
-app.use("/common/v1", middleware.logRequest, authRouter)
-app.use("/common/v1", middleware.logRequest, newsletterRouter)
-app.use("/common/v1", middleware.logRequest, chromeExtensionRouter)
+app.use("/common/v1", infoRouter)
+app.use("/common/v1", authRouter)
+app.use("/common/v1", newsletterRouter)
+app.use("/common/v1", chromeExtensionRouter)
 
 app.use("/{*splat}", (req, res) => {
 	res.status(404).send({ message: "Frontend-route or endpoint not found. Error 404." })
