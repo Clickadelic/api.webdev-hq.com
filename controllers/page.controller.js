@@ -33,7 +33,7 @@ const pageController = {
 		return res.render("./pages/newsletter-confirm", { currentPath: res.locals.currentPath, confirmationLink: req.query.token })
 	},
 	getDashboardPage: (req, res) => {
-		return res.render("./pages/dashboard", { currentPath: res.locals.currentPath, user: req.authData })
+		return res.render("./pages/dashboard", { currentPath: res.locals.currentPath, user: res.locals.user })
 	}
 }
 

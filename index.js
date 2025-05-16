@@ -29,6 +29,7 @@ app.use(express.static(path.join(__dirname, "/public")))
 app.use(cors({ credentials: true, origin: "*" }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(cookieParser())
 app.disable("x-powered-by")
 
 chokidar.watch("./views").on("change", () => {
@@ -36,10 +37,10 @@ chokidar.watch("./views").on("change", () => {
 	console.log(chalk.bgGreenBright.white("Twig cache cleared"))
 })
 
-app.use(cookieParser())
-
 // Routes
 app.use("/", middleware.logRequest, pageRouter)
+
+// Endpoints
 app.use("/common/v1", middleware.logRequest, infoRouter)
 app.use("/common/v1", middleware.logRequest, authRouter)
 app.use("/common/v1", middleware.logRequest, newsletterRouter)
@@ -47,7 +48,7 @@ app.use("/common/v1", middleware.logRequest, chromeExtensionRouter)
 
 // 404 error Fallback
 app.use("/{*splat}", (req, res) => {
-	res.status(404).send({ message: "Endpoint not found" })
+	res.status(404).send({ message: "Frontend-route or endpoint not found. Error 404." })
 })
 
 // Server console

@@ -55,13 +55,13 @@ const authController = {
 								expiresIn: "7d"
 							}
 						)
-						user.password = undefined
 						res.cookie("token", token, {
 							httpOnly: true,
 							secure: process.env.NODE_ENV === "production",
 							sameSite: "lax",
 							maxAge: 2 * 60 * 60 * 1000 // 2 Stunden
 						})
+						console.log(user)
 						return res.status(200).json({
 							message: "login_successful",
 							token,
@@ -76,6 +76,14 @@ const authController = {
 			} else {
 				return res.status(404).json({ message: "no_such_user_in_database" })
 			}
+		} catch (error) {
+			res.status(400).json({ message: error })
+		}
+	},
+	logout: async (req, res) => {
+		try {
+			res.clearCookie("token")
+			res.status(200).json({ message: "logout_successful" })
 		} catch (error) {
 			res.status(400).json({ message: error })
 		}

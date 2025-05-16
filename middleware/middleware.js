@@ -76,12 +76,12 @@ const middleware = {
 	},
 	verifyTokenFromCookie: (req, res, next) => {
 		const token = req.cookies.token
-		if (!token) {
-			return res.redirect("/login")
-		}
+		if (!token) return res.redirect("/login")
+
 		try {
 			const decoded = jwt.verify(token, process.env.JWT_SECRET)
 			req.user = decoded
+			res.locals.user = decoded // <--- WICHTIG: Für Twig verfügbar machen
 			next()
 		} catch (err) {
 			return res.redirect("/login")
