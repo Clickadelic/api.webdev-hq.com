@@ -37,6 +37,22 @@ chokidar.watch("./views").on("change", () => {
 	console.log(chalk.bgGreenBright.white("Twig cache cleared"))
 })
 
+app.use((req, res, next) => {
+	const token = req.cookies.token
+	if (token) {
+		try {
+			const decoded = jwt.verify(token, process.env.JWT_SECRET)
+			res.locals.user = decoded
+		} catch (err) {
+			// Wenn der Token ungültig ist, setzen wir user nicht
+			res.locals.user = null
+		}
+	} else {
+		res.locals.user = null
+	}
+	next()
+})
+
 // Routes
 app.use("/", middleware.logRequest, pageRouter)
 
