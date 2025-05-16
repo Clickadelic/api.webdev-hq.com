@@ -5,6 +5,6 @@
 
 {% block content %}
 	<h2 class="text-3xl font-medium mb-6">Dashboard</h2>
-	<p>Hi, {{ user.email }} Here comes the super secret dashboard.</p>
+	<p>Hi, {{ user.username }}, you are a {{ user.role }} Here comes the super secret dashboard.</p>
 	<button class="px-5 py-2 bg-mantis-primary text-white rounded-md hover:cursor-pointer hover:bg-mantis-primary-hover" id="logout-btn">Logout</button>
 {% endblock %}
