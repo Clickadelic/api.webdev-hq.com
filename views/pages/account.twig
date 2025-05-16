@@ -4,8 +4,20 @@
 {% block title %}Account &middot; WebDev HQ API{% endblock %}
 {% block main %}
     <main class="container mx-auto flex-1 p-4 my-4 text-center">
-		<h2 class="text-3xl font-medium mb-6">Account</h2>
-		<p>Hi {{ user.username }}, welcome to the super secret dashboard.</p>
-		<button class="px-5 py-2 bg-mantis-primary text-white rounded-md hover:cursor-pointer hover:bg-mantis-primary-hover" id="logout-btn">Logout</button>
+		<div class="w-96 bg-white mx-auto p-4 rounded-sm shadow-sm">
+			<h2 class="text-3xl font-medium mb-6">{{ user.username }}</h2>
+			<img src="./images/user.png" class="size-12 mx-auto border rounded-full border-slate-300 my-8" alt="User Avatar" />
+			<ul class="space-y-2 m-2 text-left">
+				<li class="font-medium">User-Id:</li>
+				<li>{{ user.userId }}</li>
+				<li class="font-medium">Username:</li>
+				<li>{{ user.username }}</li>
+				<li class="font-medium">E-Mail:</li>
+				<li>{{ user.email }}</li>
+				<li class="font-medium">Role:</li>
+				<li>{{ user.role }}</li>
+			</ul>
+			<button class="px-5 py-2 bg-slate-200 text-slate-800 rounded-md hover:cursor-pointer hover:bg-mantis-primary-hover" id="logout-btn">Logout</button>
+		</div>
 	</main>
 {% endblock %}
