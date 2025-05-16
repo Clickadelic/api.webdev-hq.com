@@ -11,7 +11,7 @@ const chokidar = require("chokidar")
 const middleware = require("./middleware/middleware")
 const pageRouter = require("./routers/page.router")
 const infoRouter = require("./routers/info.router")
-const userRouter = require("./routers/user.router")
+const authRouter = require("./routers/auth.router")
 const newsletterRouter = require("./routers/newsletter.router")
 const chromeExtensionRouter = require("./routers/chrome-extension.router")
 
@@ -37,7 +37,7 @@ chokidar.watch("./views").on("change", () => {
 // Routes
 app.use("/", middleware.logRequest, pageRouter)
 app.use("/common/v1", middleware.logRequest, infoRouter)
-app.use("/common/v1", middleware.logRequest, userRouter)
+app.use("/common/v1", middleware.logRequest, authRouter)
 app.use("/common/v1", middleware.logRequest, newsletterRouter)
 app.use("/common/v1", middleware.logRequest, chromeExtensionRouter)
 

@@ -5,7 +5,7 @@ const transporter = require("../mail/transporter")
 const { PrismaClient } = require("@prisma/client")
 const prisma = new PrismaClient()
 
-const userController = {
+const authController = {
 	registerUser: async (req, res) => {
 		try {
 			const user = await prisma.user.findUnique({
@@ -27,25 +27,6 @@ const userController = {
 			await prisma.user.create({
 				data: newUser
 			})
-			// E-Mail Template
-			/*
-			const templatePath = path.join(__dirname, "../mail/templates/confirm-registration.hbs")
-			const source = fs.readFileSync(templatePath, "utf8")
-			const template = handlebars.compile(source)
-			const confirmationLink = `${process.env.APP_URL}:${process.env.PORT}/register-confirm?token=${token}`
-
-			const html = template({
-				name: newUser.name,
-				confirmationLink
-			})
-			const mailOptions = {
-				from: process.env.MAIL_FROM,
-				to: email,
-				// cc: process.env.MAIL_ADMIN,
-				bcc: process.env.MAIL_ADMIN,
-				subject: "Confirm your registration",
-				html
-			} */
 			res.status(201).send({ message: "user_created" })
 		} catch (error) {
 			res.status(504).send({ message: error })
@@ -121,4 +102,4 @@ const userController = {
 	}
 }
 
-module.exports = userController
+module.exports = authController

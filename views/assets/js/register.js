@@ -45,9 +45,11 @@ const handleRegister = async e => {
 		}).then(response => {
 			if (response.status === 409) {
 				showUserMessage("bg-rose-200", "Username or e-mail is already taken.")
+				return
 			}
 			if (response.ok) {
-				showUserMessage("bg-green-200", "Registration successful.")
+				showUserMessage("bg-green-200", "Please confirm your registration in your e-mail.")
+				return
 			}
 		})
 	} catch (error) {
