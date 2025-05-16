@@ -41,7 +41,6 @@ app.use(middleware.setBreadcrumbs)
 app.use(middleware.checkAuthStatus)
 
 app.use("/", pageRouter)
-
 app.use("/common/v1", infoRouter)
 app.use("/common/v1", authRouter)
 app.use("/common/v1", newsletterRouter)
