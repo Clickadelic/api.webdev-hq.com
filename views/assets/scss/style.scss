@@ -9,17 +9,6 @@
 	--color-white: #ffffff;
 }
 
-.bg-pattern {
-	background-image: radial-gradient(rgb(180, 180, 180) 1px, transparent 0);
-	background-size: 20px 20px;
-	background-position: -19px -19px;
-}
-
-.wdhq-center {
-	left: 50%;
-	transform: translate(-50%, 0);
-}
-
 .mega-menu:before {
 	content: "";
 	width: 0;
@@ -29,17 +18,12 @@
 	border-bottom: 10px solid #fff;
 	position: absolute;
 	top: -10px;
-	left: 2rem;
+	left: 5rem;
 	transform: translate(-50%, 0);
 }
 
-@media screen and (max-width: 640px) {
-	.wdhq-center {
-		left: 0;
-		transform: translate(0, 0);
-	}
-
+@media screen and (min-width: 679px) {
 	.mega-menu:before {
-		left: 4.5rem;
+		left: 2.5rem;
 	}
 }

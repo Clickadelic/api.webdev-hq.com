@@ -34,6 +34,9 @@ const pageController = {
 	},
 	getDashboardPage: (req, res) => {
 		return res.render("./pages/dashboard", { currentPath: res.locals.currentPath, user: res.locals.user })
+	},
+	getAccountPage: (req, res) => {
+		return res.render("./pages/account", { currentPath: res.locals.currentPath, user: res.locals.user })
 	}
 }
 

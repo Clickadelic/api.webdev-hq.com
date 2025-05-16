@@ -4,29 +4,29 @@
 	</svg>
 	Menu
 </button>
-<div class="hidden mega-menu absolute top-16 left-1 lg:left-44 border border-slate-200 w-96 lg:w-[750px] bg-white shadow-md rounded-lg p-4">
+<div class="hidden mega-menu absolute top-16 -left-1 lg:left-44 border border-slate-200 w-96 lg:w-[750px] bg-white shadow-md rounded-lg p-4 mr-1">
 	<div class="w-full grid grid-cols-2 lg:grid-cols-4 gap-4">
 		<div class="col">
 			<h2 class="font-medium text-slate-900 mb-2 border-b border-slate-200 pb-2">
-				{% include 'partials/utils/award.html.twig' %}
+				{% include 'partials/utils/award.twig' %}
 				Public
 			</h2>
 			<ul class="space-y-2">
 				<li>
 					<a href="/" class="hover:text-mantis-primary" title="Home">
-						{% include 'partials/utils/chevron-compact-right.html.twig' %}
+						{% include 'partials/utils/chevron-compact-right.twig' %}
 						Home
 					</a>
 				</li>
 				<li>
 					<a href="/docs" class="hover:text-mantis-primary" title="Docs">
-						{% include 'partials/utils/chevron-compact-right.html.twig' %}
+						{% include 'partials/utils/chevron-compact-right.twig' %}
 						Docs
 					</a>
 				</li>
 				<li>
 					<a href="/newsletter" class="hover:text-mantis-primary" title="Newsletter">
-						{% include 'partials/utils/chevron-compact-right.html.twig' %}
+						{% include 'partials/utils/chevron-compact-right.twig' %}
 						Newsletter
 					</a>
 				</li>
@@ -34,25 +34,25 @@
 		</div>
 		<div class="col">
 			<h2 class="font-medium text-slate-900 mb-2 border-b border-slate-200 pb-2">
-				{% include 'partials/utils/arrow-through-heart.html.twig' %}
+				{% include 'partials/utils/arrow-through-heart.twig' %}
 				Community
 			</h2>
 			<ul class="space-y-2">
 				<li>
 					<a href="/register" class="hover:text-mantis-primary" title="Register">
-						{% include 'partials/utils/chevron-compact-right.html.twig' %}
+						{% include 'partials/utils/chevron-compact-right.twig' %}
 						Register
 					</a>
 				</li>
 				<li>
 					<a href="/login" class="hover:text-mantis-primary" title="Login">
-						{% include 'partials/utils/chevron-compact-right.html.twig' %}
+						{% include 'partials/utils/chevron-compact-right.twig' %}
 						Login
 					</a>
 				</li>
 				<li>
 					<a href="/forgot-password" class="hover:text-mantis-primary" title="Forgot password">
-						{% include 'partials/utils/chevron-compact-right.html.twig' %}
+						{% include 'partials/utils/chevron-compact-right.twig' %}
 						Forgot password
 					</a>
 				</li>
@@ -60,51 +60,55 @@
 		</div>
 		<div class="col">
 			<h2 class="font-medium text-slate-900 mb-2 border-b border-slate-200 pb-2">
-				{% include 'partials/utils/laptop.html.twig' %}
+				{% include 'partials/utils/laptop.twig' %}
 				Dashboard
 			</h2>
+			{% if not user %}
+			<p class="text-xs text-slate-600">Please login to see this content.</p>
+			{% else %}
 			<ul class="space-y-2">
 				<li>
-					<a href="/dashboard" class="hover:text-mantis-primary" title="Dashboard">
-						{% include 'partials/utils/chevron-compact-right.html.twig' %}
-						Dashboard
-					</a>
+				<a href="/dashboard" class="hover:text-mantis-primary flex items-center" title="Dashboard">
+					{% include 'partials/utils/chevron-compact-right.twig' %}
+					<span class="ml-1">Dashboard</span>
+				</a>
 				</li>
 				<li>
-					<a href="/settings" class="hover:text-mantis-primary" title="Settings">
-						{% include 'partials/utils/chevron-compact-right.html.twig' %}
-						Settings
+					<a href="/account" class="hover:text-mantis-primary flex items-center" title="Settings">
+						{% include 'partials/utils/chevron-compact-right.twig' %}
+						<span class="ml-1">Account</span>
 					</a>
 				</li>
 			</ul>
+			{% endif %}
 		</div>
 		<div class="col">
 			<h2 class="font-medium text-slate-900 mb-2 border-b border-slate-200 pb-2">
-				{% include 'partials/utils/feather.html.twig' %}
+				{% include 'partials/utils/feather.twig' %}
 				Legal
 			</h2>
 			<ul class="space-y-2">
 				<li>
 					<a href="/terms-of-use" class="hover:text-mantis-primary" title="Terms of Use">
-						{% include 'partials/utils/chevron-compact-right.html.twig' %}
+						{% include 'partials/utils/chevron-compact-right.twig' %}
 						Terms of Use
 					</a>
 				</li>
 				<li>
 					<a href="/terms-of-privacy" class="hover:text-mantis-primary" title="Terms of Privacy">
-						{% include 'partials/utils/chevron-compact-right.html.twig' %}
+						{% include 'partials/utils/chevron-compact-right.twig' %}
 						Terms of Privacy
 					</a>
 				</li>
 				<li>
 					<a href="/cookie-information" class="hover:text-mantis-primary" title="Cookie Information">
-						{% include 'partials/utils/chevron-compact-right.html.twig' %}
+						{% include 'partials/utils/chevron-compact-right.twig' %}
 						Cookie Information
 					</a>
 				</li>
 				<li>
 					<a href="/disclaimer" class="hover:text-mantis-primary" title="Disclaimer">
-						{% include 'partials/utils/chevron-compact-right.html.twig' %}
+						{% include 'partials/utils/chevron-compact-right.twig' %}
 						Disclaimer
 					</a>
 				</li>
