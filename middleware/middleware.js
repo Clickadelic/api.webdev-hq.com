@@ -14,25 +14,9 @@ const middleware = {
 		next()
 	},
 	setBreadcrumbs: (req, res, next) => {
-		// JWT aus Cookie lesen (z. B. via cookie-parser Middleware)
-		const token = req.cookies?.token
-		if (token) {
-			try {
-				const decoded = jwt.verify(token, process.env.JWT_SECRET)
-				res.locals.user = decoded
-				req.user = decoded // Optional für weitere Verarbeitung
-			} catch (err) {
-				res.locals.user = null
-			}
-		} else {
-			res.locals.user = null
-		}
-
-		// Breadcrumbs vorbereiten
 		const segments = req.path.split("/").filter(Boolean)
 		res.locals.currentPath = req.path
 		res.locals.pathSegments = segments
-
 		next()
 	},
 	validateRegistration: (req, res, next) => {
