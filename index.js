@@ -1,13 +1,13 @@
 require("dotenv").config()
-// Imports
+
 const express = require("express")
-const session = require("express-session")
 const cookieParser = require("cookie-parser")
 const cors = require("cors")
 const app = express()
 const chalk = require("chalk")
 const path = require("path")
 const twig = require("twig")
+const jwt = require("jsonwebtoken")
 const port = process.env.PORT || 5000
 const chokidar = require("chokidar")
 const middleware = require("./middleware/middleware")
@@ -17,7 +17,6 @@ const authRouter = require("./routers/auth.router")
 const newsletterRouter = require("./routers/newsletter.router")
 const chromeExtensionRouter = require("./routers/chrome-extension.router")
 
-// Config and setup
 const clearTwigCache = () => {
 	twig.cache(false)
 }
@@ -53,21 +52,17 @@ app.use((req, res, next) => {
 	next()
 })
 
-// Routes
 app.use("/", middleware.logRequest, pageRouter)
 
-// Endpoints
 app.use("/common/v1", middleware.logRequest, infoRouter)
 app.use("/common/v1", middleware.logRequest, authRouter)
 app.use("/common/v1", middleware.logRequest, newsletterRouter)
 app.use("/common/v1", middleware.logRequest, chromeExtensionRouter)
 
-// 404 error Fallback
 app.use("/{*splat}", (req, res) => {
 	res.status(404).send({ message: "Frontend-route or endpoint not found. Error 404." })
 })
 
-// Server console
 app.listen(port, async () => {
 	console.log(chalk.blueBright("----------------------------------------"))
 	console.log(chalk.blue("----- Welcome to WebDev HQ Web API -----"))
