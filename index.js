@@ -1,8 +1,10 @@
 require("dotenv").config()
 // Imports
 const express = require("express")
-const app = express()
+const session = require("express-session")
+const cookieParser = require("cookie-parser")
 const cors = require("cors")
+const app = express()
 const chalk = require("chalk")
 const path = require("path")
 const twig = require("twig")
@@ -33,6 +35,8 @@ chokidar.watch("./views").on("change", () => {
 	clearTwigCache()
 	console.log(chalk.bgGreenBright.white("Twig cache cleared"))
 })
+
+app.use(cookieParser())
 
 // Routes
 app.use("/", middleware.logRequest, pageRouter)

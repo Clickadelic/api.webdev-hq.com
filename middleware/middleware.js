@@ -38,7 +38,7 @@ const middleware = {
 	},
 	isLoggedIn: (req, res, next) => {
 		try {
-			const authHeader = req.headers.authorization
+			const authHeader = req.headers.authorization || localStorage.getItem("token")
 			const token = authHeader.split(" ")[1]
 			const decoded = jwt.verify(token, process.env.JWT_SECRET)
 			req.userData = decoded
@@ -72,6 +72,19 @@ const middleware = {
 		} else {
 			// If no token, return forbidden (403)
 			res.sendStatus(403)
+		}
+	},
+	verifyTokenFromCookie: (req, res, next) => {
+		const token = req.cookies.token
+		if (!token) {
+			return res.redirect("/login")
+		}
+		try {
+			const decoded = jwt.verify(token, process.env.JWT_SECRET)
+			req.user = decoded
+			next()
+		} catch (err) {
+			return res.redirect("/login")
 		}
 	}
 }

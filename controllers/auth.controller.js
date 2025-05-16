@@ -36,7 +36,7 @@ const authController = {
 		try {
 			const user = await prisma.user.findUnique({
 				where: {
-					username: req.body.username
+					email: req.body.email
 				}
 			})
 			if (user) {
@@ -47,7 +47,7 @@ const authController = {
 					if (match) {
 						const token = jwt.sign(
 							{
-								username: user.username,
+								email: user.email,
 								userId: user.id
 							},
 							process.env.JWT_SECRET,
@@ -56,6 +56,12 @@ const authController = {
 							}
 						)
 						user.password = undefined
+						res.cookie("token", token, {
+							httpOnly: true,
+							secure: process.env.NODE_ENV === "production",
+							sameSite: "lax",
+							maxAge: 2 * 60 * 60 * 1000 // 2 Stunden
+						})
 						return res.status(200).json({
 							message: "login_successful",
 							token,

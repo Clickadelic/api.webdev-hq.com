@@ -48,7 +48,7 @@ const handleRegister = async e => {
 				return
 			}
 			if (response.ok) {
-				showUserMessage("bg-green-200", "Please confirm your registration in your e-mail.")
+				showUserMessage("bg-green-200", "Confirm your registration in your e-mail.")
 				return
 			}
 		})
