@@ -3,10 +3,9 @@
 
 {% block title %}Dashboard &middot; WebDev HQ API{% endblock %}
 
-{% block main %}
-<main class="container mx-auto pt-3 pb-6">
+{% block content %}
 	<div class="flex justify-between gap-6">
-		<aside class="w-64 bg-white px-4 py-2 rounded-sm shadow-sm">
+		<aside class="w-64 px-4 py-2">
 			<h2 class="text-2xl mb-3">Navigation</h2>
 			<ul class="space-y-1">
 				<li><a href="#">Dashboard</a></li>
@@ -17,9 +16,9 @@
 				<li><a href="#">Link</a></li>
 			</ul>
 		</aside>
-		<section class="flex-1 bg-white px-4 py-2 rounded-sm shadow-sm">
+		<section class="flex-1 px-4 py-2">
+			<h2 class="text-2xl mb-3">Dashboard</h2>
 			<p>Content all over the place.</p>
 		</section>
 	</div>
-</main>
 {% endblock %}

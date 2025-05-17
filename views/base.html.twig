@@ -152,6 +152,11 @@
 	{% block footer %}
 		{% include 'partials/footer.twig' %}
 	{% endblock %}
+	{% block photo_credits %}
+	<div class="absolute bottom-60 md:bottom-32 left-4">
+		<p class="text-white text-xs">Photo by <a href="https://unsplash.com/de/@hassaanhre?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" target="_blank" class="underline hover:text-mantis-primary">Hassaan Here</a> on <a href="https://unsplash.com/de/fotos/ein-computergeneriertes-bild-einer-gekrummten-oberflache-O8s_2_pEISg?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" target="_blank" class="underline hover:text-mantis-primary">Unsplash</a></p>
+	</div>
+	{% endblock %}
 {% block scripts %}
 <script src="./assets/js/scripts.min.js" type="module"></script>
 {% endblock %}
