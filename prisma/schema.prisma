@@ -20,15 +20,17 @@ enum Role {
 }
 
 model User {
-    id             String   @id @default(uuid())
-    username       String   @unique @db.VarChar(20)
-    email          String   @unique
-    emailConfirmed Boolean  @default(false)
-    password       String
-    agreedToTerms  Boolean  @default(false)
-    role           Role     @default(USER)
-    createdAt      DateTime @default(now())
-    updatedAt      DateTime @default(now())
+    id                String   @id @default(uuid())
+    username          String   @unique @db.VarChar(20)
+    email             String   @unique
+    emailConfirmed    Boolean  @default(false)
+    password          String
+    agreedToTerms     Boolean  @default(false)
+    confirmationToken String
+    confirmed         Boolean  @default(false)
+    role              Role     @default(USER)
+    createdAt         DateTime @default(now())
+    updatedAt         DateTime @default(now())
 }
 
 model Subscriber {
