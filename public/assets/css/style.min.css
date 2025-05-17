@@ -21,6 +21,7 @@
     --color-gray-100: oklch(96.7% 0.003 264.542);
     --color-gray-200: oklch(92.8% 0.006 264.531);
     --color-gray-400: oklch(70.7% 0.022 261.325);
+    --color-gray-500: oklch(55.1% 0.027 264.364);
     --color-gray-700: oklch(37.3% 0.034 259.733);
     --color-gray-800: oklch(27.8% 0.033 256.848);
     --color-neutral-500: oklch(55.6% 0 0);
@@ -261,6 +262,9 @@
   .my-2 {
     margin-block: calc(var(--spacing) * 2);
   }
+  .my-2\.5 {
+    margin-block: calc(var(--spacing) * 2.5);
+  }
   .my-3 {
     margin-block: calc(var(--spacing) * 3);
   }
@@ -358,6 +362,9 @@
   .size-12 {
     width: calc(var(--spacing) * 12);
     height: calc(var(--spacing) * 12);
+  }
+  .h-96 {
+    height: calc(var(--spacing) * 96);
   }
   .h-\[48px\] {
     height: 48px;
@@ -461,11 +468,25 @@
   .gap-x-1\.5 {
     column-gap: calc(var(--spacing) * 1.5);
   }
+  .space-x-2 {
+    :where(& > :not(:last-child)) {
+      --tw-space-x-reverse: 0;
+      margin-inline-start: calc(calc(var(--spacing) * 2) * var(--tw-space-x-reverse));
+      margin-inline-end: calc(calc(var(--spacing) * 2) * calc(1 - var(--tw-space-x-reverse)));
+    }
+  }
   .space-x-3 {
     :where(& > :not(:last-child)) {
       --tw-space-x-reverse: 0;
       margin-inline-start: calc(calc(var(--spacing) * 3) * var(--tw-space-x-reverse));
       margin-inline-end: calc(calc(var(--spacing) * 3) * calc(1 - var(--tw-space-x-reverse)));
+    }
+  }
+  .space-x-4 {
+    :where(& > :not(:last-child)) {
+      --tw-space-x-reverse: 0;
+      margin-inline-start: calc(calc(var(--spacing) * 4) * var(--tw-space-x-reverse));
+      margin-inline-end: calc(calc(var(--spacing) * 4) * calc(1 - var(--tw-space-x-reverse)));
     }
   }
   .divide-y {
@@ -501,9 +522,20 @@
     border-style: var(--tw-border-style);
     border-width: 1px;
   }
+  .border-t {
+    border-top-style: var(--tw-border-style);
+    border-top-width: 1px;
+  }
+  .border-t-2 {
+    border-top-style: var(--tw-border-style);
+    border-top-width: 2px;
+  }
   .border-b {
     border-bottom-style: var(--tw-border-style);
     border-bottom-width: 1px;
+  }
+  .border-mantis-primary {
+    border-color: var(--color-mantis-primary);
   }
   .border-slate-200 {
     border-color: var(--color-slate-200);
@@ -526,11 +558,11 @@
   .bg-slate-200 {
     background-color: var(--color-slate-200);
   }
+  .bg-slate-800 {
+    background-color: var(--color-slate-800);
+  }
   .bg-white {
     background-color: var(--color-white);
-  }
-  .p-1 {
-    padding: calc(var(--spacing) * 1);
   }
   .p-2 {
     padding: calc(var(--spacing) * 2);
@@ -559,26 +591,11 @@
   .py-2 {
     padding-block: calc(var(--spacing) * 2);
   }
-  .py-3 {
-    padding-block: calc(var(--spacing) * 3);
-  }
   .py-4 {
     padding-block: calc(var(--spacing) * 4);
   }
   .py-6 {
     padding-block: calc(var(--spacing) * 6);
-  }
-  .pt-1 {
-    padding-top: calc(var(--spacing) * 1);
-  }
-  .pt-1\.5 {
-    padding-top: calc(var(--spacing) * 1.5);
-  }
-  .pt-2 {
-    padding-top: calc(var(--spacing) * 2);
-  }
-  .pb-1 {
-    padding-bottom: calc(var(--spacing) * 1);
   }
   .pb-2 {
     padding-bottom: calc(var(--spacing) * 2);
@@ -709,13 +726,6 @@
       }
     }
   }
-  .hover\:bg-mantis-primary {
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--color-mantis-primary);
-      }
-    }
-  }
   .hover\:bg-mantis-primary-hover {
     &:hover {
       @media (hover: hover) {
@@ -730,6 +740,20 @@
       }
     }
   }
+  .hover\:text-gray-200 {
+    &:hover {
+      @media (hover: hover) {
+        color: var(--color-gray-200);
+      }
+    }
+  }
+  .hover\:text-gray-500 {
+    &:hover {
+      @media (hover: hover) {
+        color: var(--color-gray-500);
+      }
+    }
+  }
   .hover\:text-mantis-primary {
     &:hover {
       @media (hover: hover) {
@@ -741,6 +765,20 @@
     &:hover {
       @media (hover: hover) {
         color: var(--color-mantis-primary-hover);
+      }
+    }
+  }
+  .hover\:text-slate-200 {
+    &:hover {
+      @media (hover: hover) {
+        color: var(--color-slate-200);
+      }
+    }
+  }
+  .hover\:text-slate-500 {
+    &:hover {
+      @media (hover: hover) {
+        color: var(--color-slate-500);
       }
     }
   }

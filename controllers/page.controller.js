@@ -5,6 +5,9 @@ const pageController = {
 	getDocsPage: (req, res) => {
 		return res.render("./pages/docs")
 	},
+	getAboutPage: (req, res) => {
+		return res.render("./pages/about")
+	},
 	getRegisterPage: (req, res) => {
 		return res.render("./pages/register")
 	},

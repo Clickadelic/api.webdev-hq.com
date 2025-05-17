@@ -135,7 +135,10 @@
 	{% endblock %}
 </head>
 {% endblock %}
+{% block body %}
 <body id="top" class="min-h-screen flex flex-col bg-slate-100 font-poppins">
+	{% block after_body_start %}
+	{% endblock %}
 	{% block before_header %}
 	{% endblock %}
 	{% block header %}
@@ -146,9 +149,9 @@
 	{% block before_main %}
 	{% endblock %}
 	{% block main %}
-    <main class="container mx-auto flex-1 p-4 mb-4 bg-white shadow-sm rounded-sm">
-        {% block content %}Main Content{% endblock %}
-    </main>
+	<main class="container mx-auto flex-1 p-4 mb-4 bg-white shadow-sm rounded-sm">
+		{% block content %}Main Content{% endblock %}
+	</main>
 	{% endblock %}
 	{% block after_main %}
 	{% endblock %}
@@ -159,8 +162,11 @@
 	{% endblock %}
 	{% block after_footer %}
 	{% endblock %}
+	{% block before_body_end %}
+	{% endblock %}
 {% block scripts %}
 <script src="./assets/js/scripts.min.js" type="module"></script>
 {% endblock %}
 </body>
+{% endblock %}
 </html>

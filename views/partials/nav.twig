@@ -1,51 +1,7 @@
 <nav>
-	<ul class="flex justify-end gap-3">
 	{% if user %}
-		<li>
-			<!-- Dropdown Tailwind 4.1 https://tailwindcss.com/plus/ui-blocks/application-ui/elements/dropdowns -->
-			<div class="relative inline-block text-left">
-				<div>
-					<button type="button" class="inline-flex w-full justify-center gap-x-1.5 rounded-sm bg-white px-3 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-200 hover:cursor-pointer" id="menu-button" aria-expanded="false" aria-haspopup="true">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mt-[2px] mr-1 bi bi-person-circle" viewBox="0 0 16 16">
-								<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-								<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-							</svg>
-						{{ user.username}}
-						<svg class="-mr-1 size-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-							<path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
-						</svg>
-					</button>
-				</div>
-				<div id="dropdown-menu" class="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-sm bg-white shadow-lg ring-1 ring-black/5 focus:outline-none hidden" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-					<div class="py-1" role="none">
-						<a href="/account" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1">Account</a>
-						<a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1">Free item</a>
-					</div>
-					<div class="py-1" role="none">
-						<button id="logout-btn" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1">Log out</button>
-					</div>
-				</div>
-			</div>
-		</li>
-		{% else %}
-		<li>
-			<a href="/register" class="flex justify-between px-2 py-1 text-slate-800 border border-slate-200 hover:bg-slate-200 rounded-sm" title="Register">
-				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mt-1 mr-2 bi bi-check2-circle" viewBox="0 0 16 16">
-					<path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
-					<path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
-				</svg>
-				Register
-			</a>
-		</li>
-		<li>
-			<a href="/login" class="flex justify-between px-2 py-1 text-white bg-mantis-primary border border-slate-200 hover:bg-mantis-primary-hover rounded-sm" title="Login">
-				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mt-1 mr-2 bi bi-door-open" viewBox="0 0 16 16">
-					<path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1"/>
-					<path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117M11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5M4 1.934V15h6V1.077z"/>
-				</svg>
-				Login
-			</a>
-		</li>
+		{% include 'partials/navbars/auth-nav.twig' %}
+	{% else %}
+		{% include 'partials/navbars/public-nav.twig' %}
 	{% endif %}
-	</ul>
 </nav>

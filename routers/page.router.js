@@ -6,6 +6,7 @@ const pageController = require("../controllers/page.controller")
 // Public Routes
 pageRouter.get("/", pageController.getIndexPage)
 pageRouter.get("/docs", pageController.getDocsPage)
+pageRouter.get("/about", pageController.getAboutPage)
 pageRouter.get("/login", pageController.getLoginPage)
 pageRouter.get("/register", pageController.getRegisterPage)
 pageRouter.get("/forgot-password", pageController.getForgotPasswordPage)
