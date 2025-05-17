@@ -2,9 +2,7 @@
 {% extends "base.html.twig" %}
 
 {% block main %}
-	<main class="container mx-auto flex flex-col justify-center h-96">
-        {% block content %}
-			<h2 class="text-5xl text-center">WebDev HQ {API}</h2>
-		{% endblock %}
-    </main>
+<div class="container mx-auto flex-1 my-16p-2 md:p-4 lg:p-8 rounded-md">
+	{% include 'partials/api-intro.twig' %}
+</div>
 {% endblock %}

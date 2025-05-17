@@ -136,14 +136,14 @@
 </head>
 {% endblock %}
 {% block body %}
-<body id="top" class="min-h-screen flex flex-col bg-slate-100 font-poppins">
+<body id="top" class="h-dvh flex flex-col bg-slate-100 font-poppins bg-abstract-blue bg-cover">
 	{% block header %}
 		{% include 'partials/header.twig' %}
 	{% endblock %}
 	{% block main %}
 	<main class="container mx-auto flex-1 p-4 mb-4 bg-white shadow-sm rounded-sm">
 		{% block content %}
-			<h2 class="text-5xl">Main Content</h2>
+			<h2 class="text-5xl text-center">Main Content</h2>
 		{% endblock %}
 	</main>
 	{% endblock %}
