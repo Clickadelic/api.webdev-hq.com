@@ -1,4 +1,5 @@
 require("./mega-menu.js")
+require("./dropdown.js")
 require("./copy-to-clipboard.js")
 require("./newsletter.js")
 require("./register.js")

@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken")
 const chalk = require("chalk")
 
 const middleware = {
-	logRequest: (req, res, next) => {
+	logRequests: (req, res, next) => {
 		res.locals.currentPath = req.url
 		console.log(
 			chalk.yellowBright("Method:"),

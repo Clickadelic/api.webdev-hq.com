@@ -7,10 +7,9 @@ const app = express()
 const chalk = require("chalk")
 const path = require("path")
 const twig = require("twig")
-const jwt = require("jsonwebtoken")
 const port = process.env.PORT || 5000
 const chokidar = require("chokidar")
-const middleware = require("./middleware/middleware")
+const middleware = require("./middleware")
 const pageRouter = require("./routers/page.router")
 const infoRouter = require("./routers/info.router")
 const authRouter = require("./routers/auth.router")
@@ -36,7 +35,7 @@ chokidar.watch("./views").on("change", () => {
 	console.log(chalk.bgGreenBright.white("Twig cache cleared"))
 })
 
-app.use(middleware.logRequest)
+app.use(middleware.logRequests)
 app.use(middleware.setBreadcrumbs)
 app.use(middleware.checkAuthStatus)
 

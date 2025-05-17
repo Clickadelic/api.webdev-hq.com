@@ -1,7 +1,8 @@
 {# child.html.twig #}
 {% extends "base.html.twig" %}
 
-{% block content %}
-	<h2 class="text-3xl font-medium mb-6">Home</h2>
-	<p>Welcome to WebDev HQ API-Service.</p>
+{% block main %}
+	<main class="container mx-auto flex-1 mt-4 p-4 mb-4 bg-white shadow-sm rounded-sm">
+        {% block content %}Main Content{% endblock %}
+    </main>
 {% endblock %}

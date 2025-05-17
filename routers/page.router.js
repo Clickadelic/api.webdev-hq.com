@@ -1,5 +1,5 @@
 const express = require("express")
-const middleware = require("../middleware/middleware")
+const middleware = require("../middleware")
 const pageRouter = express.Router()
 const pageController = require("../controllers/page.controller")
 
