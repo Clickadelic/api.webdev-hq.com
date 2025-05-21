@@ -2,8 +2,6 @@
 
 {% block title %}Newsletter &middot; WebDev HQ API{% endblock %}
 
-{% block main %}
-<main class="container mx-auto flex-1 justify-center align-center">
-    {% include 'partials/forms/newsletter-form.twig' %}
-</main>
+{% block content %}
+	{% include 'partials/forms/newsletter-form.twig' %}
 {% endblock %}

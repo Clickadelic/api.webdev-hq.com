@@ -56,5 +56,3 @@ app.listen(port, async () => {
 	console.log(chalk.blue(">>>>>>>> " + `${process.env.APP_URL}:${process.env.PORT}`, " <<<<<<<<"))
 	console.log(chalk.blueBright("----------------------------------------"))
 })
-
-module.exports = app

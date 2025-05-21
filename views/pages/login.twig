@@ -2,8 +2,6 @@
 
 {% block title %}Login &middot; WebDev HQ API{% endblock %}
 
-{% block main %}
-<main class="container mx-auto flex-1 justify-center align-center">
-    {% include 'partials/forms/login-form.twig' %}
-</main>
+{% block content %}
+	{% include 'partials/forms/login-form.twig' %}
 {% endblock %}
