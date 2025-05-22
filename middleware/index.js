@@ -20,7 +20,7 @@ const middleware = {
 		next()
 	},
 	validateRegistration: (req, res, next) => {
-		if (!req.body.name || req.body.name.length < 4) {
+		if (!req.body.username || req.body.username.length < 4) {
 			return res.status(400).send({
 				message: "min_3_characters"
 			})

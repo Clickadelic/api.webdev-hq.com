@@ -8,14 +8,13 @@ const prisma = new PrismaClient()
 const authController = {
 	registerUser: async (req, res) => {
 		try {
-			const existingEmail = await prisma.user.findUnique({
+			const existingUser = await prisma.user.findUnique({
 				where: {
 					email: req.body.email
 				}
 			})
 
-			if (existingEmail) {
-				// Problem 1: Füge 'return' hinzu, um die Funktion hier zu beenden
+			if (existingUser) {
 				return res.status(409).send({ message: "email_already_taken" })
 			}
 
@@ -23,19 +22,32 @@ const authController = {
 			const hashedPassword = await bcrypt.hash(req.body.password, salt)
 
 			const newUser = {
-				name: req.body.name,
+				username: req.body.username,
 				email: req.body.email,
 				password: hashedPassword
 			}
 
-			await prisma.user.create({
+			const createdUser = await prisma.user.create({
 				data: newUser
+			})
+
+			const verificationToken = String(Math.floor(100000 + Math.random() * 900000))
+
+			const expires = new Date()
+			expires.setHours(expires.getHours() + 24) // Token ist 24 Stunden gültig
+
+			// Erstelle den Verifizierungs-Token und verknüpfe ihn mit dem neuen Benutzer
+			await prisma.verificationToken.create({
+				data: {
+					email: createdUser.email,
+					token: verificationToken,
+					expires: expires
+				}
 			})
 
 			return res.status(200).send({ message: "register_successful" })
 		} catch (error) {
 			console.error(error)
-			// Problem 3: Verschiebe die Fehlerantwort in den 'catch'-Block und füge 'return' hinzu
 			return res.status(500).send({ message: "something_went_wrong" })
 		}
 	},
