@@ -37,7 +37,6 @@ chokidar.watch("./views").on("change", () => {
 
 app.use(middleware.logRequests)
 app.use(middleware.setBreadcrumbs)
-app.use(middleware.checkAuthStatus)
 
 app.use("/", pageRouter)
 app.use("/common/v1", infoRouter)
@@ -48,7 +47,7 @@ app.use("/common/v1", chromeExtensionRouter)
 app.use("/{*splat}", (req, res) => {
 	res.status(404).send({ message: "Frontend-route or endpoint not found. Error 404." })
 })
-// Test
+
 app.listen(port, async () => {
 	console.log(chalk.blueBright("----------------------------------------"))
 	console.log(chalk.blue("----- Welcome to WebDev HQ Web API -----"))
