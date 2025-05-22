@@ -96,7 +96,6 @@ const authController = {
 		}
 	},
 	getUsers: async (req, res) => {
-		console.log(req.body)
 		try {
 			const users = await prisma.user.findAll()
 			users.forEach(user => {
