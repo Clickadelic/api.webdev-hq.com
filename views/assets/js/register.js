@@ -40,7 +40,7 @@ const handleRegister = async e => {
 
 	try {
 		console.log("Frontend start fetch:", formData)
-		await fetch("/common/v1/auth/register", {
+		await fetch("https://api.webdev-hq.com/common/v1/auth/register", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
