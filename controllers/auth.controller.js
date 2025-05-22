@@ -8,35 +8,38 @@ const prisma = new PrismaClient()
 const authController = {
 	registerUser: async (req, res) => {
 		try {
-			const user = await prisma.user.findUnique({
+			const existingEmail = await prisma.user.findUnique({
 				where: {
-					username: req.body.username
+					email: req.body.email
 				}
 			})
-			if (user) {
-				res.status(409).send({ message: "username_already_taken" })
+
+			if (existingEmail) {
+				// Problem 1: Füge 'return' hinzu, um die Funktion hier zu beenden
+				return res.status(409).send({ message: "email_already_taken" })
 			}
+
 			const salt = await bcrypt.genSalt(10)
 			const hashedPassword = await bcrypt.hash(req.body.password, salt)
+
 			const newUser = {
-				username: req.body.username,
+				name: req.body.name,
 				email: req.body.email,
-				password: hashedPassword,
-				agreedToTerms: req.body.agreedToTerms
+				password: hashedPassword
 			}
+
+			// Problem 2: Korrekte Verwendung von prisma.user.create() mit 'data'
 			await prisma.user.create({
-				data: {
-					name: name,
-					email: email,
-					password: hashedPassword
-				}
+				data: newUser
 			})
+
+			// Erfolgreiche Registrierung
 			return res.status(200).send({ message: "register_successful" })
 		} catch (error) {
 			console.error(error)
+			// Problem 3: Verschiebe die Fehlerantwort in den 'catch'-Block und füge 'return' hinzu
+			return res.status(500).send({ message: "something_went_wrong" })
 		}
-
-		res.status(500).send({ message: "something_went_wrong" })
 	},
 	login: async (req, res) => {
 		try {
