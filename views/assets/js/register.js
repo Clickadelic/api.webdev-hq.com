@@ -10,12 +10,13 @@ if (window.location.pathname === "/register") {
 
 const handleRegister = async e => {
 	e.preventDefault()
-
+	console.log("Event", e)
 	const name = document.querySelector("input[name='name']").value
 	const email = document.querySelector("input[name='email']").value
 	const password = document.querySelector("input[name='password']").value
 	const passwordRepeat = document.querySelector("input[name='password-repeat']").value
 	const agreedToTerms = document.querySelector("input[name='agreed-to-terms']").checked
+	console.log("Register.js: ", name, email, password, passwordRepeat, agreedToTerms)
 
 	if (!name || !password || !passwordRepeat || !agreedToTerms) {
 		showUserMessage("bg-rose-200 text-muted-foreground", "Please fill out all fields.")
@@ -35,7 +36,10 @@ const handleRegister = async e => {
 		agreedToTerms
 	}
 
+	console.log("Formdata", formData)
+
 	try {
+		console.log("Frontend start fetch:", formData)
 		await fetch("/common/v1/auth/register", {
 			method: "POST",
 			headers: {
@@ -43,8 +47,8 @@ const handleRegister = async e => {
 			},
 			body: JSON.stringify(formData)
 		}).then(response => {
-			if (response.status === 400 && message === "min_3_characters") {
-				showUserMessage("bg-rose-200", "Min 3 chars.")
+			if (!response.ok) {
+				showUserMessage("bg-rose-200", "Server error")
 				return
 			}
 			if (response.ok) {
