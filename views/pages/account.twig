@@ -2,9 +2,9 @@
 {% extends "base.html.twig" %}
 
 {% block title %}Account &middot; WebDev HQ API{% endblock %}
-{% block main %}
-    <main class="container mx-auto flex-1 p-4 my-4 text-center">
-		<div class="w-96 bg-white mx-auto p-8 rounded-sm shadow-sm">
+{% block content %}
+	<div class="p-2 bg-white/30 backdrop-blur rounded mx-3 sm:mx-0">
+		<div class="bg-white p-4 rounded">
 			<h2 class="text-3xl font-medium mb-6">{{ user.username }}</h2>
 			<img src="./images/user.png" class="size-12 mx-auto border rounded-full border-slate-300 my-8" alt="User Avatar" />
 			<ul class="space-y-2 m-2 text-left">
@@ -18,5 +18,5 @@
 				<li>{{ user.role }}</li>
 			</ul>
 		</div>
-	</main>
+	</div>
 {% endblock %}
