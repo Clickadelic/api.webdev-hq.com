@@ -55,7 +55,7 @@ const authController = {
 							{
 								email: user.email,
 								userId: user.id,
-								username: user.username,
+								name: user.name,
 								role: user.role
 							},
 							process.env.JWT_SECRET,
@@ -69,7 +69,6 @@ const authController = {
 							sameSite: "lax",
 							maxAge: 2 * 60 * 60 * 1000 // 2 Stunden
 						})
-						console.log(user)
 						return res.status(200).json({
 							message: "login_successful",
 							token,
