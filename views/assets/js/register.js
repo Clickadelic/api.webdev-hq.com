@@ -1,13 +1,3 @@
-const showUserMessage = require("./lib").showUserMessage
-
-if (window.location.pathname === "/register") {
-	document.addEventListener("DOMContentLoaded", () => {
-		document.getElementsByTagName("form")[0].addEventListener("submit", e => {
-			handleRegister(e)
-		})
-	})
-}
-
 const handleRegister = async e => {
 	e.preventDefault()
 	console.log("Event", e)
@@ -18,7 +8,9 @@ const handleRegister = async e => {
 	const agreedToTerms = document.querySelector("input[name='agreed-to-terms']").checked
 	console.log("Register.js: ", name, email, password, passwordRepeat, agreedToTerms)
 
-	if (!name || !password || !passwordRepeat || !agreedToTerms) {
+	// Frontend-Validierung (gut, diese beizubehalten, bevor ein Request gesendet wird)
+	if (!name || !email || !password || !passwordRepeat || !agreedToTerms) {
+		// email hinzugefügt
 		showUserMessage("bg-rose-200 text-muted-foreground", "Please fill out all fields.")
 		return
 	}
@@ -28,8 +20,22 @@ const handleRegister = async e => {
 		return
 	}
 
+	// Zusätzliche Frontend-Validierung, die deinem Backend entspricht (optional, aber empfohlen)
+	if (name.length < 4) {
+		showUserMessage("bg-rose-200 text-muted-foreground", "Username must be at least 4 characters.")
+		return
+	}
+	if (email.length < 5) {
+		showUserMessage("bg-rose-200 text-muted-foreground", "Email must be at least 5 characters.")
+		return
+	}
+	if (password.length < 6) {
+		showUserMessage("bg-rose-200 text-muted-foreground", "Password must be at least 6 characters.")
+		return
+	}
+
 	const formData = {
-		name,
+		username: name, // Wichtig: Backend erwartet 'username', nicht 'name'
 		email,
 		password,
 		passwordRepeat,
@@ -40,23 +46,29 @@ const handleRegister = async e => {
 
 	try {
 		console.log("Frontend start fetch:", formData)
-		await fetch("https://api.webdev-hq.com/common/v1/auth/register", {
+		const response = await fetch("https://api.webdev-hq.com/common/v1/auth/register", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
 			},
 			body: JSON.stringify(formData)
-		}).then(response => {
-			if (!response.ok) {
-				showUserMessage("bg-rose-200", "Server error")
-				return
-			}
-			if (response.ok) {
-				showUserMessage("bg-green-200", "Please confirm your e-mail.")
-				return
-			}
 		})
+
+		const responseData = await response.json() // Immer den Body parsen
+
+		if (!response.ok) {
+			// Wenn response.ok false ist (z.B. 400 Bad Request), behandle den Fehler
+			const errorMessage = responseData.message || "An unknown error occurred."
+			showUserMessage("bg-rose-200", errorMessage) // Zeige die Backend-Fehlermeldung
+			return
+		}
+
+		// Wenn response.ok true ist (z.B. 200 OK), ist alles in Ordnung
+		showUserMessage("bg-green-200", "Please confirm your e-mail.")
+		// Optional: Weiterleitung oder andere Aktionen bei Erfolg
+		// window.location.href = "/confirmation-sent";
 	} catch (error) {
-		console.log(error)
+		console.error("Fetch error:", error) // Nutze console.error für Fehler
+		showUserMessage("bg-rose-200", "Network error or unhandled exception.")
 	}
 }
