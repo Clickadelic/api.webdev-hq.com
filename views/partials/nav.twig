@@ -1,5 +1,5 @@
 <nav>
-	{% if user %}
+	{% if not user %}
 		{% include 'partials/navbars/auth-nav.twig' %}
 	{% else %}
 		{% include 'partials/navbars/public-nav.twig' %}
