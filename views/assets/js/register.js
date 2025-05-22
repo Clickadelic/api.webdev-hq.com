@@ -10,7 +10,6 @@ const handleRegister = async e => {
 
 	// Frontend-Validierung (gut, diese beizubehalten, bevor ein Request gesendet wird)
 	if (!name || !email || !password || !passwordRepeat || !agreedToTerms) {
-		// email hinzugefügt
 		showUserMessage("bg-rose-200 text-muted-foreground", "Please fill out all fields.")
 		return
 	}
@@ -42,11 +41,9 @@ const handleRegister = async e => {
 		agreedToTerms
 	}
 
-	console.log("Formdata", formData)
-
 	try {
 		console.log("Frontend start fetch:", formData)
-		const response = await fetch("https://api.webdev-hq.com/common/v1/auth/register", {
+		const response = await fetch("/common/v1/auth/register", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"

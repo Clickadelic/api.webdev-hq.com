@@ -28,12 +28,10 @@ const authController = {
 				password: hashedPassword
 			}
 
-			// Problem 2: Korrekte Verwendung von prisma.user.create() mit 'data'
 			await prisma.user.create({
 				data: newUser
 			})
 
-			// Erfolgreiche Registrierung
 			return res.status(200).send({ message: "register_successful" })
 		} catch (error) {
 			console.error(error)
