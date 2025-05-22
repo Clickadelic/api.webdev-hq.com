@@ -7,13 +7,6 @@ const prisma = new PrismaClient()
 
 const authController = {
 	registerUser: async (req, res) => {
-		const publicRegistrationSchema = UserCreateSchema.pick({
-			username: true,
-			email: true,
-			password: true,
-			agreedToTerms: true
-		})
-
 		try {
 			const user = await prisma.user.findUnique({
 				where: {
