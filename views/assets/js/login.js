@@ -35,7 +35,8 @@ const handleLogin = async e => {
 			showUserMessage("bg-green-200", "Login successful.")
 			setTimeout(() => (window.location.href = "/dashboard"), 1000) // Weiterleitung nach Login
 		} else {
-			showUserMessage("bg-rose-200", data.message || "Login failed.")
+			showUserMessage("bg-rose-200", "Login failed.")
+			console.log(data)
 		}
 	} catch (error) {
 		console.log(error)

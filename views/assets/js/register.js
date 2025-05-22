@@ -17,8 +17,6 @@ const handleRegister = async e => {
 	const passwordRepeat = document.querySelector("input[name='password-repeat']").value
 	const agreedToTerms = document.querySelector("input[name='agreed-to-terms']").checked
 
-	console.log(name, email, password, passwordRepeat, agreedToTerms)
-
 	if (!name || !password || !passwordRepeat || !agreedToTerms) {
 		showUserMessage("bg-rose-200 text-muted-foreground", "Please fill out all fields.")
 		return
