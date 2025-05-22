@@ -7,37 +7,36 @@ const prisma = new PrismaClient()
 
 const authController = {
 	registerUser: async (req, res) => {
-		const publicRegistrationSchema = UserCreateSchema.pick({
-			username: true,
-			email: true,
-			password: true,
-			agreedToTerms: true
+		const { name, email, password, passwordRepeat } = req.body
+
+		const existingEmail = await prisma.user.findUnique({
+			where: {
+				email: email
+			}
 		})
+		if (existingEmail) {
+			return res.status(409).json({ message: "email_already_exists" })
+		}
+
+		if (password !== passwordRepeat) {
+			return res.status(400).json({ message: "passwords_do_not_match" })
+		}
 
 		try {
-			const user = await prisma.user.findUnique({
-				where: {
-					username: req.body.username
+			const hashedPassword = await bcrypt.hash(password, 10)
+			await prisma.user.create({
+				data: {
+					name: name,
+					email: email,
+					password: hashedPassword
 				}
 			})
-			if (user) {
-				res.status(409).send({ message: "username_already_taken" })
-			}
-			const salt = await bcrypt.genSalt(10)
-			const hashedPassword = await bcrypt.hash(req.body.password, salt)
-			const newUser = {
-				username: req.body.username,
-				email: req.body.email,
-				password: hashedPassword,
-				agreedToTerms: req.body.agreedToTerms
-			}
-			await prisma.user.create({
-				data: newUser
-			})
-			res.status(201).send({ message: "user_created" })
+			return res.status(200).send({ message: "register_successful" })
 		} catch (error) {
-			res.status(504).send({ message: error })
+			console.error(error)
 		}
+
+		res.status(500).send({ message: "something_went_wrong" })
 	},
 	login: async (req, res) => {
 		try {

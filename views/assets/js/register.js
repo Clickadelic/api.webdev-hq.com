@@ -11,13 +11,15 @@ if (window.location.pathname === "/register") {
 const handleRegister = async e => {
 	e.preventDefault()
 
-	const username = document.querySelector("input[name='username']").value
+	const name = document.querySelector("input[name='name']").value
 	const email = document.querySelector("input[name='email']").value
 	const password = document.querySelector("input[name='password']").value
 	const passwordRepeat = document.querySelector("input[name='password-repeat']").value
 	const agreedToTerms = document.querySelector("input[name='agreed-to-terms']").checked
 
-	if (!username || !password || !passwordRepeat || !agreedToTerms) {
+	console.log(name, email, password, passwordRepeat, agreedToTerms)
+
+	if (!name || !password || !passwordRepeat || !agreedToTerms) {
 		showUserMessage("bg-rose-200 text-muted-foreground", "Please fill out all fields.")
 		return
 	}
@@ -28,7 +30,7 @@ const handleRegister = async e => {
 	}
 
 	const formData = {
-		username,
+		name,
 		email,
 		password,
 		passwordRepeat,
@@ -43,12 +45,12 @@ const handleRegister = async e => {
 			},
 			body: JSON.stringify(formData)
 		}).then(response => {
-			if (response.status === 409) {
-				showUserMessage("bg-rose-200", "Username or e-mail is already taken.")
+			if (response.status === 400 && message === "min_3_characters") {
+				showUserMessage("bg-rose-200", "Min 3 chars.")
 				return
 			}
 			if (response.ok) {
-				showUserMessage("bg-green-200", "Confirm your registration in your e-mail.")
+				showUserMessage("bg-green-200", "Please confirm your e-mail.")
 				return
 			}
 		})
