@@ -23,7 +23,7 @@ services:
       npx prisma migrate deploy
 
       # Starte deine ExpressJS-Anwendung
-      npm start # Oder "node dist/index.js" oder wie auch immer du deine App startest
+      node index.js
 
     # Umgebungsvariablen
     envVars:
