@@ -13,10 +13,6 @@ const extensionController = {
 				orientation: "landscape"
 			})
 
-			if (!result.response?.urls?.full) {
-				return res.status(500).json({ error: "Invalid image response from Unsplash" })
-			}
-
 			if (!result || !("response" in result) || !result.response) {
 				return res.status(500).json({ error: "No image found." })
 			}
