@@ -31,22 +31,12 @@ const extensionController = {
 				orientation: "landscape"
 			})
 
-			const image = result && "response" in result ? result.response : undefined
-
-			if (!image || !image.urls) {
-				return res.status(500).json({ error: "No image found or bad response." })
+			if (!result || !("response" in result) || !result.response) {
+				return res.status(500).json({ error: "No image found." })
 			}
 
-			// TODO wieder auf normal umschreiben, kein Custom-Objekt
-			// Du kannst hier z.B. nur die URL oder das ganze Bildobjekt zurückgeben
-			res.status(200).json({
-				id: image.id,
-				description: image.description || image.alt_description,
-				url: image.urls.full,
-				author: image.user?.name,
-				authorUrl: image.user?.links.html,
-				link: image.links.html
-			})
+			// Sende die vollständige, native Unsplash-Antwort
+			res.status(200).json(result.response)
 		} catch (error) {
 			console.error("Fehler beim Laden des Bildes von Unsplash:", error)
 			res.status(500).json({ error: error.message })
