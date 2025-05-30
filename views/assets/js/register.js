@@ -54,7 +54,6 @@ if (window.location.pathname === "/register") {
 		}
 
 		try {
-			console.log("Frontend start fetch:", formData)
 			const response = await fetch("/common/v1/auth/register", {
 				method: "POST",
 				headers: {

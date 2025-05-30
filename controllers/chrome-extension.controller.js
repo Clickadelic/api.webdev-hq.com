@@ -8,19 +8,16 @@ const unsplash = createApi({
 const extensionController = {
 	getRandomImage: async (req, res) => {
 		try {
-			const result = await unsplash.photos.getRandom({
+			const response = await unsplash.photos.getRandom({
 				collectionIds: [process.env.UNSPLASH_COLLECTION_ID],
 				orientation: "landscape"
 			})
-
-			if (!result || !("response" in result) || !result.response) {
+			if (!response || !response.status || response.status !== 200) {
 				return res.status(500).json({ error: "No image found." })
 			}
-
-			// Sende die vollständige, native Unsplash-Antwort
-			res.status(200).json(result.response)
+			res.status(200).json(response)
 		} catch (error) {
-			console.error("Fehler beim Laden des Bildes von Unsplash:", error)
+			console.error("Error loading image from Unsplash:", error)
 			res.status(500).json({ error: error.message })
 		}
 	}
