@@ -50,6 +50,31 @@ const linkController = {
 		} catch (error) {
 			return res.status(504).send({ message: error })
 		}
+	},
+	editLink: async (req, res) => {
+		const id = req.body.id
+		const title = req.body.title
+		const description = req.body.description
+		const url = req.body.url
+
+		if (!id || !title || !description || !url) {
+			return res.status(400).send({ message: "missing_fields" })
+		}
+		try {
+			await prisma.link.update({
+				where: {
+					id
+				},
+				data: {
+					title,
+					description,
+					url
+				}
+			})
+			res.status(200).send({ message: "link_edited" })
+		} catch (error) {
+			return res.status(504).send({ message: error })
+		}
 	}
 }
 
