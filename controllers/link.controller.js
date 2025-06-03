@@ -9,6 +9,14 @@ const handlebars = require("handlebars")
 const transporter = require("../mail/transporter")
 
 const linkController = {
+	getLinks: async (req, res) => {
+		try {
+			const links = await prisma.link.findMany()
+			res.status(200).send(links)
+		} catch (error) {
+			return res.status(504).send({ message: error })
+		}
+	},
 	addNewLink: async (req, res) => {
 		const userId = req.body.userId
 		const title = req.body.title

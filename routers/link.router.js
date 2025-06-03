@@ -4,6 +4,7 @@ const linkRouter = express.Router()
 const linkController = require("../controllers/link.controller")
 
 // Protected Routes
+linkRouter.get("/links", linkController.getLinks)
 linkRouter.post("/links/new", linkController.addNewLink)
 
 module.exports = linkRouter

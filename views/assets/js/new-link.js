@@ -5,6 +5,25 @@ if (window.location.pathname === "/links") {
 		document.getElementsByTagName("form")[0].addEventListener("submit", e => {
 			handleNewLink(e)
 		})
+		fetch("/common/v1/links", {
+			method: "GET",
+			headers: { "Content-Type": "application/json" }
+		})
+			.then(response => response.json())
+			.then(data => {
+				data.forEach(link => {
+					const linkContainer = document.createElement("li")
+					linkContainer.classList.add("w-full", "flex", "flex-col", "items-start", "mb-2")
+					linkContainer.innerHTML = `
+						<a href="${link.url}" target="_blank" class="text-mantis-primary">${link.title}</a>
+						<p class="text-slate-400 text-sm">${link.description}</p>
+					`
+					document.querySelector(".links").appendChild(linkContainer)
+				})
+			})
+			.catch(error => {
+				console.error("Error fetching links:", error)
+			})
 	})
 }
 
@@ -35,7 +54,7 @@ const handleNewLink = async e => {
 		const data = await response.json()
 
 		if (response.ok) {
-			alert("Link created.")
+			showUserMessage("bg-emerald-200", "Link created.")
 			window.location.href = "/links"
 		} else {
 			showUserMessage("bg-rose-200", "Creation failed.")
