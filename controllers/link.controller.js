@@ -1,0 +1,48 @@
+const fs = require("fs")
+const path = require("path")
+const crypto = require("crypto")
+
+const { PrismaClient } = require("@prisma/client")
+const prisma = new PrismaClient()
+
+const handlebars = require("handlebars")
+const transporter = require("../mail/transporter")
+
+const linkController = {
+	addNewLink: async (req, res) => {
+		const userId = req.body.userId
+		const title = req.body.title
+		const description = req.body.description
+		const url = req.body.url
+
+		console.log("Formdata", userId, title, description, url)
+
+		if (!title || !description || !url) {
+			return res.status(400).send({ message: "missing_fields" })
+		}
+		try {
+			const existingLink = await prisma.link.findFirst({
+				where: {
+					url
+				}
+			})
+			console.log("Existing link:", existingLink)
+			if (existingLink) {
+				return res.status(409).send({ message: "link_already_exists" })
+			}
+			await prisma.link.create({
+				data: {
+					title,
+					url,
+					description,
+					userId
+				}
+			})
+			res.status(201).send({ message: "link_created" })
+		} catch (error) {
+			return res.status(504).send({ message: error })
+		}
+	}
+}
+
+module.exports = linkController

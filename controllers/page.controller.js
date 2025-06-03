@@ -40,6 +40,12 @@ const pageController = {
 	},
 	getAccountPage: (req, res) => {
 		return res.render("./pages/account", { currentPath: res.locals.currentPath, user: res.locals.user })
+	},
+	getPostsPage: (req, res) => {
+		return res.render("./pages/posts", { currentPath: res.locals.currentPath, user: res.locals.user })
+	},
+	getLinksPage: (req, res) => {
+		return res.render("./pages/links", { currentPath: res.locals.currentPath, user: res.locals.user })
 	}
 }
 

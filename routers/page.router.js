@@ -20,5 +20,7 @@ pageRouter.get("/newsletter-confirm", pageController.getNewsletterConfirmationPa
 // Protected Routes
 pageRouter.get("/dashboard", middleware.verifyTokenFromCookie, pageController.getDashboardPage)
 pageRouter.get("/account", middleware.verifyTokenFromCookie, pageController.getAccountPage)
+pageRouter.get("/posts", middleware.verifyTokenFromCookie, pageController.getPostsPage)
+pageRouter.get("/links", middleware.verifyTokenFromCookie, pageController.getLinksPage)
 
 module.exports = pageRouter
