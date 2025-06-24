@@ -1,0 +1,30 @@
+{# child.html.twig #}
+{% extends "base.html.twig" %}
+
+{% block title %}Dashboard &middot; WebDev HQ API{% endblock %}
+
+{% block content %}
+<div class="p-2 bg-white/30 backdrop-blur rounded mx-3 sm:mx-0">
+	<div class="bg-white p-4 rounded">
+		<div class="flex justify-between gap-6">
+			{% block sidebar %}
+				{% include 'partials/sidebar.twig' %}
+			{% endblock %}
+			<section class="flex-1 px-4 py-2 min-h-[500px]">
+				<h2 class="text-2xl mb-6">Dashboard</h2>
+				<div class="grid grid-cols-4 gap-4">
+					<div class="flex items-center gap-2 mb-3 rounded bg-slate-100 p-2">
+						<span>Posts</span>
+						<span class="post-count"></span>
+					</div>
+					<div class="flex items-center gap-2 mb-3 rounded bg-slate-100 p-2">
+						<span>Links</span>
+						<span class="link-count"></span>
+					</div>
+				</div>
+
+			</section>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,10 +1,7 @@
-{# child.html.twig #}
 {% extends "base.html.twig" %}
 
 {% block title %}Newsletter &middot; WebDev HQ API{% endblock %}
 
-{% block main %}
-<main class="container mx-auto flex flex-col justify-center align-center">
-    {% include 'partials/forms/newsletter-form.html.twig' %}
-</main>
+{% block content %}
+	{% include 'partials/forms/newsletter-form.twig' %}
 {% endblock %}

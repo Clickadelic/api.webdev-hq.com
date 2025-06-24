@@ -1,11 +1,12 @@
 const express = require("express")
-const middleware = require("../middleware/middleware")
+const middleware = require("../middleware")
 const pageRouter = express.Router()
 const pageController = require("../controllers/page.controller")
 
 // Public Routes
 pageRouter.get("/", pageController.getIndexPage)
 pageRouter.get("/docs", pageController.getDocsPage)
+pageRouter.get("/about", pageController.getAboutPage)
 pageRouter.get("/login", pageController.getLoginPage)
 pageRouter.get("/register", pageController.getRegisterPage)
 pageRouter.get("/forgot-password", pageController.getForgotPasswordPage)
@@ -17,6 +18,9 @@ pageRouter.get("/newsletter", pageController.getNewsletterPage)
 pageRouter.get("/newsletter-confirm", pageController.getNewsletterConfirmationPage)
 
 // Protected Routes
-pageRouter.get("/dashboard", middleware.isLoggedIn, pageController.getDashboardPage)
+pageRouter.get("/dashboard", middleware.verifyTokenFromCookie, pageController.getDashboardPage)
+pageRouter.get("/account", middleware.verifyTokenFromCookie, pageController.getAccountPage)
+pageRouter.get("/posts", middleware.verifyTokenFromCookie, pageController.getPostsPage)
+pageRouter.get("/links", middleware.verifyTokenFromCookie, pageController.getLinksPage)
 
 module.exports = pageRouter

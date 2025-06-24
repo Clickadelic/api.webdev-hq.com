@@ -1,168 +1,161 @@
-{# base.html.twig #}
+{# base.twig #}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 {% block head %}
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>{% block title %}WebDev HQ &middot; API Service{% endblock %}</title>
-	{% block favicons %}
-		<link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
-		<link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
-		<link rel="shortcut icon" href="/favicon/favicon.ico" />
-		<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
-		<meta name="apple-mobile-web-app-title" content="API" />
-		<link rel="manifest" href="/favicon/site.webmanifest" />
-	{% endblock %}
-	{% block stylesheet %}
-	<link rel="stylesheet" href="./assets/css/style.min.css" />
-	{% endblock %}
-	{% block head_inline_css %}
-	<style id="custom-fonts-css">
-		@font-face {
-			font-family: "La Belle Aurore";
-			src: url("./assets/fonts/La-Belle-Aurore/LaBelleAurore-Regular.ttf");
-		}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}WebDev HQ &middot; API Service{% endblock %}</title>
+    {% block favicons %}
+        <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+        <meta name="apple-mobile-web-app-title" content="API" />
+        <link rel="manifest" href="/favicon/site.webmanifest" />
+    {% endblock %}
+    {% block stylesheet %}
+    <link rel="stylesheet" href="./assets/css/style.min.css" />
+    {% endblock %}
+    {% block custom_fonts_css %}
+    <style id="custom-fonts-css">
+        @font-face {
+            font-family: "La Belle Aurore";
+            src: url("./assets/fonts/La-Belle-Aurore/LaBelleAurore-Regular.ttf");
+        }
 
-		@font-face {
-			font-family: "Poppins Black";
-			src: url("./assets/fonts/Poppins/Poppins-Black.ttf");
-		}
+        @font-face {
+            font-family: "Poppins Black";
+            src: url("./assets/fonts/Poppins/Poppins-Black.ttf");
+        }
 
-		@font-face {
-			font-family: "Poppins Black Italic";
-			src: url("./assets/fonts/Poppins/Poppins-BlackItalic.ttf");
-		}
+        @font-face {
+            font-family: "Poppins Black Italic";
+            src: url("./assets/fonts/Poppins/Poppins-BlackItalic.ttf");
+        }
 
-		@font-face {
-			font-family: "Poppins Bold";
-			src: url("./assets/fonts/Poppins/Poppins-Bold.ttf");
-		}
+        @font-face {
+            font-family: "Poppins Bold";
+            src: url("./assets/fonts/Poppins/Poppins-Bold.ttf");
+        }
 
-		@font-face {
-			font-family: "Poppins Bold Italic";
-			src: url("./assets/fonts/Poppins/Poppins-BoldItalic.ttf");
-		}
+        @font-face {
+            font-family: "Poppins Bold Italic";
+            src: url("./assets/fonts/Poppins/Poppins-BoldItalic.ttf");
+        }
 
-		@font-face {
-			font-family: "Poppins Extra Bold";
-			src: url("./assets/fonts/Poppins/Poppins-ExtraBold.ttf");
-		}
+        @font-face {
+            font-family: "Poppins Extra Bold";
+            src: url("./assets/fonts/Poppins/Poppins-ExtraBold.ttf");
+        }
 
-		@font-face {
-			font-family: "Poppins Extra BoldItalic";
-			src: url("./assets/fonts/Poppins/Poppins-ExtraBoldItalic.ttf");
-		}
+        @font-face {
+            font-family: "Poppins Extra BoldItalic";
+            src: url("./assets/fonts/Poppins/Poppins-ExtraBoldItalic.ttf");
+        }
 
-		@font-face {
-			font-family: "Poppins Extra Light";
-			src: url("./assets/fonts/Poppins/Poppins-ExtraLight.ttf");
-		}
+        @font-face {
+            font-family: "Poppins Extra Light";
+            src: url("./assets/fonts/Poppins/Poppins-ExtraLight.ttf");
+        }
 
-		@font-face {
-			font-family: "Poppins Extra LightItalic";
-			src: url("./assets/fonts/Poppins/Poppins-ExtraLightItalic.ttf");
-		}
+        @font-face {
+            font-family: "Poppins Extra LightItalic";
+            src: url("./assets/fonts/Poppins/Poppins-ExtraLightItalic.ttf");
+        }
 
-		@font-face {
-			font-family: "Poppins Italic";
-			src: url("./assets/fonts/Poppins/Poppins-Italic.ttf");
-		}
+        @font-face {
+            font-family: "Poppins Italic";
+            src: url("./assets/fonts/Poppins/Poppins-Italic.ttf");
+        }
 
-		@font-face {
-			font-family: "Poppins Regular";
-			src: url("./assets/fonts/Poppins/Poppins-Regular.ttf");
-		}
+        @font-face {
+            font-family: "Poppins Regular";
+            src: url("./assets/fonts/Poppins/Poppins-Regular.ttf");
+        }
 
-		@font-face {
-			font-family: "Poppins Bold";
-			src: url("./assets/fonts/Poppins/Poppins-Bold.ttf");
-		}
+        @font-face {
+            font-family: "Poppins Bold";
+            src: url("./assets/fonts/Poppins/Poppins-Bold.ttf");
+        }
 
-		@font-face {
-			font-family: "Poppins Medium";
-			src: url("./assets/fonts/Poppins/Poppins-Medium.ttf");
-		}
+        @font-face {
+            font-family: "Poppins Medium";
+            src: url("./assets/fonts/Poppins/Poppins-Medium.ttf");
+        }
 
-		@font-face {
-			font-family: "Poppins Italic";
-			src: url("./assets/fonts/Poppins/Poppins-Italic.ttf");
-		}
+        @font-face {
+            font-family: "Poppins Italic";
+            src: url("./assets/fonts/Poppins/Poppins-Italic.ttf");
+        }
 
-		@font-face {
-			font-family: "Poppins Light";
-			src: url("./assets/fonts/Poppins/Poppins-Light.ttf");
-		}
+        @font-face {
+            font-family: "Poppins Light";
+            src: url("./assets/fonts/Poppins/Poppins-Light.ttf");
+        }
 
-		@font-face {
-			font-family: "Poppins LightItalic";
-			src: url("./assets/fonts/Poppins/Poppins-LightItalic.ttf");
-		}
+        @font-face {
+            font-family: "Poppins LightItalic";
+            src: url("./assets/fonts/Poppins/Poppins-LightItalic.ttf");
+        }
 
-		@font-face {
-			font-family: "Poppins Medium Italic";
-			src: url("./assets/fonts/Poppins/Poppins-MediumItalic.ttf");
-		}
+        @font-face {
+            font-family: "Poppins Medium Italic";
+            src: url("./assets/fonts/Poppins/Poppins-MediumItalic.ttf");
+        }
 
-		@font-face {
-			font-family: "Poppins Regular";
-			src: url("./assets/fonts/Poppins/Poppins-Regular.ttf");
-		}
+        @font-face {
+            font-family: "Poppins Regular";
+            src: url("./assets/fonts/Poppins/Poppins-Regular.ttf");
+        }
 
-		@font-face {
-			font-family: "Poppins Semi Bold";
-			src: url("./assets/fonts/Poppins/Poppins-SemiBold.ttf");
-		}
+        @font-face {
+            font-family: "Poppins Semi Bold";
+            src: url("./assets/fonts/Poppins/Poppins-SemiBold.ttf");
+        }
 
-		@font-face {
-			font-family: "Poppins Semi BoldItalic";
-			src: url("./assets/fonts/Poppins/Poppins-SemiBoldItalic.ttf");
-		}
+        @font-face {
+            font-family: "Poppins Semi BoldItalic";
+            src: url("./assets/Poppins/Poppins-SemiBoldItalic.ttf");
+        }
 
-		@font-face {
-			font-family: "Poppins Thin";
-			src: url("./assets/fonts/Poppins/Poppins-Thin.ttf");
-		}
+        @font-face {
+            font-family: "Poppins Thin";
+            src: url("./assets/fonts/Poppins/Poppins-Thin.ttf");
+        }
 
-		@font-face {
-			font-family: "Poppins Thin Italic";
-			src: url("./assets/fonts/Poppins/Poppins-ThinItalic.ttf");
-		}
+        @font-face {
+            font-family: "Poppins Thin Italic";
+            src: url("./assets/fonts/Poppins/Poppins-ThinItalic.ttf");
+        }
 
-	</style>
-	{% endblock %}
+    </style>
+    {% endblock %}
+    {% block custom_inline_css %}
+    {% endblock %}
 </head>
 {% endblock %}
-<body id="top" class="h-screen flex items-center justify-center bg-white font-poppins">
-{% block after_body %}
-<div class="w-full h-full flex flex-col items-start justify-between bg-slate-100 bg-pattern">
-	{% block before_header %}
-	{% endblock %}
-	{% block header %}
-		{% include 'partials/header.html.twig' %}
-	{% endblock %}
-	{% block after_header %}
-	{% endblock %}
-	{% block before_main %}
-	{% endblock %}
-	{% block main %}
-    <main class="container mx-auto p-4 bg-white rounded-lg">
-        {% block content %}Main Content{% endblock %}
+{% block body %}
+{# Die Klasse 'items-center' zentriert den Inhalt vertikal, 'justify-center' horizontal.
+   'items-start' richtet den Inhalt oben aus.
+   Standardmäßig (wenn content_position nicht gesetzt ist) ist es 'items-center' für zentrierten Inhalt. #}
+<body id="top" class="min-h-screen flex flex-col bg-slate-100 font-poppins bg-cover">
+    {% block header %}
+        {% include 'partials/header.twig' %}
+    {% endblock %}
+    {% block main %}
+    <main class="container mx-auto flex-1 {% if content_position == 'center' %}flex items-center justify-center{% endif %}">
+        {% block content %}
+            <h2 class="text-5xl text-center">Main Content</h2>
+        {% endblock %}
     </main>
-	{% endblock %}
-	{% block after_main %}
-	{% endblock %}
-	{% block before_footer %}
-	{% endblock %}
-	{% block footer %}
-		{% include 'partials/footer.html.twig' %}
-	{% endblock %}
-	{% block after_footer %}
-	{% endblock %}
-</div>
-{% endblock %}
+    {% endblock %}
+    {% block footer %}
+        {% include 'partials/footer.twig' %}
+    {% endblock %}
 {% block scripts %}
 <script src="./assets/js/scripts.min.js" type="module"></script>
 {% endblock %}
 </body>
+{% endblock %}
 </html>

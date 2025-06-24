@@ -1,0 +1,22 @@
+{# child.html.twig #}
+{% extends "base.html.twig" %}
+
+{% block title %}Link &middot; WebDev HQ API{% endblock %}
+
+{% block content %}
+<div class="p-2 bg-white/30 backdrop-blur rounded mx-3 sm:mx-0">
+	<div class="bg-white p-4 rounded">
+		<div class="flex justify-between gap-6 min-h-[500px]">
+			{% block sidebar %}
+				{% include 'partials/sidebar.twig' %}
+			{% endblock %}
+			<section class="flex-1 px-4 py-2">
+				<h2 class="text-2xl mb-3">Links</h2>
+				{% include 'partials/forms/new-link.twig' %}
+				<hr class="my-6 border-gray-200" />
+				<ul class="links w-full flex flex-col justify-between"></ul>
+			</section>
+		</div>
+	</div>
+</div>
+{% endblock %}

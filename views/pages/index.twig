@@ -1,29 +1,6 @@
 {# child.html.twig #}
 {% extends "base.html.twig" %}
 
-{% block main %}
-<main class="container mx-auto flex flex-col justify-center align-center">
-	<canvas id="api-nodes"></canvas>
-	<div class="absolute wdhq-center w-96 lg:w-[700px] p-2 md:p-4 lg:p-8 bg-white/10 backdrop-blur rounded-md">
-		<div class="md:w-48 mx-auto mb-4">
-			<h2 class="text-2xl p-2">
-				<a href="/" class="flex justify-between space-x-3">
-					<img src="./logo.png" alt="WebDev HQ Logo" />
-					<span class="font-light flex flex-start">
-						<span class="web">Web</span>
-						<span class="font-medium mr-2">Dev</span>
-						<span class="font-medium">HQ</span>
-					</span>
-				</a>
-			</h2>
-		</div>
-		<h2 class="text-center font-medium mb-4">API-Url:</h2>
-		<div class="text-center">
-			<code class="w-[220px]">https://api.webdev-hq.com/common/v1</code>
-			<button class="ml-2 hover:cursor-pointer hover:text-sky-600" id="copy-to-clipboard" title="Copy to clipboard">
-				{% include 'partials/utils/copy-to-clipboard.html.twig' %}
-			</button>
-		</div>
-	</div>
-</main>
+{% block content %}
+	{% include 'partials/api-intro.twig' %}
 {% endblock %}
