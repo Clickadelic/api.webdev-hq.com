@@ -121,3 +121,14 @@ model Link {
 
     @@index([userId])
 }
+
+model Subscriber {
+    id                  String   @id @default(cuid())
+    name                String
+    email               String   @unique
+    agreedToSubscription Boolean  @default(false)
+    confirmed           Boolean  @default(false)
+    confirmationToken   String?  @unique
+    createdAt           DateTime @default(now())
+    updatedAt           DateTime @updatedAt
+}

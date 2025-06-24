@@ -110,7 +110,7 @@ const authController = {
 	},
 	getUsers: async (req, res) => {
 		try {
-			const users = await prisma.user.findAll()
+		const users = await prisma.user.findMany()
 			users.forEach(user => {
 				user.password = undefined
 			})
@@ -121,11 +121,11 @@ const authController = {
 	},
 	getUser: async (req, res) => {
 		try {
-			const user = await prisma.user.findOne({
-				where: {
-					id: req.params.id
-				}
-			})
+		const user = await prisma.user.findUnique({
+			where: {
+				id: req.params.id
+			}
+		})
 			if (user) {
 				user.password = undefined
 				res.status(200).json(user)
