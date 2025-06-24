@@ -46,11 +46,6 @@ app.use("/common/v1", linkRouter)
 app.use("/common/v1", newsletterRouter)
 app.use("/common/v1", chromeExtensionRouter)
 
-// Health check endpoint for Render.com
-app.get("/health", (req, res) => {
-	res.status(200).json({ status: "OK", timestamp: new Date().toISOString() })
-})
-
 app.use("/{*splat}", (req, res) => {
 	res.status(404).send({ message: "Frontend-route or endpoint not found. Error 404." })
 })

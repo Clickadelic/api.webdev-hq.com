@@ -1,3 +1,5 @@
+const { get } = require("../mail/transporter")
+
 const infoController = {
 	getInfo: (req, res) => {
 		try {
@@ -12,6 +14,13 @@ const infoController = {
 				author: "Tobias Hopp"
 			}
 			res.status(200).json(info)
+		} catch (error) {
+			res.status(400).json({ error: error })
+		}
+	},
+	getHealthCheck: (req, res) => {
+		try {
+			res.status(200).json({ status: "ok", timestamp: new Date().toISOString() })
 		} catch (error) {
 			res.status(400).json({ error: error })
 		}
