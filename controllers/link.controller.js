@@ -51,7 +51,7 @@ const linkController = {
 			return res.status(504).send({ message: error })
 		}
 	},
-	editLink: async (req, res) => {
+	patchLink: async (req, res) => {
 		const id = req.body.id
 		const title = req.body.title
 		const description = req.body.description
@@ -72,6 +72,19 @@ const linkController = {
 				}
 			})
 			res.status(200).send({ message: "link_edited" })
+		} catch (error) {
+			return res.status(504).send({ message: error })
+		}
+	},
+	deleteLink: async (req, res) => {
+		const id = req.params.id
+		try {
+			await prisma.link.delete({
+				where: {
+					id
+				}
+			})
+			res.status(200).send({ message: "link_deleted" })
 		} catch (error) {
 			return res.status(504).send({ message: error })
 		}
