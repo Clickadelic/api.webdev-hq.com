@@ -1,11 +1,9 @@
 {# child.html.twig #}
 {% extends "base.html.twig" %}
 
+{% block title %}WebDev HQ &middot; API-Service{% endblock %}
+
 {% block content %}
+	{% include 'partials/api-intro.twig' %}
+{% endblock content %}
 
-<div class="bg-rose-300">
-	Some content here
-</div>
-
-
-{% endblock %}
