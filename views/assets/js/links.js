@@ -12,19 +12,34 @@ if (window.location.pathname === "/links") {
 			.then(response => response.json())
 			.then(data => {
 				data.forEach(link => {
-					const linkContainer = document.createElement("li")
-					linkContainer.classList.add("w-full", "flex", "justify-between", "mb-2")
-					linkContainer.innerHTML = `
+					const linkItem = document.createElement("li")
+					linkItem.id = `link-${link.id}`
+					linkItem.classList.add("w-full", "flex", "justify-between", "mb-2")
+					linkItem.innerHTML = `
 						<div>
 							<a href="${link.url}" target="_blank" class="text-mantis-primary">${link.title}</a>
 							<p class="text-slate-400 text-sm">${link.description}</p>
 						</div>
 						<div class="flex flex-row gap-2">
-							<button id="delete-${link.id}" class="rounded bg-slate-100 p-2 px-4 text-slate-400 hover:cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/></svg></button>
-							<button onclick=alert("${link.id}") id="${link.id}" class="rounded bg-slate-100 p-2 px-4 text-rose-400 hover:cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16"><path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/></svg></button>
+							<button id="edit-link-${link.id}" class="rounded bg-slate-100 p-2 px-4 text-slate-400 hover:cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/></svg></button>
+							<button id="delete-link-${link.id}" class="rounded bg-slate-100 p-2 px-4 text-rose-400 hover:cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16"><path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/></svg></button>
 						</div>
 					`
-					document.querySelector(".links").appendChild(linkContainer)
+					document.querySelector(".links").appendChild(linkItem)
+				})
+			})
+			.then(() => {
+				document.querySelectorAll("[id^='edit-link-']").forEach(button => {
+					button.addEventListener("click", link => {
+						alert(link.target.id)
+					})
+				})
+			})
+			.then(() => {
+				document.querySelectorAll("[id^='delete-link-']").forEach(button => {
+					button.addEventListener("click", link => {
+						handleLinkDeletion(link, link.target.id.split("-")[2])
+					})
 				})
 			})
 			.catch(error => {
@@ -51,7 +66,7 @@ const handleNewLink = async e => {
 	const formData = { userId, title, url, description }
 
 	try {
-		const response = await fetch(`/common/v1/links/new`, {
+		const response = await fetch(`/common/v1/links`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(formData)
@@ -67,7 +82,67 @@ const handleNewLink = async e => {
 			console.log(data)
 		}
 	} catch (error) {
-		console.log(error)
 		showUserMessage("bg-rose-200", "Something went wrong.")
+		console.log(error)
+	}
+}
+
+const handleLinkUpdate = async (e, linkId) => {
+	e.preventDefault()
+
+	const title = document.querySelector(`input[name='title-${linkId}']`).value
+	const url = document.querySelector(`input[name='url-${linkId}']`).value
+	const description = document.querySelector(`textarea[name='description-${linkId}']`).value
+
+	if (!title || !url || !description) {
+		showUserMessage("bg-rose-200", "Please fill out all fields.")
+		return
+	}
+
+	const formData = { title, url, description }
+
+	try {
+		const response = await fetch(`/common/v1/links/${linkId}`, {
+			method: "PATCH",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(formData)
+		})
+
+		const data = await response.json()
+
+		if (response.ok) {
+			showUserMessage("bg-emerald-200", "Link updated.")
+			window.location.href = "/links"
+		} else {
+			showUserMessage("bg-rose-200", "Update failed.")
+			console.log(data)
+		}
+	} catch (error) {
+		showUserMessage("bg-rose-200", "Something went wrong.")
+		console.log(error)
+	}
+}
+
+const handleLinkDeletion = async (e, linkId) => {
+	e.preventDefault()
+
+	try {
+		const response = await fetch(`/common/v1/links/${linkId}`, {
+			method: "DELETE",
+			headers: { "Content-Type": "application/json" }
+		})
+
+		const data = await response.json()
+
+		if (response.ok) {
+			showUserMessage("bg-emerald-200", "Link deleted.")
+			document.querySelector(`#link-${linkId}`).remove()
+		} else {
+			showUserMessage("bg-rose-200", "Deletion failed.")
+			console.log(data)
+		}
+	} catch (error) {
+		showUserMessage("bg-rose-200", "Something went wrong.")
+		console.log(error)
 	}
 }

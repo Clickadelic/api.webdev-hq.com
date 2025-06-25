@@ -1,11 +1,12 @@
 const express = require("express")
-const middleware = require("../middleware")
+
 const linkRouter = express.Router()
 const linkController = require("../controllers/link.controller")
 
 // Protected Routes
 linkRouter.get("/links", linkController.getLinks)
-linkRouter.post("/links/new", linkController.addNewLink)
-linkRouter.post("/links/edit/:id", linkController.editLink)
+linkRouter.post("/links", linkController.addNewLink)
+linkRouter.patch("/links/:id", linkController.patchLink)
+linkRouter.delete("/links/:id", linkController.deleteLink)
 
 module.exports = linkRouter

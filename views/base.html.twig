@@ -136,11 +136,10 @@
 </head>
 {% endblock %}
 {% block body %}
-{# Die Klasse 'items-center' zentriert den Inhalt vertikal, 'justify-center' horizontal.
-   'items-start' richtet den Inhalt oben aus.
+{# 
    Standardmäßig (wenn content_position nicht gesetzt ist) ist es 'items-center' für zentrierten Inhalt. #}
-<body id="top" class="min-h-screen flex flex-col bg-slate-100 font-poppins bg-cover">
-    {% block header %}
+<body id="top" class="min-h-screen flex flex-col bg-slate-100 font-poppins">
+	{% block header %}
         {% include 'partials/header.twig' %}
     {% endblock %}
     {% block main %}
