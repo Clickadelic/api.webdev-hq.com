@@ -4,6 +4,9 @@ const transporter = require("../mail/transporter")
 
 const { PrismaClient } = require("@prisma/client")
 const prisma = new PrismaClient()
+const path = require("path")
+const fs = require("fs")
+const handlebars = require("handlebars")
 
 const authController = {
 	registerUser: async (req, res) => {
@@ -108,9 +111,61 @@ const authController = {
 			res.status(400).json({ message: error })
 		}
 	},
+	resetPassword: async (req, res) => {
+		try {
+			const user = await prisma.user.findUnique({
+				where: {
+					email: req.body.email
+				}
+			})
+
+			if (!user) {
+				return res.status(404).json({ message: "no_such_user_in_database" })
+			}
+
+			// Template lesen
+			const templatePath = path.join(__dirname, "../mail/templates/reset-password.hbs")
+			let source
+			try {
+				source = fs.readFileSync(templatePath, "utf8")
+			} catch (readErr) {
+				console.error("Fehler beim Lesen der Template-Datei:", readErr)
+				return res.status(500).json({ message: "template_file_error" })
+			}
+
+			let html
+			try {
+				const template = handlebars.compile(source)
+				html = template({ name: user.username })
+			} catch (compileErr) {
+				console.error("Fehler beim Kompilieren der Vorlage:", compileErr)
+				return res.status(500).json({ message: "template_compile_error" })
+			}
+
+			const mailOptions = {
+				from: process.env.MAIL_FROM,
+				to: user.email,
+				bcc: process.env.MAIL_ADMIN,
+				subject: "Reset your password",
+				html: html
+			}
+
+			try {
+				const info = await transporter.sendMail(mailOptions)
+				console.log("E-Mail erfolgreich gesendet:", info.response)
+				return res.status(200).json({ message: "password_reset_token_sent" })
+			} catch (sendErr) {
+				console.error("Fehler beim Senden der E-Mail:", sendErr)
+				return res.status(500).json({ message: "email_send_error", detail: sendErr.toString() })
+			}
+		} catch (error) {
+			console.error("Allgemeiner Fehler im Controller:", error)
+			return res.status(500).json({ message: "server_error", detail: error.toString() })
+		}
+	},
 	getUsers: async (req, res) => {
 		try {
-		const users = await prisma.user.findMany()
+			const users = await prisma.user.findMany()
 			users.forEach(user => {
 				user.password = undefined
 			})
@@ -121,11 +176,11 @@ const authController = {
 	},
 	getUser: async (req, res) => {
 		try {
-		const user = await prisma.user.findUnique({
-			where: {
-				id: req.params.id
-			}
-		})
+			const user = await prisma.user.findUnique({
+				where: {
+					id: req.params.id
+				}
+			})
 			if (user) {
 				user.password = undefined
 				res.status(200).json(user)
