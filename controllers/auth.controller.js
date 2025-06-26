@@ -1,11 +1,12 @@
-const bcrypt = require("bcrypt")
-const jwt = require("jsonwebtoken")
-const transporter = require("../mail/transporter")
-
 const { PrismaClient } = require("@prisma/client")
 const prisma = new PrismaClient()
+
+const jwt = require("jsonwebtoken")
+const bcrypt = require("bcrypt")
+const transporter = require("../mail/transporter")
 const path = require("path")
 const fs = require("fs")
+
 const handlebars = require("handlebars")
 
 const authController = {
@@ -118,49 +119,38 @@ const authController = {
 					email: req.body.email
 				}
 			})
-
 			if (!user) {
 				return res.status(404).json({ message: "no_such_user_in_database" })
 			}
 
-			// Template lesen
+			// E-Mail Template
 			const templatePath = path.join(__dirname, "../mail/templates/reset-password.hbs")
-			let source
-			try {
-				source = fs.readFileSync(templatePath, "utf8")
-			} catch (readErr) {
-				console.error("Fehler beim Lesen der Template-Datei:", readErr)
-				return res.status(500).json({ message: "template_file_error" })
-			}
+			const source = fs.readFileSync(templatePath, "utf8")
+			const template = handlebars.compile(source)
 
-			let html
-			try {
-				const template = handlebars.compile(source)
-				html = template({ name: user.username })
-			} catch (compileErr) {
-				console.error("Fehler beim Kompilieren der Vorlage:", compileErr)
-				return res.status(500).json({ message: "template_compile_error" })
-			}
+			const html = template({
+				username: user.username
+			})
 
 			const mailOptions = {
 				from: process.env.MAIL_FROM,
 				to: user.email,
+				// cc: process.env.MAIL_ADMIN,
 				bcc: process.env.MAIL_ADMIN,
 				subject: "Reset your password",
 				html: html
 			}
 
-			try {
-				const info = await transporter.sendMail(mailOptions)
-				console.log("E-Mail erfolgreich gesendet:", info.response)
-				return res.status(200).json({ message: "password_reset_token_sent" })
-			} catch (sendErr) {
-				console.error("Fehler beim Senden der E-Mail:", sendErr)
-				return res.status(500).json({ message: "email_send_error", detail: sendErr.toString() })
-			}
+			transporter.sendMail(mailOptions, (error, info) => {
+				if (error) {
+					return res.status(504).send({ message: error })
+				}
+				console.log("Success sending mail.", info)
+			})
+
+			return res.status(200).json({ message: "password_reset_token_sent" })
 		} catch (error) {
-			console.error("Allgemeiner Fehler im Controller:", error)
-			return res.status(500).json({ message: "server_error", detail: error.toString() })
+			res.status(400).json({ message: error })
 		}
 	},
 	getUsers: async (req, res) => {
