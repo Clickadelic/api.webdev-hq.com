@@ -20,6 +20,7 @@ const chromeExtensionRouter = require("./routers/chrome-extension.router")
 const clearTwigCache = () => {
 	twig.cache(false)
 }
+
 app.set("view engine", "twig")
 app.set("view cache", false)
 app.set("views", __dirname + "/views")
