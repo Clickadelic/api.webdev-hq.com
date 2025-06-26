@@ -88,9 +88,9 @@ const middleware = {
 
 			// optional: vollständigen User aus DB laden
 			const user = await prisma.user.findUnique({
-				where: { id: decoded.userId }
+				where: { id: decoded.id }
 			})
-
+			user.password = undefined // Passwort nicht zurückgeben
 			res.locals.user = user
 			next()
 		} catch (error) {
