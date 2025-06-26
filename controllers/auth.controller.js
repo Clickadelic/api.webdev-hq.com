@@ -9,8 +9,35 @@ const fs = require("fs")
 
 const handlebars = require("handlebars")
 
+const Joi = require("joi")
+
+// Register
+const registerSchema = Joi.object({
+	username: Joi.string().required(),
+	email: Joi.string().email().required(),
+	password: Joi.string().required(),
+	passwordRepeat: Joi.string().required(),
+	agreedToTerms: Joi.boolean().valid(true).required()
+})
+
+// Login
+const loginSchema = Joi.object({
+	email: Joi.string().email().required(),
+	password: Joi.string().required()
+})
+
+// Reset Password
+const resetPasswordSchema = Joi.object({
+	email: Joi.string().email().required()
+})
+
 const authController = {
 	registerUser: async (req, res) => {
+		// Validate request body
+		const { error } = registerSchema.validate(req.body)
+		if (error) {
+			return res.status(400).send({ message: error.details[0].message })
+		}
 		try {
 			const existingUser = await prisma.user.findUnique({
 				where: {
@@ -56,6 +83,10 @@ const authController = {
 		}
 	},
 	login: async (req, res) => {
+		const { error } = loginSchema.validate(req.body)
+		if (error) {
+			return res.status(400).send({ message: error.details[0].message })
+		}
 		try {
 			const user = await prisma.user.findUnique({
 				where: {
@@ -116,6 +147,10 @@ const authController = {
 		}
 	},
 	resetPassword: async (req, res) => {
+		const { error } = resetPasswordSchema.validate(req.body)
+		if (error) {
+			return res.status(400).send({ message: error.details[0].message })
+		}
 		try {
 			const user = await prisma.user.findUnique({
 				where: {

@@ -1,5 +1,3 @@
-const { get } = require("../mail/transporter")
-
 const infoController = {
 	getInfo: (req, res) => {
 		try {
