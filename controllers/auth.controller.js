@@ -9,35 +9,8 @@ const fs = require("fs")
 
 const handlebars = require("handlebars")
 
-const Joi = require("joi")
-
-// Register
-const registerSchema = Joi.object({
-	username: Joi.string().required(),
-	email: Joi.string().email().required(),
-	password: Joi.string().required(),
-	passwordRepeat: Joi.string().required(),
-	agreedToTerms: Joi.boolean().valid(true).required()
-})
-
-// Login
-const loginSchema = Joi.object({
-	email: Joi.string().email().required(),
-	password: Joi.string().required()
-})
-
-// Reset Password
-const resetPasswordSchema = Joi.object({
-	email: Joi.string().email().required()
-})
-
 const authController = {
 	registerUser: async (req, res) => {
-		// Validate request body
-		const { error } = registerSchema.validate(req.body)
-		if (error) {
-			return res.status(400).send({ message: error.details[0].message })
-		}
 		try {
 			const existingUser = await prisma.user.findUnique({
 				where: {
@@ -82,11 +55,53 @@ const authController = {
 			return res.status(500).send({ message: "something_went_wrong" })
 		}
 	},
-	login: async (req, res) => {
-		const { error } = loginSchema.validate(req.body)
-		if (error) {
-			return res.status(400).send({ message: error.details[0].message })
+	confirmRegistration: async (req, res) => {
+		try {
+			const verificationToken = await prisma.verificationToken.findUnique({
+				where: {
+					token: req.params.token
+				}
+			})
+
+			if (!verificationToken) {
+				return res.status(404).send({ message: "no_such_verification_token" })
+			}
+
+			const user = await prisma.user.findUnique({
+				where: {
+					email: verificationToken.email
+				}
+			})
+
+			if (!user) {
+				return res.status(404).send({ message: "no_such_user_in_database" })
+			}
+
+			if (verificationToken.expires < new Date()) {
+				return res.status(400).send({ message: "verification_token_expired" })
+			}
+
+			await prisma.user.update({
+				where: {
+					email: user.email
+				},
+				data: {
+					verified: true
+				}
+			})
+
+			await prisma.verificationToken.delete({
+				where: {
+					token: verificationToken.token
+				}
+			})
+			return res.status(200).send({ message: "email_verified_successfully" })
+		} catch (error) {
+			console.error(error)
+			return res.status(500).send({ message: "something_went_wrong" })
 		}
+	},
+	login: async (req, res) => {
 		try {
 			const user = await prisma.user.findUnique({
 				where: {

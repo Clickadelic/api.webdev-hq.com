@@ -3,6 +3,8 @@ const chalk = require("chalk")
 const { PrismaClient } = require("@prisma/client")
 const prisma = new PrismaClient()
 
+const { registrationSchema, confirmationTokenSchema, loginSchema, resetPasswordSchema } = require("../schemas")
+
 const middleware = {
 	logRequests: (req, res, next) => {
 		res.locals.currentPath = req.url
@@ -22,30 +24,23 @@ const middleware = {
 		next()
 	},
 	validateRegistration: (req, res, next) => {
-		if (!req.body.username || req.body.username.length < 4) {
-			return res.status(400).send({
-				message: "min_3_characters"
-			})
+		const { error } = registrationSchema.validate(req.body)
+		if (error) {
+			return res.status(400).send({ message: error.details[0].message })
 		}
-		if (!req.body.email || req.body.email.length < 5) {
-			return res.status(400).send({
-				message: "min_3_characters"
-			})
+		next()
+	},
+	validateConfirmationToken: async (req, res, next) => {
+		const { error } = confirmationTokenSchema.validate(req.body)
+		if (error) {
+			return res.status(400).send({ message: error.details[0].message })
 		}
-		if (!req.body.password || req.body.password.length < 6) {
-			return res.status(400).send({
-				message: "min_6_characters"
-			})
-		}
-		if (!req.body.passwordRepeat || req.body.password !== req.body.passwordRepeat) {
-			return res.status(400).send({
-				message: "both_passwords_must_match"
-			})
-		}
-		if (!req.body.agreedToTerms) {
-			return res.status(400).send({
-				message: "terms_not_accepted"
-			})
+		next()
+	},
+	validateLogin: (req, res, next) => {
+		const { error } = loginSchema.validate(req.body)
+		if (error) {
+			return res.status(400).send({ message: error.details[0].message })
 		}
 		next()
 	},
