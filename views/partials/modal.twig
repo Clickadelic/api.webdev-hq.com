@@ -1,0 +1,42 @@
+
+<div
+	class="modal absolute top-0 right-0 bottom-0 left-0 w-full h-full bg-black/30 backdrop-blur-xs hidden flex-col justify-center items-center z-10 "
+	id="modal"
+	tabindex="-1"
+	role="dialog"
+	aria-labelledby="{{ modalId }}Label"
+	aria-describedby="{{ modalId }}Description"
+	aria-modal="true"
+>
+	<div class="w-full md:w-96 m-3 md:m-0 md:mx-auto bg-white p-4 rounded shadow-lg" role="document">
+		<div class="modal-header relative flex flex-start flex-grow items-start justify-start mb-3">
+			<div class="flex-1">
+				<h3 id="{{ modalId }}Label" class="block w-full text-lg font-semibold">
+					{# {{ modalTitle }} #}
+					Title
+				</h3>
+				<h4 id="{{ modalId }}Subtitle" class="text-sm text-gray-600">
+					{# {{ modalSubtitle }} #}
+					Subtitle
+				</h4>
+			</div>
+			<button
+				type="button"
+				class="modal-close hover:bg-slate-200 rounded hover:text-mantis-primary hover:cursor-pointer px-2 pb-1"
+				data-dismiss="modal"
+				aria-label="Close"
+			>
+				<span aria-hidden="true" class="mt-[6px]">&times;</span>
+			</button>
+		</div>
+
+		<div class="modal-body my-4 py-4" id="{{ modalId }}Description">
+			{% include 'partials/forms/new-link-form.twig' %}
+		</div>
+
+		<div class="modal-footer flex flex-end gap-3 justify-end items-end w-full">
+			<button class="bg-slate-200 rounded px-3 py-2 hover:cursor-pointer" data-dismiss="modal">Cancel</button>
+			<button class="modal-close bg-slate-200 rounded px-3 py-2 hover:cursor-pointer" data-dismiss="modal">Close</button>
+		</div>
+	</div>
+</div>
