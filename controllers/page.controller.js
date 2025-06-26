@@ -14,8 +14,8 @@ const pageController = {
 	getLoginPage: (req, res) => {
 		return res.render("./pages/login", { content_position: "center" })
 	},
-	getForgotPasswordPage: (req, res) => {
-		return res.render("./pages/forgot-password", { content_position: "center" })
+	getResetPasswordPage: (req, res) => {
+		return res.render("./pages/reset-password", { content_position: "center" })
 	},
 	getDisclaimerPage: (req, res) => {
 		return res.render("./pages/disclaimer")

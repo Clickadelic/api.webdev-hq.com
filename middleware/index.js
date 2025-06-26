@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken")
 const chalk = require("chalk")
+const { PrismaClient } = require("@prisma/client")
+const prisma = new PrismaClient()
 
 const middleware = {
 	logRequests: (req, res, next) => {
@@ -60,31 +62,6 @@ const middleware = {
 			})
 		}
 	},
-	verifyToken(req, res, next) {
-		// Get auth header value
-		const bearerHeader = req.headers["authorization"]
-		// Check if bearer is undefined
-		if (typeof bearerHeader !== "undefined") {
-			// Split the bearer token from "Bearer <token>"
-			const bearer = bearerHeader.split(" ")
-			// Get token from array
-			const token = bearer[1]
-			// Verify token
-			jwt.verify(token, process.env.JWT_SECRET, (err, authData) => {
-				if (err) {
-					// If token is invalid, return forbidden (403)
-					res.sendStatus(403)
-				} else {
-					// If token is valid, attach the decoded user information to the request object
-					req.authData = authData
-					next()
-				}
-			})
-		} else {
-			// If no token, return forbidden (403)
-			res.sendStatus(403)
-		}
-	},
 	verifyTokenFromCookie: (req, res, next) => {
 		const token = req.cookies.token
 		if (!token) return res.redirect("/login")
@@ -98,20 +75,29 @@ const middleware = {
 			return res.redirect("/login")
 		}
 	},
-	checkAuthStatus: (req, res, next) => {
-		const token = req.cookies?.token
-		if (token) {
-			try {
-				const decoded = jwt.verify(token, process.env.JWT_SECRET)
-				res.locals.user = decoded
-				req.user = decoded
-			} catch (err) {
-				res.locals.user = null
-			}
-		} else {
+	checkAuthStatus: async (req, res, next) => {
+		const token = req.cookies.token
+
+		if (!token) {
 			res.locals.user = null
+			return next()
 		}
-		next()
+
+		try {
+			const decoded = jwt.verify(token, process.env.JWT_SECRET)
+
+			// optional: vollständigen User aus DB laden
+			const user = await prisma.user.findUnique({
+				where: { id: decoded.id }
+			})
+			user.password = undefined // Passwort nicht zurückgeben
+			res.locals.user = user
+			next()
+		} catch (error) {
+			console.error("JWT verification failed:", error)
+			res.locals.user = null
+			next()
+		}
 	}
 }
 

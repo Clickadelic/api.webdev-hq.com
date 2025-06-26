@@ -23,8 +23,6 @@ const linkController = {
 		const description = req.body.description
 		const url = req.body.url
 
-		console.log("Formdata", userId, title, description, url)
-
 		if (!title || !description || !url) {
 			return res.status(400).send({ message: "missing_fields" })
 		}

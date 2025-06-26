@@ -31,7 +31,8 @@ if (window.location.pathname === "/links") {
 			.then(() => {
 				document.querySelectorAll("[id^='edit-link-']").forEach(button => {
 					button.addEventListener("click", link => {
-						alert(link.target.id)
+						const linkId = link.target.id.split("-")[2]
+						handleLinkUpdate(linkId)
 					})
 				})
 			})
@@ -90,42 +91,12 @@ const handleNewLink = async e => {
 const handleLinkUpdate = async (e, linkId) => {
 	e.preventDefault()
 
-	const title = document.querySelector(`input[name='title-${linkId}']`).value
-	const url = document.querySelector(`input[name='url-${linkId}']`).value
-	const description = document.querySelector(`textarea[name='description-${linkId}']`).value
-
-	if (!title || !url || !description) {
-		showUserMessage("bg-rose-200", "Please fill out all fields.")
-		return
-	}
-
-	const formData = { title, url, description }
-
-	try {
-		const response = await fetch(`/common/v1/links/${linkId}`, {
-			method: "PATCH",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(formData)
-		})
-
-		const data = await response.json()
-
-		if (response.ok) {
-			showUserMessage("bg-emerald-200", "Link updated.")
-			window.location.href = "/links"
-		} else {
-			showUserMessage("bg-rose-200", "Update failed.")
-			console.log(data)
-		}
-	} catch (error) {
-		showUserMessage("bg-rose-200", "Something went wrong.")
-		console.log(error)
-	}
+	console.log("linkId:", linkId)
+	
 }
 
 const handleLinkDeletion = async (e, linkId) => {
 	e.preventDefault()
-
 	try {
 		const response = await fetch(`/common/v1/links/${linkId}`, {
 			method: "DELETE",

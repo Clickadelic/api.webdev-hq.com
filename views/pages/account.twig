@@ -2,21 +2,33 @@
 {% extends "base.html.twig" %}
 
 {% block title %}Account &middot; WebDev HQ API{% endblock %}
+
 {% block content %}
 	<div class="p-2 bg-white/30 backdrop-blur rounded mx-3 sm:mx-0">
 		<div class="bg-white p-4 rounded">
-			<h2 class="text-3xl font-medium mb-6">{{ user.name }}</h2>
-			<img src="./images/user.png" class="size-12 mx-auto border rounded-full border-slate-300 my-8" alt="User Avatar" />
-			<ul class="space-y-2 m-2 text-left">
-				<li class="font-medium">User-Id:</li>
-				<li>{{ user.userId }}</li>
-				<li class="font-medium">Username:</li>
-				<li>{{ user.name }}</li>
-				<li class="font-medium">E-Mail:</li>
-				<li>{{ user.email }}</li>
-				<li class="font-medium">Role:</li>
-				<li>{{ user.role }}</li>
-			</ul>
+			<img src="./images/Jedi-User.svg" class="size-12 mx-auto border rounded-full border-slate-300 my-8" alt="User Avatar" />
+			<h2 class="text-3xl font-medium my-3 text-center">{{ user.username }}</h2>
+			<div class="atw-tabs">
+			<div class="atw-tabs-labels">
+				<button class="tab-btn active" data-tab="tab1">Tab 1</button>
+				<button class="tab-btn" data-tab="tab2">Tab 2</button>
+				<button class="tab-btn" data-tab="tab3">Tab 3</button>
+				</div>
+				<div class="tab-content">
+					<div class="tab-pane active" data-tab="tab1">
+						<h3 class="text-xl">Tab 1</h3>
+							<p>Lorem ipsum dolor sit amet</p>
+					</div>
+					<div class="tab-pane" data-tab="tab2">
+						<h3 class="text-xl">Tab 2</h3>
+							<p>Lorem ipsum dolor sit amet</p>
+					</div>
+					<div class="tab-pane" data-tab="tab3">
+						<h3 class="text-xl">Tab 3</h3>
+							<p>Lorem ipsum dolor sit amet</p>
+					</div>
+				</div>
+		</div>
 		</div>
 	</div>
 {% endblock %}

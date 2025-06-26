@@ -18,30 +18,29 @@ if (window.location.pathname === "/register") {
 
 		// Frontend-Validierung (gut, diese beizubehalten, bevor ein Request gesendet wird)
 		if (!username || !email || !password || !passwordRepeat || !agreedToTerms) {
-			showUserMessage("bg-rose-200 text-muted-foreground", "Please fill out all fields.")
+			showUserMessage("bg-rose-200", "Please fill out all fields.")
 			return
 		}
 
 		if (password !== passwordRepeat) {
-			showUserMessage("bg-rose-200 text-muted-foreground", "Passwords do not match.")
+			showUserMessage("bg-rose-200", "Passwords do not match.")
 			return
 		}
-
-		// Zusätzliche Frontend-Validierung, die deinem Backend entspricht (optional, aber empfohlen)
+		// TODO: Replace with Joi-Validation or similar library for better validation
 		if (username.length < 4) {
-			showUserMessage("bg-rose-200 text-muted-foreground", "Username must be at least 4 characters.")
+			showUserMessage("bg-rose-200", "Username must be at least 4 characters.")
 			return
 		}
 		if (email.length < 5) {
-			showUserMessage("bg-rose-200 text-muted-foreground", "Email must be at least 5 characters.")
+			showUserMessage("bg-rose-200", "Email must be at least 5 characters.")
 			return
 		}
 		if (password.length < 6) {
-			showUserMessage("bg-rose-200 text-muted-foreground", "Password must be at least 6 characters.")
+			showUserMessage("bg-rose-200", "Password must be at least 6 characters.")
 			return
 		}
 		if (agreedToTerms === false) {
-			showUserMessage("bg-rose-200 text-muted-foreground", "Please accept the terms and conditions.")
+			showUserMessage("bg-rose-200", "Please accept the terms and conditions.")
 			return
 		}
 
@@ -62,7 +61,7 @@ if (window.location.pathname === "/register") {
 				body: JSON.stringify(formData)
 			})
 
-			const responseData = await response.json() // Immer den Body parsen
+			const responseData = await response.json() // Body parsen
 
 			if (!response.ok) {
 				// Wenn response.ok false ist (z.B. 400 Bad Request), behandle den Fehler

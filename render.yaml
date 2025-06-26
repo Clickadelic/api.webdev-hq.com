@@ -43,4 +43,4 @@ services:
     # Eine Health Check Path (optional, aber empfohlen)
     # Render wird diesen Pfad regelmäßig auf einen 200 OK Status überprüfen, um zu sehen,
     # ob deine Anwendung läuft. Passe ihn an einen existierenden Endpunkt in deiner App an.
-    healthCheckPath: /common/v1/health
+    healthCheckPath: /common/v1/healthcheck
