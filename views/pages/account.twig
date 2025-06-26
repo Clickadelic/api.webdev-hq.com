@@ -8,20 +8,27 @@
 		<div class="bg-white p-4 rounded">
 			<img src="./images/Jedi-User.svg" class="size-12 mx-auto border rounded-full border-slate-300 my-8" alt="User Avatar" />
 			<h2 class="text-3xl font-medium my-3 text-center">{{ user.username }}</h2>
-			<ul class="space-y-2 m-2 text-left">
-				<li class="font-medium">User-Id:</li>
-				<li>{{ user.id }}</li>
-				<li class="font-medium">Username:</li>
-				<li>{{ user.username }}</li>
-				<li class="font-medium">E-Mail:</li>
-				<li>{{ user.email }}</li>
-				<li class="font-medium">Role:</li>
-				<li>{{ user.role }}</li>
-				<li class="font-medium">Created on:</li>
-				<li>{{ user.createdAt }}</li>
-				<li class="font-medium">Edited on:</li>
-				<li>{{ user.updatedAt }}</li>
-			</ul>
+			<div class="atw-tabs">
+			<div class="atw-tabs-labels">
+				<button class="tab-btn active" data-tab="tab1">Tab 1</button>
+				<button class="tab-btn" data-tab="tab2">Tab 2</button>
+				<button class="tab-btn" data-tab="tab3">Tab 3</button>
+				</div>
+				<div class="tab-content">
+					<div class="tab-pane active" data-tab="tab1">
+						<h3 class="text-xl">Tab 1</h3>
+							<p>Lorem ipsum dolor sit amet</p>
+					</div>
+					<div class="tab-pane" data-tab="tab2">
+						<h3 class="text-xl">Tab 2</h3>
+							<p>Lorem ipsum dolor sit amet</p>
+					</div>
+					<div class="tab-pane" data-tab="tab3">
+						<h3 class="text-xl">Tab 3</h3>
+							<p>Lorem ipsum dolor sit amet</p>
+					</div>
+				</div>
+		</div>
 		</div>
 	</div>
 {% endblock %}
