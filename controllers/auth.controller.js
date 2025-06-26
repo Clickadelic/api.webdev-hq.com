@@ -72,8 +72,11 @@ const authController = {
 							{
 								email: user.email,
 								userId: user.id,
-								name: user.name,
-								role: user.role
+								image: user.image,
+								username: user.username,
+								role: user.role,
+								createdAt: user.createdAt,
+								updatedAt: user.updatedAt
 							},
 							process.env.JWT_SECRET,
 							{
@@ -123,11 +126,12 @@ const authController = {
 				return res.status(404).json({ message: "no_such_user_in_database" })
 			}
 
-			// E-Mail Template
+			// Compile E-Mail Template
 			const templatePath = path.join(__dirname, "../mail/templates/reset-password.hbs")
 			const source = fs.readFileSync(templatePath, "utf8")
 			const template = handlebars.compile(source)
 
+			// Add variables to the template
 			const html = template({
 				username: user.username
 			})

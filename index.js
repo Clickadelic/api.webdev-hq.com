@@ -23,7 +23,6 @@ const clearTwigCache = () => {
 app.set("view engine", "twig")
 app.set("view cache", false)
 app.set("views", __dirname + "/views")
-
 app.use(express.static(path.join(__dirname, "/public")))
 app.use(cors({ credentials: true, origin: "*" }))
 app.use(express.json())
@@ -38,6 +37,7 @@ chokidar.watch("./views").on("change", () => {
 
 app.use(middleware.logRequests)
 app.use(middleware.setBreadcrumbs)
+app.use(middleware.checkAuthStatus)
 
 app.use("/", pageRouter)
 app.use("/common/v1", infoRouter)

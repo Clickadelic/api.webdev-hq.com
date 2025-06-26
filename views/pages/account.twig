@@ -2,20 +2,25 @@
 {% extends "base.html.twig" %}
 
 {% block title %}Account &middot; WebDev HQ API{% endblock %}
+
 {% block content %}
 	<div class="p-2 bg-white/30 backdrop-blur rounded mx-3 sm:mx-0">
 		<div class="bg-white p-4 rounded">
-			<h2 class="text-3xl font-medium mb-6">{{ user.name }}</h2>
-			<img src="./images/user.png" class="size-12 mx-auto border rounded-full border-slate-300 my-8" alt="User Avatar" />
+			<img src="./images/Jedi-User.svg" class="size-12 mx-auto border rounded-full border-slate-300 my-8" alt="User Avatar" />
+			<h2 class="text-3xl font-medium my-3 text-center">{{ user.username }}</h2>
 			<ul class="space-y-2 m-2 text-left">
 				<li class="font-medium">User-Id:</li>
 				<li>{{ user.userId }}</li>
 				<li class="font-medium">Username:</li>
-				<li>{{ user.name }}</li>
+				<li>{{ user.username }}</li>
 				<li class="font-medium">E-Mail:</li>
 				<li>{{ user.email }}</li>
 				<li class="font-medium">Role:</li>
 				<li>{{ user.role }}</li>
+				<li class="font-medium">Created on:</li>
+				<li>{{ user.createdAt }}</li>
+				<li class="font-medium">Edited on:</li>
+				<li>{{ user.updatedAt }}</li>
 			</ul>
 		</div>
 	</div>
