@@ -145,7 +145,7 @@
     {% endblock %}
 	<div class="container mx-auto px-4 py-6 flex flex-grow">
 		{% block layout %}
-		<main class="flex-1">
+		<main class="{% block content_class %}flex-1{% endblock %}">
 			{% block content %}
 				<h2 class="text-5xl text-center">Main Content</h2>
 			{% endblock %}
