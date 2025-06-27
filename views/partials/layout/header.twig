@@ -3,18 +3,22 @@
 		<div class="container px-3 sm:px-0 mx-auto flex justify-between">
 			<div class="flex justify-between gap-5 relative">
 				{% block logo %}
-					{% include 'partials/logo.twig' %}
+					{% include 'partials/layout/logo.twig' %}
 				{% endblock %}
 				{% block mega_menu %}
-					{% include 'partials/mega-menu.twig' %}
+					{% include 'partials/menus/mega-menu.twig' %}
 				{% endblock %}
 			</div>
-			{% block nav %}
-				{% include 'partials/nav.twig' %}
+			{% block menu %}
+				{% if user %}
+					{% include 'partials/menus/auth-menu.twig' %}
+				{% else %}
+					{% include 'partials/menus/public-menu.twig' %}
+				{% endif %}
 			{% endblock %}
 		</div>
 	</header>
 	{% block breadcrumbs %}
-		{% include 'partials/breadcrumbs.twig' %}
+		{% include 'partials/layout/breadcrumbs.twig' %}
 	{% endblock %}
 </div>
