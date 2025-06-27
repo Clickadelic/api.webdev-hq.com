@@ -15,7 +15,7 @@
 	<link rel="manifest" href="/favicon/site.webmanifest" />
     {% endblock %}
     {% block stylesheet %}
-	<link rel="stylesheet" href="./assets/css/style.min.css" />
+	<link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}" />
     {% endblock %}
     {% block custom_fonts_css %}
     <style id="custom-fonts-css">
@@ -139,17 +139,19 @@
 {% endblock %}
 {% block body %}
 {# Standardmäßig (wenn content_position nicht gesetzt ist) ist es 'items-center' für zentrierten Inhalt. #}
-<body id="top" class="min-h-screen flex flex-col font-poppins {% block body_class %}bg-slate-100{% endblock %}">
+<body id="top" class="min-h-screen flex flex-col font-poppins {% block body_class %}bg-gradient-to-r from-[#0e7490] via-[#3b82f6] to-[#4f46e5]{% endblock %}">
 	{% block header %}
         {% include 'partials/header.twig' %}
     {% endblock %}
-    {% block main %}
-    <main class="container mx-auto flex-1 {% if content_position == 'center' %}flex items-center justify-center{% endif %}">
-        {% block content %}
-            <h2 class="text-5xl text-center">Main Content</h2>
-        {% endblock %}
-    </main>
-    {% endblock %}
+	<div class="container mx-auto px-4 py-6 flex flex-grow">
+		{% block layout %}
+		<main class="flex-1">
+			{% block content %}
+				<h2 class="text-5xl text-center">Main Content</h2>
+			{% endblock %}
+		</main>
+		{% endblock %}
+	</div>
     {% block footer %}
         {% include 'partials/footer.twig' %}
     {% endblock %}
@@ -157,7 +159,7 @@
         {% include 'partials/modal.twig' %}
     {% endblock %}
 {% block scripts %}
-<script src="./assets/js/scripts.min.js" type="module"></script>
+<script src="{{ asset('assets/js/scripts.min.js') }}" type="module"></script>
 {% endblock %}
 </body>
 {% endblock %}

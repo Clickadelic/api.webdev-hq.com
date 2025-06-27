@@ -23,6 +23,10 @@ const middleware = {
 		res.locals.pathSegments = segments
 		next()
 	},
+	setAssetPath: (req, res, next) => {
+		res.locals.asset = path => `/${path}`
+		next()
+	},
 	validateRegistration: (req, res, next) => {
 		const { error } = registrationSchema.validate(req.body)
 		if (error) {

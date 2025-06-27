@@ -1,5 +1,5 @@
 require("./dropdown.js")
-require("./copy-to-clipboard.js")
+// require("./copy-to-clipboard.js")
 require("./newsletter.js")
 require("./register.js")
 require("./login.js")

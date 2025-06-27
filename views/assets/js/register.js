@@ -1,6 +1,6 @@
 const showUserMessage = require("./lib").showUserMessage
 
-if (window.location.pathname === "/register") {
+if (window.location.pathname === "/auth/register") {
 	document.addEventListener("DOMContentLoaded", () => {
 		document.getElementsByTagName("form")[0].addEventListener("submit", e => {
 			handleRegister(e)

@@ -37,6 +37,7 @@ chokidar.watch("./views").on("change", () => {
 })
 
 app.use(middleware.logRequests)
+app.use(middleware.setAssetPath)
 app.use(middleware.setBreadcrumbs)
 app.use(middleware.checkAuthStatus)
 
