@@ -71,7 +71,7 @@ const middleware = {
 			res.locals.user = decoded // <--- WICHTIG: Für Twig verfügbar machen
 			next()
 		} catch (err) {
-			return res.redirect("/login")
+			return res.redirect("/auth/login")
 		}
 	},
 	checkAuthStatus: async (req, res, next) => {
