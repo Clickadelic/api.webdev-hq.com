@@ -74,6 +74,11 @@ if (window.location.pathname === "/auth/register") {
 			showUserMessage("bg-green-200", "Please confirm your e-mail.")
 			// Optional: Weiterleitung oder andere Aktionen bei Erfolg
 			// window.location.href = "/confirmation-sent";
+			document.querySelector("input[name='username']").value = ""
+			document.querySelector("input[name='email']").value = ""
+			document.querySelector("input[name='password']").value = ""
+			document.querySelector("input[name='password-repeat']").value = ""
+			document.querySelector("input[name='agreed-to-terms']").checked = false
 		} catch (error) {
 			console.error("Fetch error:", error) // Nutze console.error für Fehler
 			showUserMessage("bg-rose-200", "Network error or unhandled exception.")
