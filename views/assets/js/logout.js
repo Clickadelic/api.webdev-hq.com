@@ -1,4 +1,4 @@
-if (window.location.pathname === "/dashboard" || window.location.pathname === "/account") {
+if (localStorage.getItem("token")) {
 	document.addEventListener("DOMContentLoaded", () => {
 		const logoutBtn = document.getElementById("logout-btn")
 
