@@ -14,6 +14,7 @@ pageRouter.get("/terms-of-use", pageController.getTermsOfUsePage)
 pageRouter.get("/newsletter", pageController.getNewsletterPage)
 pageRouter.get("/newsletter-confirm", pageController.getNewsletterConfirmationPage)
 
+// Auth Routes
 pageRouter.get("/auth/login", pageController.getLoginPage)
 pageRouter.get("/auth/register", pageController.getRegisterPage)
 pageRouter.get("/auth/reset-password", pageController.getResetPasswordPage)
