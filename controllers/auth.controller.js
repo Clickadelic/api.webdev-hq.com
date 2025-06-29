@@ -48,12 +48,11 @@ const authController = {
 					expires: expires
 				}
 			})
-			const token = String(Math.floor(Math.random() * 1_000_000)).padStart(6, "0")
 			// E-Mail Template
 			const templatePath = path.join(__dirname, "../mail/templates/confirm-registration.hbs")
 			const source = fs.readFileSync(templatePath, "utf8")
 			const template = handlebars.compile(source)
-			const confirmationLink = `${process.env.APP_URL}:${process.env.PORT}/register-confirm?token=${token}`
+			const confirmationLink = `${process.env.APP_URL}:${process.env.PORT}/register-confirm?token=${verificationToken}`
 			const html = template({
 				name: newUser.username,
 				confirmationLink
