@@ -46,6 +46,12 @@ const pageController = {
 	},
 	getLinksPage: (req, res) => {
 		return res.render("./pages/links")
+	},
+	getAdminPage: (req, res) => {
+		return res.render("./pages/admin")
+	},
+	getAdminUsersPage: (req, res) => {
+		return res.render("./pages/admin/users")
 	}
 }
 

@@ -9,3 +9,5 @@ require("./reset-password.js")
 require("./links.js")
 require("./dashboard.js")
 require("./modal.js")
+
+require("./admin/users.js")

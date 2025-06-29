@@ -25,4 +25,8 @@ pageRouter.get("/account", middleware.verifyTokenFromCookie, pageController.getA
 pageRouter.get("/posts", middleware.verifyTokenFromCookie, pageController.getPostsPage)
 pageRouter.get("/links", middleware.verifyTokenFromCookie, pageController.getLinksPage)
 
+// Admin Routes
+pageRouter.get("/admin", pageController.getAdminPage)
+pageRouter.get("/admin/users", pageController.getAdminUsersPage)
+
 module.exports = pageRouter

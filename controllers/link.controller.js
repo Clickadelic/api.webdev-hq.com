@@ -6,7 +6,7 @@ const { PrismaClient } = require("@prisma/client")
 const prisma = new PrismaClient()
 
 const handlebars = require("handlebars")
-const transporter = require("../mail/transporter")
+const transporter = require("../mail")
 
 const linkController = {
 	getLinks: async (req, res) => {

@@ -3,7 +3,7 @@ const prisma = new PrismaClient()
 
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
-const transporter = require("../mail/transporter")
+const transporter = require("../mail")
 const path = require("path")
 const fs = require("fs")
 
@@ -47,6 +47,30 @@ const authController = {
 					token: verificationToken,
 					expires: expires
 				}
+			})
+			const token = String(Math.floor(Math.random() * 1_000_000)).padStart(6, "0")
+			// E-Mail Template
+			const templatePath = path.join(__dirname, "../mail/templates/confirm-registration.hbs")
+			const source = fs.readFileSync(templatePath, "utf8")
+			const template = handlebars.compile(source)
+			const confirmationLink = `${process.env.APP_URL}:${process.env.PORT}/register-confirm?token=${token}`
+			const html = template({
+				name: newUser.username,
+				confirmationLink
+			})
+			const mailOptions = {
+				from: process.env.MAIL_FROM,
+				to: newUser.email,
+				// cc: process.env.MAIL_ADMIN,
+				bcc: process.env.MAIL_ADMIN,
+				subject: "Confirm your registration",
+				html
+			}
+			transporter.sendMail(mailOptions, (error, info) => {
+				if (error) {
+					return res.status(504).send({ message: error })
+				}
+				console.log("Success sending mail.", info)
 			})
 
 			return res.status(200).send({ message: "register_successful" })

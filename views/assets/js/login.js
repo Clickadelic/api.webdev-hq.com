@@ -33,10 +33,9 @@ const handleLogin = async e => {
 		if (response.ok) {
 			localStorage.setItem("token", data.token) // Token speichern
 			showUserMessage("bg-green-200", "Login successful.")
-			setTimeout(() => (window.location.href = "/dashboard"), 1000) // Weiterleitung nach Login
+			setTimeout(() => (window.location.href = "/dashboard"), 2000) // Weiterleitung nach Login
 		} else {
 			showUserMessage("bg-rose-200", "Login failed.")
-			console.log(data)
 		}
 	} catch (error) {
 		console.log(error)
