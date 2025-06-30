@@ -8,7 +8,5 @@ authRouter.post("/auth/confirm-registration", middleware.validateConfirmationTok
 authRouter.post("/auth/login", middleware.validateLogin, authController.login)
 authRouter.post("/auth/logout", authController.logout)
 authRouter.post("/auth/reset-password", authController.resetPassword)
-authRouter.get("/users", middleware.isLoggedIn, authController.getUsers)
-authRouter.get("/users/:id", middleware.isLoggedIn, authController.getUser)
 
 module.exports = authRouter

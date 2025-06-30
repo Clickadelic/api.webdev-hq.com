@@ -229,32 +229,6 @@ const authController = {
 		} catch (error) {
 			res.status(400).json({ message: error })
 		}
-	},
-	getUsers: async (req, res) => {
-		try {
-			const users = await prisma.user.findMany()
-			users.forEach(user => {
-				user.password = undefined
-			})
-			res.status(200).json(users)
-		} catch (error) {
-			res.status(400).json({ message: error })
-		}
-	},
-	getUser: async (req, res) => {
-		try {
-			const user = await prisma.user.findUnique({
-				where: {
-					id: req.params.id
-				}
-			})
-			if (user) {
-				user.password = undefined
-				res.status(200).json(user)
-			}
-		} catch (error) {
-			res.status(400).json({ message: error })
-		}
 	}
 }
 
