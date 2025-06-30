@@ -1,12 +1,12 @@
 const pageController = {
 	getIndexPage: (req, res) => {
-		return res.render("./pages/index")
+		return res.render("./pages/index", { lang: res.locals.lang })
 	},
 	getDocsPage: (req, res) => {
-		return res.render("./pages/docs")
+		return res.render("./pages/docs", { lang: res.locals.lang })
 	},
 	getAboutPage: (req, res) => {
-		return res.render("./pages/about")
+		return res.render("./pages/about", { lang: res.locals.lang })
 	},
 	getRegisterPage: (req, res) => {
 		return res.render("./pages/auth/register", { confirmationToken: req.query.token })

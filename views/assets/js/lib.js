@@ -18,3 +18,9 @@ export const validatePassword = password => {
 	const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
 	return re.test(String(password).toLowerCase())
 }
+
+export const getCookie = name => {
+	const value = `; ${document.cookie}`
+	const parts = value.split(`; ${name}=`)
+	if (parts.length === 2) return parts.pop().split(";").shift()
+}

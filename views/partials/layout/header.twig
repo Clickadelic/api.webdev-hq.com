@@ -9,13 +9,16 @@
 					{% include 'partials/menus/mega-menu.twig' %}
 				{% endblock %}
 			</div>
+			<div class="flex justify-between md:space-x-2 lg:space-x-4 relative">
 			{% block menu %}
 				{% if user %}
 					{% include 'partials/menus/auth-menu.twig' %}
 				{% else %}
 					{% include 'partials/menus/public-menu.twig' %}
 				{% endif %}
+				{% include 'partials/menus/language-menu.twig' %}
 			{% endblock %}
+			</div>
 		</div>
 	</header>
 	{% block breadcrumbs %}

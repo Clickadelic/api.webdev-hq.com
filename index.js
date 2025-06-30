@@ -17,6 +17,7 @@ const authRouter = require("./routers/auth.router")
 const userRouter = require("./routers/user.router")
 const newsletterRouter = require("./routers/newsletter.router")
 const chromeExtensionRouter = require("./routers/chrome-extension.router")
+const fs = require("fs")
 
 const clearTwigCache = () => {
 	twig.cache(false)
@@ -42,7 +43,11 @@ app.use(middleware.setAssetPath)
 app.use(middleware.setBreadcrumbs)
 app.use(middleware.checkAuthStatus)
 
-app.use("/", pageRouter)
+app.use(middleware.loadTranslations)
+app.use(middleware.setLanguageSegments)
+app.use(middleware.setDefaultFallbackLanguage)
+
+app.use("/:lang/", pageRouter)
 app.use("/common/v1", infoRouter)
 app.use("/common/v1", authRouter)
 app.use("/common/v1", userRouter)

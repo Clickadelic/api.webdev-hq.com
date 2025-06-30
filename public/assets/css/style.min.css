@@ -332,6 +332,9 @@
   .mt-\[2px\] {
     margin-top: 2px;
   }
+  .mt-\[5px\] {
+    margin-top: 5px;
+  }
   .mt-\[6px\] {
     margin-top: 6px;
   }
@@ -822,6 +825,12 @@
   }
   .text-white {
     color: var(--color-white);
+  }
+  .capitalize {
+    text-transform: capitalize;
+  }
+  .uppercase {
+    text-transform: uppercase;
   }
   .shadow-lg {
     --tw-shadow: 0 10px 15px -3px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 4px 6px -4px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
