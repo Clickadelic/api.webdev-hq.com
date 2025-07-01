@@ -14,21 +14,14 @@
 				</div>
 				<div class="dropdown-menu absolute right-0 z-10 mt-2 w-32 origin-top-right divide-y divide-slate-100 rounded-sm bg-white shadow-lg ring-1 ring-black/5 focus:outline-none hidden" role="menu" aria-expanded="false" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
 					<div class="py-1" role="none">
-						{% set languages = [
-							{ code: 'de', label: 'german', flag: 'de.png' },
-							{ code: 'en', label: 'english', flag: 'en.png' }
-						] %}
-
-						{% for l in languages %}
-						<a href="/{{ l.code }}{{ pathWithoutLang }}" 
-						class="flex space-x-2 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100 {% if lang == l.code %}text-mantis-primary{% endif %}" 
-						role="menuitem" tabindex="-1">
-							<span>
-								<img src="{{ asset('assets/flags/' ~ l.flag) }}" class="mt-[5px]" alt="{{ l.label | capitalize }} Flag" />
-							</span>
-							<span class="capitalize">{{ t(l.label) }}</span>
+						<a href="/de{{ pathWithoutLang }}" class="flex space-x-2 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100 {% if lang == 'de' %}text-mantis-primary{% endif %}" role="menuitem" tabindex="-1">
+							<span><img src="{{ asset('assets/flags/de.png') }}" class="mt-[5px]" alt="German Flag" /></span>
+							<span>{{ t('german') }}</span>
 						</a>
-						{% endfor %}
+						<a href="/en{{ pathWithoutLang }}" class="flex space-x-2 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100 {% if lang == 'en' %}text-mantis-primary{% endif %}" role="menuitem" tabindex="-1">
+							<span><img src="{{ asset('assets/flags/en.png') }}" class="mt-[5px]" alt="English Flag" /></span>
+							<span>{{ t('english') }}</span>
+						</a>
 					</div>
 				</div>
 			</div>
