@@ -6,6 +6,7 @@ const cors = require("cors")
 const app = express()
 const chalk = require("chalk")
 const path = require("path")
+const fs = require("fs")
 const twig = require("twig")
 const port = process.env.PORT || 5000
 const chokidar = require("chokidar")
@@ -17,7 +18,8 @@ const authRouter = require("./routers/auth.router")
 const userRouter = require("./routers/user.router")
 const newsletterRouter = require("./routers/newsletter.router")
 const chromeExtensionRouter = require("./routers/chrome-extension.router")
-const fs = require("fs")
+
+const supportedLanguages = require("./config").supportedLanguages
 
 const clearTwigCache = () => {
 	twig.cache(false)
@@ -43,7 +45,31 @@ app.use(middleware.setAssetPath)
 app.use(middleware.setBreadcrumbs)
 app.use(middleware.checkAuthStatus)
 
-app.use(middleware.loadTranslations)
+// app.use(middleware.loadTranslations)
+app.use((req, res, next) => {
+	const segments = req.path.split("/").filter(Boolean)
+	const lang = supportedLanguages.includes(segments[0]) ? segments[0] : "en"
+
+	res.locals.lang = lang
+	res.locals.pathWithoutLang = "/" + segments.slice(1).join("/")
+
+	// Übersetzungen laden
+	const translationsPath = path.join(__dirname, "locales", `${lang}.json`)
+	try {
+		const translations = JSON.parse(fs.readFileSync(translationsPath, "utf-8"))
+		res.locals.translations = translations
+	} catch (err) {
+		console.error("Fehler beim Laden der Übersetzungen:", err)
+		res.locals.translations = {}
+	}
+
+	// Übersetzungsfunktion für Twig
+	res.locals.t = key => {
+		return res.locals.translations[key] || key
+	}
+
+	next()
+})
 app.use(middleware.setLanguageSegments)
 app.use(middleware.setDefaultFallbackLanguage)
 
