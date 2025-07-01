@@ -1,14 +1,17 @@
 {
 	"language": "Language",
-	"german": "German",
 	"english": "English",
-	"index": "Homepage",
-	"about": "About us",
-	"contact": "Contact",
-	"index.text": "Welcome to our site.",
-	"about.text": "Welcome to our about site.",
-	"contact.text": "Yeehaw, contact us on our contact site.",
-	"nav.index": "Homepage",
-	"nav.about": "About us",
-	"nav.contact": "Contact"
+	"german": "German",
+	"auth_menu.register": "Register",
+	"auth_menu.login": "Login",
+	"auth_menu.logout": "Logout",
+	"mega_menu.menu": "Menu",
+	"mega_menu.home": "Start",
+	"mega_menu.about": "About",
+	"breadcrumbs.home": "Start",
+	"credits_menu.terms_of_privacy": "Terms of privacy",
+	"credits_menu.terms_of_use": "Terms of use",
+	"credits_menu.disclaimer": "Disclaimer",
+	"credits_menu.imprint": "Imprint",
+	"credits_menu.cookie_information": "Cookie Information"
 }

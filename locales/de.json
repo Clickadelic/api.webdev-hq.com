@@ -1,14 +1,17 @@
 {
 	"language": "Sprache",
-	"german": "Deutsch",
 	"english": "Englisch",
-	"index": "Startseite",
-	"about": "Über uns",
-	"contact": "Kontakt",
-	"index.text": "Willkommen auf unserer Seite.",
-	"about.text": "Willkommen auf unserer About Seite.",
-	"contact.text": "Yeehaw, kontaktiere uns auf unserer Kontakt Seite.",
-	"nav.index": "Startseite",
-	"nav.about": "Über uns",
-	"nav.contact": "Kontakt"
+	"german": "Deutsch",
+	"auth_menu.register": "Registrieren",
+	"auth_menu.login": "Login",
+	"auth_menu.logout": "Logout",
+	"mega_menu.menu": "Menü",
+	"mega_menu.home": "Start",
+	"mega_menu.about": "About",
+	"breadcrumbs.home": "Start",
+	"credits_menu.terms_of_privacy": "Datenschutz",
+	"credits_menu.terms_of_use": "Nutzungsbedingungen",
+	"credits_menu.disclaimer": "Haftungsausschluss",
+	"credits_menu.imprint": "Impressum",
+	"credits_menu.cookie_information": "Cookie Information"
 }
