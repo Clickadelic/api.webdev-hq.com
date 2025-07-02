@@ -4,7 +4,6 @@ const { PrismaClient } = require("@prisma/client")
 const prisma = new PrismaClient()
 const fs = require("fs")
 const path = require("path")
-const supportedLanguages = require("../config").supportedLanguages
 
 const { registrationSchema, confirmationTokenSchema, loginSchema, resetPasswordSchema } = require("../schemas")
 
