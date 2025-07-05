@@ -26,23 +26,6 @@ if (window.location.pathname === "/auth/register") {
 			showUserMessage("bg-rose-200", "Passwords do not match.")
 			return
 		}
-		// TODO: Replace with Joi-Validation or similar library for better validation
-		if (username.length < 4) {
-			showUserMessage("bg-rose-200", "Username must be at least 4 characters.")
-			return
-		}
-		if (email.length < 5) {
-			showUserMessage("bg-rose-200", "Email must be at least 5 characters.")
-			return
-		}
-		if (password.length < 6) {
-			showUserMessage("bg-rose-200", "Password must be at least 6 characters.")
-			return
-		}
-		if (agreedToTerms === false) {
-			showUserMessage("bg-rose-200", "Please accept the terms and conditions.")
-			return
-		}
 
 		const formData = {
 			username,

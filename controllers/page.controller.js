@@ -9,7 +9,16 @@ const pageController = {
 		return res.render("./pages/about")
 	},
 	getRegisterPage: (req, res) => {
-		return res.render("./pages/auth/register", { confirmationToken: req.query.token })
+		return res.render("./pages/auth/register", {
+			confirmationToken: req.query.token,
+			query: req.query // wird gebraucht für `query.token is defined` in Twig
+		})
+	},
+	getRegisterConfirmationPage: (req, res) => {
+		return res.render("./pages/auth/confirm", {
+			confirmationToken: req.query.token,
+			query: req.query // wird gebraucht für `query.token is defined` in Twig
+		})
 	},
 	getLoginPage: (req, res) => {
 		return res.render("./pages/auth/login")

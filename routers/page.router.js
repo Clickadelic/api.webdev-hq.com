@@ -19,6 +19,8 @@ pageRouter.get("/auth/login", pageController.getLoginPage)
 pageRouter.get("/auth/register", pageController.getRegisterPage)
 pageRouter.get("/auth/reset-password", pageController.getResetPasswordPage)
 
+pageRouter.get("/auth/confirm", pageController.getRegisterConfirmationPage)
+
 // Protected Routes
 pageRouter.get("/dashboard", middleware.verifyTokenFromCookie, pageController.getDashboardPage)
 pageRouter.get("/account", middleware.verifyTokenFromCookie, pageController.getAccountPage)

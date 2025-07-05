@@ -20,6 +20,30 @@ const extensionController = {
 			console.error("Error loading image from Unsplash:", error)
 			res.status(500).json({ error: error.message })
 		}
+	},
+	getSeasonalImage: async (req, res) => {
+		const currentMonth = new Date().getMonth() + 1
+
+		let collectionIds = ""
+		if (currentMonth >= 5 && currentMonth <= 9) {
+			collectionIds = process.env.UNSPLASH_SUMMER_COLLECTION_ID
+		} else if (currentMonth >= 9 && currentMonth <= 11) {
+			collectionIds = process.env.UNSPLASH_FALL_COLLECTION_ID
+		} else if (currentMonth >= 11 && currentMonth <= 4) {
+			collectionIds = process.env.UNSPLASH_WINTER_COLLECTION_ID
+		} else {
+			collectionIds = process.env.UNSPLASH_SPRING_COLLECTION_ID
+		}
+		try {
+			const response = await unsplash.photos.getRandom({
+				collectionIds,
+				orientation: "landscape"
+			})
+			if (!response || !response.status || response.status !== 200) {
+				return res.status(500).json({ error: "No image found." })
+			}
+			res.status(200).json(response)
+		} catch (error) {}
 	}
 }
 

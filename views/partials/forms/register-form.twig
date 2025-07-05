@@ -5,7 +5,13 @@
 		</div>
 		<h2 class="font-medium text-2xl mb-2">Register</h2>
 		<h3 class="font-light text-xl text-slate-400 mb-4 md:mb-8 lg:mb-12">Become a member.</h3>
-		<div id="message-box" class="text-left block w-full h-[48px] p-3 rounded-md mb-3"></div>
+		<div id="message-box" class="text-left block w-full h-[48px] p-3 rounded mb-3"></div>
+		{% if confirmationToken %}
+			<div class="border border-emerald-300 bg-emerald-200 p-2 rounded">
+				<p>Thank's for confirming your e-mail!</p>
+				<p>Forwarding you in 3.. 2..</p>
+			</div>
+		{% else %}
 		<form class="space-y-3" method="post">
 			<input type="text" name="username" id="username" class="w-full bg-slate-200 rounded-sm p-3" autocomplete="new-name" placeholder="Username">
 			<input type="email" name="email" id="email" class="w-full bg-slate-200 rounded-sm p-3" autocomplete="current-email" placeholder="E-Mail">
@@ -17,6 +23,8 @@
 			</div>
 			<button type="submit" class="w-full p-3 text-white bg-mantis-primary hover:bg-mantis-primary-hover rounded-sm hover:cursor-pointer">Register</button>
 		</form>
+		{% endif %}
+
 		<p class="mb-2">Already have an account? <a href="/auth/login" class="inline-block mt-4 hover:text-mantis-primary text-slate-800" title="Forgot your password">Login</a>.</p>
 	</div>
 </div>

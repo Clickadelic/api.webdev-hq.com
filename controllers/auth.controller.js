@@ -52,7 +52,7 @@ const authController = {
 			const templatePath = path.join(__dirname, "../mail/templates/confirm-registration.hbs")
 			const source = fs.readFileSync(templatePath, "utf8")
 			const template = handlebars.compile(source)
-			const confirmationLink = `${process.env.APP_URL}:${process.env.PORT}/register-confirm?token=${verificationToken}`
+			const confirmationLink = `${process.env.APP_URL}:${process.env.PORT}/auth/confirm?token=${verificationToken}`
 			const html = template({
 				name: newUser.username,
 				confirmationLink
@@ -80,9 +80,17 @@ const authController = {
 	},
 	confirmRegistration: async (req, res) => {
 		try {
+			const { email, token } = req.query
+			if (!email || !token) {
+				return res.status(400).json({ error: "Email oder Token fehlt" })
+			}
+
 			const verificationToken = await prisma.verificationToken.findUnique({
 				where: {
-					token: req.params.token
+					email_token: {
+						email,
+						token
+					}
 				}
 			})
 
@@ -121,7 +129,7 @@ const authController = {
 			return res.status(200).send({ message: "email_verified_successfully" })
 		} catch (error) {
 			console.error(error)
-			return res.status(500).send({ message: "something_went_wrong" })
+			return res.status(500).send({ message: "missing_token_or_email" })
 		}
 	},
 	login: async (req, res) => {
