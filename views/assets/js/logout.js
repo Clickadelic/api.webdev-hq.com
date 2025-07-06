@@ -1,4 +1,4 @@
-if (window.location.pathname === "/dashboard" || window.location.pathname === "/account") {
+if (localStorage.getItem("token")) {
 	document.addEventListener("DOMContentLoaded", () => {
 		const logoutBtn = document.getElementById("logout-btn")
 
@@ -9,7 +9,7 @@ if (window.location.pathname === "/dashboard" || window.location.pathname === "/
 				method: "POST"
 			}).then(response => {
 				if (response.ok) {
-					window.location.href = "/login"
+					window.location.href = "/"
 				}
 			})
 		})

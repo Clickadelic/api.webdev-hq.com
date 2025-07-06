@@ -1,6 +1,6 @@
 const showUserMessage = require("./lib").showUserMessage
 
-if (window.location.pathname === "/register") {
+if (window.location.pathname === "/auth/register") {
 	document.addEventListener("DOMContentLoaded", () => {
 		document.getElementsByTagName("form")[0].addEventListener("submit", e => {
 			handleRegister(e)
@@ -24,23 +24,6 @@ if (window.location.pathname === "/register") {
 
 		if (password !== passwordRepeat) {
 			showUserMessage("bg-rose-200", "Passwords do not match.")
-			return
-		}
-		// TODO: Replace with Joi-Validation or similar library for better validation
-		if (username.length < 4) {
-			showUserMessage("bg-rose-200", "Username must be at least 4 characters.")
-			return
-		}
-		if (email.length < 5) {
-			showUserMessage("bg-rose-200", "Email must be at least 5 characters.")
-			return
-		}
-		if (password.length < 6) {
-			showUserMessage("bg-rose-200", "Password must be at least 6 characters.")
-			return
-		}
-		if (agreedToTerms === false) {
-			showUserMessage("bg-rose-200", "Please accept the terms and conditions.")
 			return
 		}
 
@@ -74,6 +57,11 @@ if (window.location.pathname === "/register") {
 			showUserMessage("bg-green-200", "Please confirm your e-mail.")
 			// Optional: Weiterleitung oder andere Aktionen bei Erfolg
 			// window.location.href = "/confirmation-sent";
+			document.querySelector("input[name='username']").value = ""
+			document.querySelector("input[name='email']").value = ""
+			document.querySelector("input[name='password']").value = ""
+			document.querySelector("input[name='password-repeat']").value = ""
+			document.querySelector("input[name='agreed-to-terms']").checked = false
 		} catch (error) {
 			console.error("Fetch error:", error) // Nutze console.error für Fehler
 			showUserMessage("bg-rose-200", "Network error or unhandled exception.")

@@ -1,4 +1,12 @@
-{# base.twig #}
+{# base.twig - the mother of all views, overwrite blocks to manipulate #}
+{# Default Modal Values #}
+{% set modalId = 'modal' %}
+{% set modalIcon = 'Modal Icon' %}
+{% set modalTitle = 'Modal Title' %}
+{% set modalSubtitle = 'Modal Subtitle' %}
+{% set modalBody = 'Modal Body' %}
+{% set modalFooter = 'Modal Footer' %}
+{# End of Default Modal Values #}
 <!DOCTYPE html>
 <html lang="en" class="h-full">
 {% block head %}
@@ -6,6 +14,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}WebDev HQ &middot; API Service{% endblock %}</title>
+	
     {% block favicons %}
         <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
         <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
@@ -14,147 +23,120 @@
         <meta name="apple-mobile-web-app-title" content="API" />
         <link rel="manifest" href="/favicon/site.webmanifest" />
     {% endblock %}
+
     {% block stylesheet %}
-    <link rel="stylesheet" href="./assets/css/style.min.css" />
+        <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}" />
     {% endblock %}
+
     {% block custom_fonts_css %}
     <style id="custom-fonts-css">
-        @font-face {
-            font-family: "La Belle Aurore";
-            src: url("./assets/fonts/La-Belle-Aurore/LaBelleAurore-Regular.ttf");
-        }
+        {% set font_base = './assets/fonts/Poppins/' %}
+        @font-face { font-family: "La Belle Aurore"; src: url("./assets/fonts/La-Belle-Aurore/LaBelleAurore-Regular.ttf"); }
 
-        @font-face {
-            font-family: "Poppins Black";
-            src: url("./assets/fonts/Poppins/Poppins-Black.ttf");
-        }
-
-        @font-face {
-            font-family: "Poppins Black Italic";
-            src: url("./assets/fonts/Poppins/Poppins-BlackItalic.ttf");
-        }
-
-        @font-face {
-            font-family: "Poppins Bold";
-            src: url("./assets/fonts/Poppins/Poppins-Bold.ttf");
-        }
-
-        @font-face {
-            font-family: "Poppins Bold Italic";
-            src: url("./assets/fonts/Poppins/Poppins-BoldItalic.ttf");
-        }
-
-        @font-face {
-            font-family: "Poppins Extra Bold";
-            src: url("./assets/fonts/Poppins/Poppins-ExtraBold.ttf");
-        }
-
-        @font-face {
-            font-family: "Poppins Extra BoldItalic";
-            src: url("./assets/fonts/Poppins/Poppins-ExtraBoldItalic.ttf");
-        }
-
-        @font-face {
-            font-family: "Poppins Extra Light";
-            src: url("./assets/fonts/Poppins/Poppins-ExtraLight.ttf");
-        }
-
-        @font-face {
-            font-family: "Poppins Extra LightItalic";
-            src: url("./assets/fonts/Poppins/Poppins-ExtraLightItalic.ttf");
-        }
-
-        @font-face {
-            font-family: "Poppins Italic";
-            src: url("./assets/fonts/Poppins/Poppins-Italic.ttf");
-        }
-
-        @font-face {
-            font-family: "Poppins Regular";
-            src: url("./assets/fonts/Poppins/Poppins-Regular.ttf");
-        }
-
-        @font-face {
-            font-family: "Poppins Bold";
-            src: url("./assets/fonts/Poppins/Poppins-Bold.ttf");
-        }
-
-        @font-face {
-            font-family: "Poppins Medium";
-            src: url("./assets/fonts/Poppins/Poppins-Medium.ttf");
-        }
-
-        @font-face {
-            font-family: "Poppins Italic";
-            src: url("./assets/fonts/Poppins/Poppins-Italic.ttf");
-        }
-
-        @font-face {
-            font-family: "Poppins Light";
-            src: url("./assets/fonts/Poppins/Poppins-Light.ttf");
-        }
-
-        @font-face {
-            font-family: "Poppins LightItalic";
-            src: url("./assets/fonts/Poppins/Poppins-LightItalic.ttf");
-        }
-
-        @font-face {
-            font-family: "Poppins Medium Italic";
-            src: url("./assets/fonts/Poppins/Poppins-MediumItalic.ttf");
-        }
-
-        @font-face {
-            font-family: "Poppins Regular";
-            src: url("./assets/fonts/Poppins/Poppins-Regular.ttf");
-        }
-
-        @font-face {
-            font-family: "Poppins Semi Bold";
-            src: url("./assets/fonts/Poppins/Poppins-SemiBold.ttf");
-        }
-
-        @font-face {
-            font-family: "Poppins Semi BoldItalic";
-            src: url("./assets/Poppins/Poppins-SemiBoldItalic.ttf");
-        }
-
-        @font-face {
-            font-family: "Poppins Thin";
-            src: url("./assets/fonts/Poppins/Poppins-Thin.ttf");
-        }
-
-        @font-face {
-            font-family: "Poppins Thin Italic";
-            src: url("./assets/fonts/Poppins/Poppins-ThinItalic.ttf");
-        }
-
+        @font-face { font-family: "Poppins Black"; src: url(font_base ~ "Poppins-Black.ttf"); }
+        @font-face { font-family: "Poppins Black Italic"; src: url(font_base ~ "Poppins-BlackItalic.ttf"); }
+        @font-face { font-family: "Poppins Bold"; src: url(font_base ~ "Poppins-Bold.ttf"); }
+        @font-face { font-family: "Poppins Bold Italic"; src: url(font_base ~ "Poppins-BoldItalic.ttf"); }
+        @font-face { font-family: "Poppins Extra Bold"; src: url(font_base ~ "Poppins-ExtraBold.ttf"); }
+        @font-face { font-family: "Poppins Extra BoldItalic"; src: url(font_base ~ "Poppins-ExtraBoldItalic.ttf"); }
+        @font-face { font-family: "Poppins Extra Light"; src: url(font_base ~ "Poppins-ExtraLight.ttf"); }
+        @font-face { font-family: "Poppins Extra LightItalic"; src: url(font_base ~ "Poppins-ExtraLightItalic.ttf"); }
+        @font-face { font-family: "Poppins Italic"; src: url(font_base ~ "Poppins-Italic.ttf"); }
+        @font-face { font-family: "Poppins Regular"; src: url(font_base ~ "Poppins-Regular.ttf"); }
+        @font-face { font-family: "Poppins Medium"; src: url(font_base ~ "Poppins-Medium.ttf"); }
+        @font-face { font-family: "Poppins Medium Italic"; src: url(font_base ~ "Poppins-MediumItalic.ttf"); }
+        @font-face { font-family: "Poppins Light"; src: url(font_base ~ "Poppins-Light.ttf"); }
+        @font-face { font-family: "Poppins LightItalic"; src: url(font_base ~ "Poppins-LightItalic.ttf"); }
+        @font-face { font-family: "Poppins Semi Bold"; src: url(font_base ~ "Poppins-SemiBold.ttf"); }
+        @font-face { font-family: "Poppins Semi BoldItalic"; src: url(font_base ~ "Poppins-SemiBoldItalic.ttf"); }
+        @font-face { font-family: "Poppins Thin"; src: url(font_base ~ "Poppins-Thin.ttf"); }
+        @font-face { font-family: "Poppins Thin Italic"; src: url(font_base ~ "Poppins-ThinItalic.ttf"); }
     </style>
     {% endblock %}
-    {% block custom_inline_css %}
-    {% endblock %}
+
+    {% block custom_inline_css %}{% endblock %}
+    {% block custom_inline_js %}{% endblock %}
 </head>
 {% endblock %}
+
 {% block body %}
-{# 
-   Standardmäßig (wenn content_position nicht gesetzt ist) ist es 'items-center' für zentrierten Inhalt. #}
-<body id="top" class="min-h-screen flex flex-col bg-slate-100 font-poppins">
-	{% block header %}
-        {% include 'partials/header.twig' %}
+<body id="top" class="min-h-screen flex flex-col font-poppins {% block body_class %}bg-gradient-to-r from-slate-50 to-slate-200{% endblock %}">
+    {% block header %}
+        {% include 'partials/layout/header.twig' %}
     {% endblock %}
-    {% block main %}
-    <main class="container mx-auto flex-1 {% if content_position == 'center' %}flex items-center justify-center{% endif %}">
-        {% block content %}
-            <h2 class="text-5xl text-center">Main Content</h2>
+
+    <div class="container mx-auto py-2 flex flex-grow">
+        {% block layout %}
+            <main class="{% block content_class %}flex-1{% endblock %}">
+                {% block content %}
+                    <h2 class="text-5xl text-center">Main Content</h2>
+                {% endblock %}
+            </main>
         {% endblock %}
-    </main>
-    {% endblock %}
+    </div>
+
     {% block footer %}
-        {% include 'partials/footer.twig' %}
+        {% include 'partials/layout/footer.twig' %}
     {% endblock %}
-{% block scripts %}
-<script src="./assets/js/scripts.min.js" type="module"></script>
-{% endblock %}
+
+    {% block modal %}
+        <div
+            class="modal absolute top-0 right-0 bottom-0 left-0 w-full h-full bg-black/30 backdrop-blur-xs hidden flex-col justify-center items-center z-10"
+            id="{{ modalId }}"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="{{ modalId }}Label"
+            aria-describedby="{{ modalId }}Description"
+            aria-modal="true"
+        >
+            <div class="w-full md:w-96 m-3 md:m-0 md:mx-auto bg-white p-4 rounded shadow-lg" role="document">
+                <div class="modal-header relative flex flex-start flex-grow items-start justify-start mb-3">
+                    <div class="flex-1">
+                        <h3 id="{{ modalId }}Label" class="block w-full flex justify-start space-x-2 text-lg font-semibold">
+                            <span class="mt-1.5">
+								{% block modal_icon %}
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-app" viewBox="0 0 16 16">
+									<path d="M11 2a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3zM5 1a4 4 0 0 0-4 4v6a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4z"/>
+								</svg>
+								{% endblock %}
+							</span>
+                            <span>
+								{% block modal_title %}
+									Modal Title
+								{% endblock %}
+							</span>
+                        </h3>
+                        <h4 id="{{ modalId }}Subtitle" class="text-sm text-gray-600">
+                            {% block modal_subtitle %}Modal Subtitle{% endblock %}
+                        </h4>
+                    </div>
+                    <button
+                        type="button"
+                        class="modal-close hover:bg-slate-200 rounded hover:text-mantis-primary hover:cursor-pointer px-2 pb-1"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                    >
+                        <span aria-hidden="true" class="mt-[6px]">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body my-4 py-4" id="{{ modalId }}Description">
+                    {% block modal_body %}
+                        <h2>Modal Body</h2>
+                        <p>This is the default content of the modal. Overwrite it in the page via block modal_body.</p>
+                    {% endblock %}
+                </div>
+				<div class="modal-footer flex flex-end gap-3 justify-end items-end w-full">
+				{% block modal_footer %}
+					<button class="modal-close bg-slate-200 rounded px-3 py-2 hover:cursor-pointer" data-dismiss="modal">Close</button>
+                {% endblock %}
+				</div>
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block scripts %}
+        <script src="{{ asset('assets/js/scripts.min.js') }}" type="module"></script>
+    {% endblock %}
 </body>
 {% endblock %}
 </html>

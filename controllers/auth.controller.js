@@ -3,41 +3,14 @@ const prisma = new PrismaClient()
 
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
-const transporter = require("../mail/transporter")
+const transporter = require("../mail")
 const path = require("path")
 const fs = require("fs")
 
 const handlebars = require("handlebars")
 
-const Joi = require("joi")
-
-// Register
-const registerSchema = Joi.object({
-	username: Joi.string().required(),
-	email: Joi.string().email().required(),
-	password: Joi.string().required(),
-	passwordRepeat: Joi.string().required(),
-	agreedToTerms: Joi.boolean().valid(true).required()
-})
-
-// Login
-const loginSchema = Joi.object({
-	email: Joi.string().email().required(),
-	password: Joi.string().required()
-})
-
-// Reset Password
-const resetPasswordSchema = Joi.object({
-	email: Joi.string().email().required()
-})
-
 const authController = {
 	registerUser: async (req, res) => {
-		// Validate request body
-		const { error } = registerSchema.validate(req.body)
-		if (error) {
-			return res.status(400).send({ message: error.details[0].message })
-		}
 		try {
 			const existingUser = await prisma.user.findUnique({
 				where: {
@@ -75,6 +48,29 @@ const authController = {
 					expires: expires
 				}
 			})
+			// E-Mail Template
+			const templatePath = path.join(__dirname, "../mail/templates/confirm-registration.hbs")
+			const source = fs.readFileSync(templatePath, "utf8")
+			const template = handlebars.compile(source)
+			const confirmationLink = `${process.env.APP_URL}:${process.env.PORT}/auth/confirm?token=${verificationToken}`
+			const html = template({
+				name: newUser.username,
+				confirmationLink
+			})
+			const mailOptions = {
+				from: process.env.MAIL_FROM,
+				to: newUser.email,
+				// cc: process.env.MAIL_ADMIN,
+				bcc: process.env.MAIL_ADMIN,
+				subject: "Confirm your registration",
+				html
+			}
+			transporter.sendMail(mailOptions, (error, info) => {
+				if (error) {
+					return res.status(504).send({ message: error })
+				}
+				console.log("Success sending mail.", info)
+			})
 
 			return res.status(200).send({ message: "register_successful" })
 		} catch (error) {
@@ -82,11 +78,61 @@ const authController = {
 			return res.status(500).send({ message: "something_went_wrong" })
 		}
 	},
-	login: async (req, res) => {
-		const { error } = loginSchema.validate(req.body)
-		if (error) {
-			return res.status(400).send({ message: error.details[0].message })
+	confirmRegistration: async (req, res) => {
+		try {
+			const { email, token } = req.query
+			if (!email || !token) {
+				return res.status(400).json({ error: "Email oder Token fehlt" })
+			}
+
+			const verificationToken = await prisma.verificationToken.findUnique({
+				where: {
+					email_token: {
+						email,
+						token
+					}
+				}
+			})
+
+			if (!verificationToken) {
+				return res.status(404).send({ message: "no_such_verification_token" })
+			}
+
+			const user = await prisma.user.findUnique({
+				where: {
+					email: verificationToken.email
+				}
+			})
+
+			if (!user) {
+				return res.status(404).send({ message: "no_such_user_in_database" })
+			}
+
+			if (verificationToken.expires < new Date()) {
+				return res.status(400).send({ message: "verification_token_expired" })
+			}
+
+			await prisma.user.update({
+				where: {
+					email: user.email
+				},
+				data: {
+					verified: true
+				}
+			})
+
+			await prisma.verificationToken.delete({
+				where: {
+					token: verificationToken.token
+				}
+			})
+			return res.status(200).send({ message: "email_verified_successfully" })
+		} catch (error) {
+			console.error(error)
+			return res.status(500).send({ message: "missing_token_or_email" })
 		}
+	},
+	login: async (req, res) => {
 		try {
 			const user = await prisma.user.findUnique({
 				where: {
@@ -188,32 +234,6 @@ const authController = {
 			})
 
 			return res.status(200).json({ message: "password_reset_token_sent" })
-		} catch (error) {
-			res.status(400).json({ message: error })
-		}
-	},
-	getUsers: async (req, res) => {
-		try {
-			const users = await prisma.user.findMany()
-			users.forEach(user => {
-				user.password = undefined
-			})
-			res.status(200).json(users)
-		} catch (error) {
-			res.status(400).json({ message: error })
-		}
-	},
-	getUser: async (req, res) => {
-		try {
-			const user = await prisma.user.findUnique({
-				where: {
-					id: req.params.id
-				}
-			})
-			if (user) {
-				user.password = undefined
-				res.status(200).json(user)
-			}
 		} catch (error) {
 			res.status(400).json({ message: error })
 		}

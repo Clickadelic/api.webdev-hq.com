@@ -7,9 +7,6 @@ const pageController = require("../controllers/page.controller")
 pageRouter.get("/", pageController.getIndexPage)
 pageRouter.get("/docs", pageController.getDocsPage)
 pageRouter.get("/about", pageController.getAboutPage)
-pageRouter.get("/login", pageController.getLoginPage)
-pageRouter.get("/register", pageController.getRegisterPage)
-pageRouter.get("/reset-password", pageController.getResetPasswordPage)
 pageRouter.get("/disclaimer", pageController.getDisclaimerPage)
 pageRouter.get("/cookie-information", pageController.getCookieInformationPage)
 pageRouter.get("/terms-of-privacy", pageController.getTermsOfPrivacyPage)
@@ -17,10 +14,21 @@ pageRouter.get("/terms-of-use", pageController.getTermsOfUsePage)
 pageRouter.get("/newsletter", pageController.getNewsletterPage)
 pageRouter.get("/newsletter-confirm", pageController.getNewsletterConfirmationPage)
 
+// Auth Routes
+pageRouter.get("/auth/login", pageController.getLoginPage)
+pageRouter.get("/auth/register", pageController.getRegisterPage)
+pageRouter.get("/auth/reset-password", pageController.getResetPasswordPage)
+
+pageRouter.get("/auth/confirm", pageController.getRegisterConfirmationPage)
+
 // Protected Routes
 pageRouter.get("/dashboard", middleware.verifyTokenFromCookie, pageController.getDashboardPage)
 pageRouter.get("/account", middleware.verifyTokenFromCookie, pageController.getAccountPage)
 pageRouter.get("/posts", middleware.verifyTokenFromCookie, pageController.getPostsPage)
 pageRouter.get("/links", middleware.verifyTokenFromCookie, pageController.getLinksPage)
+
+// Admin Routes
+pageRouter.get("/admin", pageController.getAdminPage)
+pageRouter.get("/admin/users", pageController.getAdminUsersPage)
 
 module.exports = pageRouter

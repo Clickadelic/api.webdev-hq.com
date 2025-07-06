@@ -11,12 +11,38 @@
 				{% include 'partials/sidebar.twig' %}
 			{% endblock %}
 			<section class="flex-1 px-4 py-2">
-				<h2 class="text-2xl mb-3">Links</h2>
-				{% include 'partials/forms/new-link.twig' %}
+				<div class="flex justify-between mb-4">
+					<h2 class="text-2xl mb-3">Links</h2>
+					<button id="modal-open" class="modal-open flex justify-center items-center gap-2 bg-mantis-primary text-white p-2 mb-3 hover:cursor-pointer rounded hover:bg-mantis-primary-hover w-32">
+						<span>
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+								<path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+							</svg>
+						</span>
+						<span>New link</span>
+					</button>
+				</div>
 				<hr class="my-6 border-gray-200" />
 				<ul class="links w-full flex flex-col justify-between space-y-2"></ul>
 			</section>
 		</div>
 	</div>
 </div>
+{% endblock %}
+
+{# Modal Window with form #}
+{% block modal_icon %}
+	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link-45deg" viewBox="0 0 16 16">
+		<path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1 1 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4 4 0 0 1-.128-1.287z"/>
+		<path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243z"/>
+	</svg>
+{% endblock %}
+{% block modal_title %}
+	Links
+{% endblock %}
+{% block modal_subtitle %}
+	Add a new link to the collection
+{% endblock %}
+{% block modal_body %}
+	{% include 'partials/forms/link-form.twig' %}
 {% endblock %}

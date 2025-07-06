@@ -1,12 +1,12 @@
 {% extends "base.html.twig" %}
 
-{% block title %}About &middot; WebDev HQ API{% endblock %}
+{% block title %}{{ t('about') }} &middot; WebDev HQ API{% endblock %}
 
 {% block content %}
 	<div class="p-2 bg-white/30 backdrop-blur rounded mx-3 sm:mx-0">
 		<div class="bg-white p-4 rounded">
-			<h2 class="text-3xl font-medium mb-6">About</h2>
-			<p>About this API.</p>
+			<h2 class="text-3xl font-medium mb-6">{{ t('about') }}</h2>
+			<p>{{ t('about.text') }}.</p>
 		</div>
 	</div>
 {% endblock %}

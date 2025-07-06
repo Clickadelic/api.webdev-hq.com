@@ -1,6 +1,6 @@
 const pageController = {
 	getIndexPage: (req, res) => {
-		return res.render("./pages/index", { content_position: "center" })
+		return res.render("./pages/index")
 	},
 	getDocsPage: (req, res) => {
 		return res.render("./pages/docs")
@@ -9,13 +9,22 @@ const pageController = {
 		return res.render("./pages/about")
 	},
 	getRegisterPage: (req, res) => {
-		return res.render("./pages/register", { content_position: "center" })
+		return res.render("./pages/auth/register", {
+			confirmationToken: req.query.token,
+			query: req.query // wird gebraucht für `query.token is defined` in Twig
+		})
+	},
+	getRegisterConfirmationPage: (req, res) => {
+		return res.render("./pages/auth/confirm", {
+			confirmationToken: req.query.token,
+			query: req.query // wird gebraucht für `query.token is defined` in Twig
+		})
 	},
 	getLoginPage: (req, res) => {
-		return res.render("./pages/login", { content_position: "center" })
+		return res.render("./pages/auth/login")
 	},
 	getResetPasswordPage: (req, res) => {
-		return res.render("./pages/reset-password", { content_position: "center" })
+		return res.render("./pages/auth/reset-password")
 	},
 	getDisclaimerPage: (req, res) => {
 		return res.render("./pages/disclaimer")
@@ -30,22 +39,28 @@ const pageController = {
 		return res.render("./pages/terms-of-use")
 	},
 	getNewsletterPage: (req, res) => {
-		return res.render("./pages/newsletter", { currentPath: res.locals.currentPath, content_position: "center" })
+		return res.render("./pages/newsletter")
 	},
 	getNewsletterConfirmationPage: (req, res) => {
-		return res.render("./pages/newsletter-confirm", { currentPath: res.locals.currentPath, confirmationLink: req.query.token, content_position: "center" })
+		return res.render("./pages/newsletter-confirm", { confirmationToken: req.query.token })
 	},
 	getDashboardPage: (req, res) => {
-		return res.render("./pages/dashboard", { currentPath: res.locals.currentPath, user: res.locals.user })
+		return res.render("./pages/dashboard")
 	},
 	getAccountPage: (req, res) => {
-		return res.render("./pages/account", { currentPath: res.locals.currentPath, user: res.locals.user })
+		return res.render("./pages/account")
 	},
 	getPostsPage: (req, res) => {
-		return res.render("./pages/posts", { currentPath: res.locals.currentPath, user: res.locals.user })
+		return res.render("./pages/posts")
 	},
 	getLinksPage: (req, res) => {
-		return res.render("./pages/links", { currentPath: res.locals.currentPath, user: res.locals.user })
+		return res.render("./pages/links")
+	},
+	getAdminPage: (req, res) => {
+		return res.render("./pages/admin")
+	},
+	getAdminUsersPage: (req, res) => {
+		return res.render("./pages/admin/users")
 	}
 }
 

@@ -2,6 +2,10 @@ const jwt = require("jsonwebtoken")
 const chalk = require("chalk")
 const { PrismaClient } = require("@prisma/client")
 const prisma = new PrismaClient()
+const fs = require("fs")
+const path = require("path")
+
+const { registrationSchema, confirmationTokenSchema, loginSchema, resetPasswordSchema } = require("../schemas")
 
 const middleware = {
 	logRequests: (req, res, next) => {
@@ -21,31 +25,40 @@ const middleware = {
 		res.locals.pathSegments = segments
 		next()
 	},
+	setAssetPath: (req, res, next) => {
+		res.locals.asset = path => `/${path}`
+		next()
+	},
+	setLanguageSegments: (req, res, next) => {
+		const segments = req.path.split("/").filter(Boolean)
+
+		// Sprache ist das erste Segment (z. B. 'de' oder 'en')
+		const supportedLanguages = ["de", "en"]
+		const lang = supportedLanguages.includes(segments[0]) ? segments[0] : "en"
+
+		res.locals.lang = lang // z. B. 'de'
+		res.locals.pathWithoutLang = "/" + segments.slice(1).join("/") // z. B. '/about'
+
+		next()
+	},
 	validateRegistration: (req, res, next) => {
-		if (!req.body.username || req.body.username.length < 4) {
-			return res.status(400).send({
-				message: "min_3_characters"
-			})
+		const { error } = registrationSchema.validate(req.body)
+		if (error) {
+			return res.status(400).send({ message: error.details[0].message })
 		}
-		if (!req.body.email || req.body.email.length < 5) {
-			return res.status(400).send({
-				message: "min_3_characters"
-			})
+		next()
+	},
+	validateConfirmationToken: async (req, res, next) => {
+		const { error } = confirmationTokenSchema.validate(req.body)
+		if (error) {
+			return res.status(400).send({ message: error.details[0].message })
 		}
-		if (!req.body.password || req.body.password.length < 6) {
-			return res.status(400).send({
-				message: "min_6_characters"
-			})
-		}
-		if (!req.body.passwordRepeat || req.body.password !== req.body.passwordRepeat) {
-			return res.status(400).send({
-				message: "both_passwords_must_match"
-			})
-		}
-		if (!req.body.agreedToTerms) {
-			return res.status(400).send({
-				message: "terms_not_accepted"
-			})
+		next()
+	},
+	validateLogin: (req, res, next) => {
+		const { error } = loginSchema.validate(req.body)
+		if (error) {
+			return res.status(400).send({ message: error.details[0].message })
 		}
 		next()
 	},
@@ -64,7 +77,7 @@ const middleware = {
 	},
 	verifyTokenFromCookie: (req, res, next) => {
 		const token = req.cookies.token
-		if (!token) return res.redirect("/login")
+		if (!token) return res.redirect("/auth/login")
 
 		try {
 			const decoded = jwt.verify(token, process.env.JWT_SECRET)
@@ -72,7 +85,7 @@ const middleware = {
 			res.locals.user = decoded // <--- WICHTIG: Für Twig verfügbar machen
 			next()
 		} catch (err) {
-			return res.redirect("/login")
+			return res.redirect("/auth/login")
 		}
 	},
 	checkAuthStatus: async (req, res, next) => {

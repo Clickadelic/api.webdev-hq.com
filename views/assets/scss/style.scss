@@ -9,23 +9,6 @@
 	--color-tahiti: #3ab7bf;
 	--color-bermuda: #78dcca;
 	--color-white: #ffffff;
-}
-
-.dropdown-mega-menu:before {
-	position: absolute;
-	top: -10px;
-	left: 5rem;
-	width: 0;
-	height: 0;
-	content: "";
-	border-left: 10px solid transparent;
-	border-right: 10px solid transparent;
-	border-bottom: 10px solid rgb(229 231 235);
-	transform: translate(-50%, 0);
-}
-
-@media screen and (min-width: 679px) {
-	.dropdown-mega-menu:before {
-		left: 2.5rem;
-	}
+	--background-image-laptop-mask: url("/images/laptop_mask.png");
+	--background-image-extension-screenshot: url("/images/WebDev-HQ-Chrome-Extension.png");
 }

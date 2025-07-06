@@ -1,6 +1,6 @@
 const showUserMessage = require("./lib").showUserMessage
 
-if (window.location.pathname === "/forgot-password") {
+if (window.location.pathname === "/auth/reset-password") {
 	document.addEventListener("DOMContentLoaded", () => {
 		document.getElementsByTagName("form")[0].addEventListener("submit", e => {
 			handlePasswordReset(e)

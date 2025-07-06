@@ -6,6 +6,7 @@ const cors = require("cors")
 const app = express()
 const chalk = require("chalk")
 const path = require("path")
+const fs = require("fs")
 const twig = require("twig")
 const port = process.env.PORT || 5000
 const chokidar = require("chokidar")
@@ -14,6 +15,7 @@ const pageRouter = require("./routers/page.router")
 const infoRouter = require("./routers/info.router")
 const linkRouter = require("./routers/link.router")
 const authRouter = require("./routers/auth.router")
+const userRouter = require("./routers/user.router")
 const newsletterRouter = require("./routers/newsletter.router")
 const chromeExtensionRouter = require("./routers/chrome-extension.router")
 
@@ -24,6 +26,7 @@ const clearTwigCache = () => {
 app.set("view engine", "twig")
 app.set("view cache", false)
 app.set("views", __dirname + "/views")
+
 app.use(express.static(path.join(__dirname, "/public")))
 app.use(cors({ credentials: true, origin: "*" }))
 app.use(express.json())
@@ -37,12 +40,14 @@ chokidar.watch("./views").on("change", () => {
 })
 
 app.use(middleware.logRequests)
+app.use(middleware.setAssetPath)
 app.use(middleware.setBreadcrumbs)
 app.use(middleware.checkAuthStatus)
 
 app.use("/", pageRouter)
 app.use("/common/v1", infoRouter)
 app.use("/common/v1", authRouter)
+app.use("/common/v1", userRouter)
 app.use("/common/v1", linkRouter)
 app.use("/common/v1", newsletterRouter)
 app.use("/common/v1", chromeExtensionRouter)

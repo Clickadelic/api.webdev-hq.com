@@ -1,0 +1,22 @@
+{# child.html.twig #}
+{% extends "base.html.twig" %}
+
+{% block title %}Register &middot; WebDev HQ API{% endblock %}
+
+{% block header %}{% endblock %}
+{% block content %}
+<div class="h-full flex flex-col items-center justify-center text-center text-slate-800 lg:max-w-96 mx-auto">
+	<div class="mx-auto w-[280px] md:w-[320px] lg:w-[380px] text-center bg-white m-4 p-2 bg-white/30 backdrop-blur rounded-sm">
+		<div class="bg-white rounded-md p-8">
+			<div class="w-36 mx-auto md-2 lg:mb-4">
+				{% include 'partials/layout/logo.twig' %}
+			</div>
+			<h2 class="font-medium text-2xl mb-2">Register</h2>
+			<h3 class="font-light text-xl text-slate-400 mb-4 md:mb-8 lg:mb-12">Become a member.</h3>
+			<div id="message-box" class="text-left block w-full h-[48px] p-3 rounded-md mb-3"></div>
+			<p class="mb-2">Already have an account? <a href="/auth/login" class="inline-block mt-4 hover:text-mantis-primary text-slate-800" title="Forgot your password">Login</a>.</p>
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block footer %}{% endblock %}

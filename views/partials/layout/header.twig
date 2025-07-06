@@ -1,0 +1,26 @@
+<div class="w-full z-10">
+	<header class="w-full bg-white shadow-sm">
+		<div class="container mx-auto flex justify-between px-3 sm:px-0">
+			<div class="flex justify-between md:space-x-2 lg:space-x-4 relative">
+				{% block logo %}
+					{% include 'partials/layout/logo.twig' %}
+				{% endblock %}
+				{% block mega_menu %}
+					{% include 'partials/menus/mega-menu.twig' %}
+				{% endblock %}
+			</div>
+			<div class="flex justify-between md:space-x-2 lg:space-x-4 relative">
+			{% block menu %}
+				{% if user %}
+					{% include 'partials/menus/auth-menu.twig' %}
+				{% else %}
+					{% include 'partials/menus/public-menu.twig' %}
+				{% endif %}
+			{% endblock %}
+			</div>
+		</div>
+	</header>
+	{% block breadcrumbs %}
+		{% include 'partials/layout/breadcrumbs.twig' %}
+	{% endblock %}
+</div>

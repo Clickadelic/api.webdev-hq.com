@@ -3,5 +3,6 @@ const chromeExtensionRouter = express.Router()
 const chromeExtensionController = require("../controllers/chrome-extension.controller")
 
 chromeExtensionRouter.get("/chrome-extension/random-image", chromeExtensionController.getRandomImage)
+chromeExtensionRouter.get("/chrome-extension/seasonal-image", chromeExtensionController.getSeasonalImage)
 
 module.exports = chromeExtensionRouter

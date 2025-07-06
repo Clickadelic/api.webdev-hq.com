@@ -6,7 +6,7 @@ const { PrismaClient } = require("@prisma/client")
 const prisma = new PrismaClient()
 
 const handlebars = require("handlebars")
-const transporter = require("../mail/transporter")
+const transporter = require("../mail")
 
 const linkController = {
 	getLinks: async (req, res) => {
@@ -17,7 +17,7 @@ const linkController = {
 			return res.status(504).send({ message: error })
 		}
 	},
-	addNewLink: async (req, res) => {
+	createLink: async (req, res) => {
 		const userId = req.body.userId
 		const title = req.body.title
 		const description = req.body.description
