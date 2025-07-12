@@ -1,4 +1,4 @@
-if (localStorage.getItem("token")) {
+if (localStorage.getItem("token") && window.location.pathname !== "/newsletter") {
 	document.addEventListener("DOMContentLoaded", () => {
 		const logoutBtn = document.getElementById("logout-btn")
 
