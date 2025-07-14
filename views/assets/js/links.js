@@ -1,5 +1,5 @@
 const { toast } = require("./toast")
-const isEditing = false
+let isEditing = false
 
 if (window.location.pathname === "/links") {
 	document.addEventListener("DOMContentLoaded", () => {
@@ -106,6 +106,8 @@ const handleNewLink = async e => {
 
 // Link bearbeiten (öffnet dein vorhandenes Modal)
 const prepareLinkUpdate = async linkId => {
+	isEditing = true
+	document.querySelector("input[name='id']").value = linkId
 	const modal = document.getElementById("modal")
 	const form = document.getElementsByTagName("form")[0]
 
