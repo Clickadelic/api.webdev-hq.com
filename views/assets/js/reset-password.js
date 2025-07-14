@@ -1,4 +1,4 @@
-const showUserMessage = require("./lib").showUserMessage
+const { toast } = require("./toast")
 
 if (window.location.pathname === "/auth/reset-password") {
 	document.addEventListener("DOMContentLoaded", () => {
@@ -15,7 +15,7 @@ const handlePasswordReset = async e => {
 	const email = document.querySelector("input[name='email']").value
 
 	if (!email) {
-		showUserMessage("bg-rose-200", "Please fill out all fields.")
+		toast("Please fill out all fields.", "error")
 		return
 	}
 
@@ -30,12 +30,12 @@ const handlePasswordReset = async e => {
 
 		if (response.ok) {
 			document.querySelector("input[name='email']").value = ""
-			showUserMessage("bg-emerald-200", "Password reset email sent.")
+			toast("Password reset email sent.", "success")
 		} else {
-			showUserMessage("bg-rose-200", "Password reset failed.")
+			toast("Password reset failed.", "error")
 		}
 	} catch (error) {
-		showUserMessage("bg-rose-200", "Something went wrong.")
+		toast("Something went wrong.", "error")
 		console.log(error)
 	}
 }

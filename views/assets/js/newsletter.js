@@ -1,4 +1,4 @@
-const showUserMessage = require("./lib").showUserMessage
+const { toast } = require("./toast")
 
 if (window.location.pathname === "/newsletter") {
 	document.addEventListener("DOMContentLoaded", () => {
@@ -28,7 +28,8 @@ const handleNewsletterSubscribtion = async e => {
 	const agreedToSubscription = document.querySelector("input[name='agreed-to-subscription']").checked
 
 	if (!name || !email || !agreedToSubscription) {
-		showUserMessage("bg-rose-200", "Please fill out all fields.")
+		toast("Please fill out all fields.", "error")
+		document.querySelector("input[name='name']").focus()
 		return
 	}
 
@@ -47,13 +48,15 @@ const handleNewsletterSubscribtion = async e => {
 			body: JSON.stringify(formData)
 		}).then(response => {
 			if (response.status === 409) {
-				showUserMessage("bg-rose-200", "E-mail is already subscribed.")
+				toast("E-mail is already subscribed.", "error")
 			}
 			if (response.ok) {
 				document.querySelector("input[name='name']").value = ""
 				document.querySelector("input[name='email']").value = ""
 				document.querySelector("input[name='agreed-to-subscription']").checked = false
-				showUserMessage("bg-green-200", "Subscribtion successful.")
+				toast("Subscribtion successful.", "success")
+			} else {
+				toast("Subscribtion failed.", "error")
 			}
 		})
 	} catch (error) {

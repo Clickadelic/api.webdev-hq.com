@@ -1,4 +1,4 @@
-const { showUserMessage } = require("./lib")
+const { toast } = require("./toast")
 
 if (window.location.pathname === "/links") {
 	document.addEventListener("DOMContentLoaded", () => {
@@ -78,7 +78,7 @@ const handleNewLink = async e => {
 	const description = document.querySelector("textarea[name='description']").value
 
 	if (!userId || !title || !url || !description) {
-		showUserMessage("bg-rose-200", "Please fill out all fields.")
+		toast("Please fill out all fields.", "error")
 		return
 	}
 
@@ -94,14 +94,14 @@ const handleNewLink = async e => {
 		const data = await response.json()
 
 		if (response.ok) {
-			showUserMessage("bg-emerald-200", "Link created.")
+			toast("Link created.", "success")
 			window.location.href = "/links"
 		} else {
-			showUserMessage("bg-rose-200", "Creation failed.")
+			toast("Creation failed.", "error")
 			console.log(data)
 		}
 	} catch (error) {
-		showUserMessage("bg-rose-200", "Something went wrong.")
+		toast("Something went wrong.", "error")
 		console.log(error)
 	}
 }
@@ -125,11 +125,11 @@ const handleLinkUpdate = async (e, linkId) => {
 			// Modal anzeigen
 			document.getElementById("editModal").classList.remove("hidden")
 		} else {
-			showUserMessage("bg-rose-200", "Linkdaten konnten nicht geladen werden.")
+			toast("Links could not be loaded.", "error")
 		}
 	} catch (error) {
-		console.error("Fehler beim Laden des Links:", error)
-		showUserMessage("bg-rose-200", "Etwas ist schiefgelaufen.")
+		console.error("Something went wrong:", error)
+		toast("Something went wrong.", "error")
 	}
 }
 
@@ -147,12 +147,12 @@ const handleLinkDeletion = async (e, linkId) => {
 
 		if (response.ok) {
 			document.querySelector(`#link-${linkId}`).remove()
-			showUserMessage("bg-emerald-200", "Link deleted.")
+			toast("Link deleted.", "success")
 		} else {
-			showUserMessage("bg-rose-200", "Deletion failed.")
+			toast("Deletion failed.", "error")
 		}
 	} catch (error) {
-		showUserMessage("bg-rose-200", "Something went wrong.")
+		toast("Something went wrong.", "error")
 		console.log(error)
 	}
 }
