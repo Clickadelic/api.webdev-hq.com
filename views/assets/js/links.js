@@ -1,10 +1,11 @@
 const { toast } = require("./toast")
+const isEditing = false
 
 if (window.location.pathname === "/links") {
 	document.addEventListener("DOMContentLoaded", () => {
 		// Form-Submit: Neuer Link
 		document.getElementsByTagName("form")[0].addEventListener("submit", e => {
-			handleNewLink(e)
+			isEditing ? handleLinkUpdate(e) : handleNewLink(e)
 		})
 
 		// Alle Links abrufen und anzeigen
@@ -22,14 +23,13 @@ if (window.location.pathname === "/links") {
 					const linkItem = document.createElement("li")
 					linkItem.id = `link-${link.id}`
 					linkItem.classList.add("w-full", "flex", "justify-between", "mb-2")
-
 					linkItem.innerHTML = `
 						<div>
 							<a href="${link.url}" target="_blank" class="text-mantis-primary">${link.title}</a>
 							<p class="text-slate-400 text-sm">${link.description}</p>
 						</div>
 						<div class="flex flex-row gap-2">
-							<button id="edit-link-${link.id}" class="rounded bg-slate-100 p-2 px-4 text-slate-400 hover:cursor-pointer">
+							<button id="edit-link-${link.id}" class="modal-open rounded bg-slate-100 p-2 px-4 text-slate-400 hover:cursor-pointer hover:border-mantis-primary">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
 									<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293z"/>
 								</svg>
@@ -48,12 +48,10 @@ if (window.location.pathname === "/links") {
 				// Edit-Handler
 				document.querySelectorAll("[id^='edit-link-']").forEach(button => {
 					button.addEventListener("click", e => {
-						const linkId = e.currentTarget.id.split("-")[2]
-						handleLinkUpdate(e, linkId)
+						prepareLinkUpdate(e.currentTarget.id.split("-")[2])
 					})
 				})
-			})
-			.then(() => {
+
 				// Delete-Handler
 				document.querySelectorAll("[id^='delete-link-']").forEach(button => {
 					button.addEventListener("click", e => {
@@ -71,7 +69,7 @@ if (window.location.pathname === "/links") {
 // Neuer Link
 const handleNewLink = async e => {
 	e.preventDefault()
-
+	form.reset()
 	const userId = document.querySelector("input[name='userId']").value
 	const title = document.querySelector("input[name='title']").value
 	const url = document.querySelector("input[name='url']").value
@@ -107,26 +105,33 @@ const handleNewLink = async e => {
 }
 
 // Link bearbeiten (öffnet dein vorhandenes Modal)
-const handleLinkUpdate = async (e, linkId) => {
-	e.preventDefault()
+const prepareLinkUpdate = async linkId => {
+	const modal = document.getElementById("modal")
+	const form = document.getElementsByTagName("form")[0]
+
+	if (!linkId) {
+		toast("Link ID is missing.", "error")
+		return
+	}
+
+	modal.classList.remove("hidden")
+	modal.classList.add("flex")
 
 	try {
 		const response = await fetch(`/common/v1/links/${linkId}`)
 		const linkData = await response.json()
-
-		if (response.ok) {
-			// Befülle das Modal
-			const form = document.getElementById("editLinkForm")
-			form.elements["id"].value = linkData.id
-			form.elements["title"].value = linkData.title
-			form.elements["url"].value = linkData.url
-			form.elements["description"].value = linkData.description
-
-			// Modal anzeigen
-			document.getElementById("editModal").classList.remove("hidden")
-		} else {
-			toast("Links could not be loaded.", "error")
+		if (!response.ok) {
+			toast("Link not found.", "error")
+			return
 		}
+
+		form.querySelector("input[name='title']").value = linkData.title
+		form.querySelector("input[name='url']").value = linkData.url
+		form.querySelector("textarea[name='description']").value = linkData.description
+
+		form.addEventListener("submit", e => {
+			handleLinkUpdate(e, linkId)
+		})
 	} catch (error) {
 		console.error("Something went wrong:", error)
 		toast("Something went wrong.", "error")

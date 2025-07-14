@@ -1,20 +1,3 @@
-@import "tailwindcss";
-// @use "toast";
-
-
-@theme {
-	--header-height: 56px;
-	--footer-height: 106px;
-	--color-mantis-primary: #1a90fd;
-	--color-mantis-primary-hover: #1581e6;
-	--color-mantis-secondary: #f1f5f9;
-	--color-tahiti: #3ab7bf;
-	--color-bermuda: #78dcca;
-	--color-white: #ffffff;
-	--background-image-laptop-mask: url("/images/laptop_mask.png");
-	--background-image-extension-screenshot: url("/images/WebDev-HQ-Chrome-Extension.png");
-}
-
 /* toast message container — centered bottom-middle */
 .toastContain {
 	@apply z-50 fixed left-1/2 bottom-16 w-fit min-w-72 -translate-x-1/2;

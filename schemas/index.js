@@ -36,6 +36,14 @@ const schemas = {
 		scope: Joi.string().allow(null, ""),
 		id_token: Joi.string().allow(null, ""),
 		session_state: Joi.string().allow(null, "")
+	}),
+	// Link
+	linkSchema: Joi.object({
+		id: Joi.string().required(), // cuid()
+		title: Joi.string().required(),
+		description: Joi.string().required(),
+		url: Joi.string().required(),
+		userId: Joi.string().required()
 	})
 }
 
