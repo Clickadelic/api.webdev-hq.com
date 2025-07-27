@@ -1,10 +1,12 @@
+const { create } = require("handlebars")
 const { toast } = require("./toast")
 let isEditing = false
 
 if (window.location.pathname === "/links") {
 	document.addEventListener("DOMContentLoaded", () => {
 		// Form-Submit: Neuer Link
-		document.getElementsByTagName("form")[0].addEventListener("submit", e => {
+		const linkForm = document.getElementById("link-form")
+		linkForm.addEventListener("submit", e => {
 			isEditing ? handleLinkUpdate(e) : handleNewLink(e)
 		})
 
@@ -69,7 +71,7 @@ if (window.location.pathname === "/links") {
 // Neuer Link
 const handleNewLink = async e => {
 	e.preventDefault()
-	form.reset()
+
 	const userId = document.querySelector("input[name='userId']").value
 	const title = document.querySelector("input[name='title']").value
 	const url = document.querySelector("input[name='url']").value
@@ -106,10 +108,13 @@ const handleNewLink = async e => {
 
 // Link bearbeiten (öffnet dein vorhandenes Modal)
 const prepareLinkUpdate = async linkId => {
-	isEditing = true
-	document.querySelector("input[name='id']").value = linkId
 	const modal = document.getElementById("modal")
 	const form = document.getElementsByTagName("form")[0]
+	const createText = document.getElementById("create-link-btn-text")
+	const updateText = document.getElementById("update-link-btn-text")
+
+	createText.classList.add("hidden")
+	updateText.classList.remove("hidden")
 
 	if (!linkId) {
 		toast("Link ID is missing.", "error")
@@ -143,7 +148,6 @@ const prepareLinkUpdate = async linkId => {
 // Link löschen
 const handleLinkDeletion = async (e, linkId) => {
 	e.preventDefault()
-
 	try {
 		const response = await fetch(`/common/v1/links/${linkId}`, {
 			method: "DELETE",

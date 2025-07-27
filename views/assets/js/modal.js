@@ -24,9 +24,4 @@ document.addEventListener("DOMContentLoaded", function () {
 			modal.classList.remove("flex")
 		}
 	})
-
-	modalOpen?.addEventListener("click", () => {
-		modal.classList.remove("hidden")
-		modal.classList.add("flex")
-	})
 })

@@ -69,6 +69,7 @@
     --color-mantis-primary-hover: #1581e6;
     --background-image-laptop-mask: url("/images/laptop_mask.png");
     --background-image-extension-screenshot: url("/images/WebDev-HQ-Chrome-Extension.png");
+    --background-image-future-hassaan: url("/images/hassaan-here-O8s_2_pEISg-unsplash.jpg");
   }
 }
 @layer base {
@@ -225,6 +226,9 @@
   }
   .relative {
     position: relative;
+  }
+  .static {
+    position: static;
   }
   .top-0 {
     top: calc(var(--spacing) * 0);
@@ -396,6 +400,9 @@
   }
   .hidden {
     display: none;
+  }
+  .inline {
+    display: inline;
   }
   .inline-block {
     display: inline-block;
@@ -704,6 +711,9 @@
   .bg-extension-screenshot {
     background-image: var(--background-image-extension-screenshot);
   }
+  .bg-future-hassaan {
+    background-image: var(--background-image-future-hassaan);
+  }
   .bg-laptop-mask {
     background-image: var(--background-image-laptop-mask);
   }
@@ -923,6 +933,13 @@
       }
     }
   }
+  .hover\:bg-mantis-primary {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-mantis-primary);
+      }
+    }
+  }
   .hover\:bg-mantis-primary-hover {
     &:hover {
       @media (hover: hover) {
@@ -969,6 +986,13 @@
     &:hover {
       @media (hover: hover) {
         color: var(--color-slate-500);
+      }
+    }
+  }
+  .hover\:text-white {
+    &:hover {
+      @media (hover: hover) {
+        color: var(--color-white);
       }
     }
   }
