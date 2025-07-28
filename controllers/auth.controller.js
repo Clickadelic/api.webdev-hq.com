@@ -59,6 +59,7 @@ const authController = {
 			})
 			const mailOptions = {
 				from: process.env.MAIL_FROM,
+				sender: process.env.MAIL_SENDER,
 				to: newUser.email,
 				// cc: process.env.MAIL_ADMIN,
 				bcc: process.env.MAIL_ADMIN,
@@ -69,7 +70,7 @@ const authController = {
 				if (error) {
 					return res.status(504).send({ message: error })
 				}
-				console.log("Success sending mail.", info)
+				console.log("Success sending mail.")
 			})
 
 			return res.status(200).send({ message: "register_successful" })
