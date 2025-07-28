@@ -34,7 +34,7 @@ const linkController = {
 		}
 	},
 	createLink: async (req, res) => {
-		const { userId, title, description, url } = req.body;
+		const { userId, title, description, url, isPublic } = req.body;
 
 		if (!title || !description || !url) {
 			return res.status(400).send({ message: "missing_fields" })
@@ -54,6 +54,7 @@ const linkController = {
 					title,
 					url,
 					description,
+					isPublic,
 					userId
 				}
 			})
@@ -63,14 +64,11 @@ const linkController = {
 		}
 	},
 	patchLink: async (req, res) => {
-		const id = req.body.id
-		const title = req.body.title
-		const description = req.body.description
-		const url = req.body.url
-		const userId = req.body.userId
-		console.log("Patch link data:", { id, title, description, url, userId })
+		const { id, title, description, url, isPublic, userId } = req.body
+		
+		console.log("Patch link data:", { id, title, description, url, isPublic, userId })
 
-		if (!id || !title || !description || !url || !userId) {
+		if (!id || !title || !description || !url || !isPublic || !userId) {
 			return res.status(400).send({ message: "missing_fields" })
 		}
 		try {
@@ -78,16 +76,15 @@ const linkController = {
 				where: {
 					id
 				},
-				and: {
-					userId
-				},
+				// TODO: Check if the user is allowed to edit this link
 				data: {
 					title,
 					description,
-					url
+					url,
+					isPublic
 				}
 			})
-			res.status(200).send({ message: "link_edited" })
+			return res.status(200).send({ message: "link_edited" })
 		} catch (error) {
 			return res.status(504).send({ message: error })
 		}

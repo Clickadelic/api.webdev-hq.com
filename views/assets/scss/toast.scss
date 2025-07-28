@@ -1,6 +1,6 @@
 /* toast message container — centered bottom-middle */
 .toastContain {
-	@apply z-50 fixed left-1/2 bottom-16 w-fit min-w-72 -translate-x-1/2;
+	@apply z-50 fixed left-1/2 bottom-24 w-fit min-w-72 -translate-x-1/2;
 }
 
 /* toast message, style as you need */
