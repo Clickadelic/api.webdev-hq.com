@@ -1,4 +1,4 @@
-const showUserMessage = require("./lib").showUserMessage
+const { toast } = require("./toast")
 
 if (window.location.pathname === "/auth/confirm") {
 	document.addEventListener("DOMContentLoaded", () => {
@@ -13,7 +13,9 @@ if (window.location.pathname === "/auth/confirm") {
 				.then(response => response.json())
 				.then(data => {
 					if (data.message) {
-						showUserMessage("bg-emerald-200", data.message)
+						toast(data.message, "success")
+					} else {
+						toast("Something went wrong.", "error")
 					}
 				})
 				.catch(error => {

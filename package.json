@@ -10,7 +10,8 @@
 		"build-scripts": "esbuild ./views/assets/js/index.js --outfile=/public/assets/js/scripts.min.js --bundle --minify --watch",
 		"watch-tailwind": "npx @tailwindcss/cli -i ./views/assets/scss/style.scss -o ./public/assets/css/style.min.css --watch",
 		"prod": "SET NODE_ENV=production && node index.js --watch",
-		"postinstall": "prisma generate --schema=prisma/schema.prisma"
+		"postinstall": "prisma generate --schema=prisma/schema.prisma",
+		"test": "jest --detectOpenHandles"
 	},
 	"keywords": [],
 	"author": "Tobias Hopp",
@@ -35,6 +36,7 @@
 		"nodemailer": "^7.0.3",
 		"npm-check-updates": "^18.0.1",
 		"path": "^0.12.7",
+		"slugify": "^1.6.6",
 		"tailwindcss": "^4.1.10",
 		"twig": "^1.17.1",
 		"unsplash-js": "^7.0.19"

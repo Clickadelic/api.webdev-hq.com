@@ -62,6 +62,20 @@ const middleware = {
 		}
 		next()
 	},
+	validateResetPassword: (req, res, next) => {
+		const { error } = resetPasswordSchema.validate(req.body)
+		if (error) {
+			return res.status(400).send({ message: error.details[0].message })
+		}
+		next()
+	},
+	validateLink: (req, res, next) => {
+		const { error } = res.locals.linkSchema.validate(req.body)
+		if (error) {
+			return res.status(400).send({ message: error.details[0].message })
+		}
+		next()
+	},
 	isLoggedIn: (req, res, next) => {
 		try {
 			const authHeader = req.headers.authorization || localStorage.getItem("token")

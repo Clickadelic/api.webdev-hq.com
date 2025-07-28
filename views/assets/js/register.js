@@ -1,4 +1,4 @@
-const showUserMessage = require("./lib").showUserMessage
+const { toast } = require("./toast")
 
 if (window.location.pathname === "/auth/register") {
 	document.addEventListener("DOMContentLoaded", () => {
@@ -18,12 +18,12 @@ if (window.location.pathname === "/auth/register") {
 
 		// Frontend-Validierung (gut, diese beizubehalten, bevor ein Request gesendet wird)
 		if (!username || !email || !password || !passwordRepeat || !agreedToTerms) {
-			showUserMessage("bg-rose-200", "Please fill out all fields.")
+			toast("Please fill out all fields.", "error")
 			return
 		}
 
 		if (password !== passwordRepeat) {
-			showUserMessage("bg-rose-200", "Passwords do not match.")
+			toast("Passwords do not match.", "error")
 			return
 		}
 
@@ -49,12 +49,12 @@ if (window.location.pathname === "/auth/register") {
 			if (!response.ok) {
 				// Wenn response.ok false ist (z.B. 400 Bad Request), behandle den Fehler
 				const errorMessage = responseData.message || "An unknown error occurred."
-				showUserMessage("bg-rose-200", errorMessage) // Zeige die Backend-Fehlermeldung
+				toast(errorMessage, "error") // Zeige die Backend-Fehlermeldung
 				return
 			}
 
 			// Wenn response.ok true ist (z.B. 200 OK), ist alles in Ordnung
-			showUserMessage("bg-green-200", "Please confirm your e-mail.")
+			toast("Please confirm your e-mail.", "success")
 			// Optional: Weiterleitung oder andere Aktionen bei Erfolg
 			// window.location.href = "/confirmation-sent";
 			document.querySelector("input[name='username']").value = ""
@@ -64,7 +64,7 @@ if (window.location.pathname === "/auth/register") {
 			document.querySelector("input[name='agreed-to-terms']").checked = false
 		} catch (error) {
 			console.error("Fetch error:", error) // Nutze console.error für Fehler
-			showUserMessage("bg-rose-200", "Network error or unhandled exception.")
+			toast("Network error or unhandled exception.")
 		}
 	}
 }

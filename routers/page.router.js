@@ -25,7 +25,14 @@ pageRouter.get("/auth/confirm", pageController.getRegisterConfirmationPage)
 pageRouter.get("/dashboard", middleware.verifyTokenFromCookie, pageController.getDashboardPage)
 pageRouter.get("/account", middleware.verifyTokenFromCookie, pageController.getAccountPage)
 pageRouter.get("/posts", middleware.verifyTokenFromCookie, pageController.getPostsPage)
+
+// Links
 pageRouter.get("/links", middleware.verifyTokenFromCookie, pageController.getLinksPage)
+pageRouter.get("/links/:id", middleware.verifyTokenFromCookie, pageController.getLinkByIdPage)
+
+// pageRouter.delete("/links/:id", middleware.verifyTokenFromCookie, pageController.deleteLink)
+
+
 
 // Admin Routes
 pageRouter.get("/admin", pageController.getAdminPage)

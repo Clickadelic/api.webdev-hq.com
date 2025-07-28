@@ -12,18 +12,9 @@
 			{% endblock %}
 			<section class="flex-1 px-4 py-2">
 				<div class="flex justify-between mb-4">
-					<h2 class="text-2xl mb-3">Links</h2>
-					<button id="modal-open" class="modal-open flex justify-center items-center gap-2 bg-mantis-primary text-white p-2 mb-3 hover:cursor-pointer rounded hover:bg-mantis-primary-hover w-32">
-						<span>
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-								<path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
-							</svg>
-						</span>
-						<span>New link</span>
-					</button>
+					<h2 class="text-2xl">Link bearbeiten</h2>
+					{% include 'partials/forms/link-form.twig' %}
 				</div>
-				<hr class="my-6 border-gray-200" />
-				<ul class="links w-full flex flex-col justify-between space-y-2"></ul>
 			</section>
 		</div>
 	</div>

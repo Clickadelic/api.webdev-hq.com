@@ -1,5 +1,3 @@
-const showUserMessage = require("./lib").showUserMessage
-
 if (window.location.pathname === "/dashboard") {
 	document.addEventListener("DOMContentLoaded", () => {
 		fetch("/common/v1/links", {

@@ -1,3 +1,6 @@
+const { PrismaClient } = require("@prisma/client")
+const prisma = new PrismaClient()
+
 const pageController = {
 	getIndexPage: (req, res) => {
 		return res.render("./pages/index")
@@ -53,8 +56,27 @@ const pageController = {
 	getPostsPage: (req, res) => {
 		return res.render("./pages/posts")
 	},
-	getLinksPage: (req, res) => {
-		return res.render("./pages/links")
+	getLinksPage: async (req, res) => {
+		const links = await prisma.link.findMany({
+			where: {
+				userId: req.user.id
+			},
+			orderBy: {
+				createdAt: "desc"
+			}
+		})
+		return res.render("./pages/links", { links })
+	},
+	getLinkByIdPage: async (req, res) => {
+		const links = await prisma.link.findMany({
+			where: {
+				userId: req.user.id
+			},
+			orderBy: {
+				createdAt: "desc"
+			}
+		})
+		return res.render("./pages/links", { links })
 	},
 	getAdminPage: (req, res) => {
 		return res.render("./pages/admin")
