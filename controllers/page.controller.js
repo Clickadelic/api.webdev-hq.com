@@ -81,8 +81,14 @@ const pageController = {
 	getAdminPage: (req, res) => {
 		return res.render("./pages/admin")
 	},
-	getAdminUsersPage: (req, res) => {
-		return res.render("./pages/admin/users")
+	getAdminUsersPage: async (req, res) => {
+		const users = await prisma.user.findMany()
+		console.log(users)
+		users.forEach(user => {
+			user.password = undefined
+		})
+		console.log(users)
+		return res.render("./pages/admin/users", { users })
 	}
 }
 
