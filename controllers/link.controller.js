@@ -12,43 +12,46 @@ const linkController = {
 	getLinks: async (req, res) => {
 		try {
 			const links = await prisma.link.findMany()
-			res.status(200).send(links)
+			return res.status(200).send(links)
 		} catch (error) {
-			return res.status(504).send({ message: error })
+			console.error("getLinks error:", error)
+			return res.status(500).send({ message: error.message || "internal_server_error" })
 		}
 	},
+
 	getLinkById: async (req, res) => {
 		const id = req.params.id
 		try {
-			const link = await prisma.link.findUnique({
-				where: {
-					id
-				}
-			})
+			const link = await prisma.link.findUnique({ where: { id } })
 			if (!link) {
 				return res.status(404).send({ message: "link_not_found" })
 			}
-			res.status(200).send(link)
+			return res.status(200).send(link)
 		} catch (error) {
-			return res.status(504).send({ message: error })
+			console.error("getLinkById error:", error)
+			return res.status(500).send({ message: error.message || "internal_server_error" })
 		}
 	},
-	createLink: async (req, res) => {
-		const { userId, title, description, url, isPublic } = req.body;
 
-		if (!title || !description || !url) {
-			return res.status(400).send({ message: "missing_fields" })
+	createLink: async (req, res) => {
+		const { userId, title, description, url, isPublic } = req.body
+
+		if (
+			!userId || typeof userId !== "string" ||
+			!title || typeof title !== "string" || title.trim() === "" ||
+			!description || typeof description !== "string" ||
+			!url || typeof url !== "string" ||
+			typeof isPublic === "undefined"
+		) {
+			return res.status(400).send({ message: "missing_or_invalid_fields" })
 		}
+
 		try {
-			const existingLink = await prisma.link.findFirst({
-				where: {
-					url
-				}
-			})
-			console.log("Existing link:", existingLink)
+			const existingLink = await prisma.link.findFirst({ where: { url } })
 			if (existingLink) {
 				return res.status(409).send({ message: "link_already_exists" })
 			}
+
 			await prisma.link.create({
 				data: {
 					title,
@@ -58,50 +61,74 @@ const linkController = {
 					userId
 				}
 			})
-			res.status(201).send({ message: "link_created" })
+			return res.status(201).send({ message: "link_created" })
 		} catch (error) {
-			return res.status(504).send({ message: error })
+			console.error("createLink error:", error)
+			return res.status(500).send({ message: error.message || "internal_server_error" })
 		}
 	},
+
 	patchLink: async (req, res) => {
 		const { id, title, description, url, isPublic, userId } = req.body
-		
-		console.log("Patch link data:", { id, title, description, url, isPublic, userId })
 
-		if (!id || !title || !description || !url || !isPublic || !userId) {
-			return res.status(400).send({ message: "missing_fields" })
+		if (
+			!id || typeof id !== "string" ||
+			!title || typeof title !== "string" || title.trim() === "" ||
+			!description || typeof description !== "string" ||
+			!url || typeof url !== "string" ||
+			typeof isPublic === "undefined" ||
+			!userId || typeof userId !== "string"
+		) {
+			return res.status(400).send({ message: "missing_or_invalid_fields" })
 		}
+
 		try {
+			const existingLink = await prisma.link.findUnique({ where: { id } })
+			if (!existingLink) {
+				return res.status(404).send({ message: "link_not_found" })
+			}
+
+			if (existingLink.userId !== userId) {
+				return res.status(403).send({ message: "not_authorized" })
+			}
+
 			await prisma.link.update({
-				where: {
-					id
-				},
-				// TODO: Check if the user is allowed to edit this link
-				data: {
-					title,
-					description,
-					url,
-					isPublic
-				}
+				where: { id },
+				data: { title, description, url, isPublic }
 			})
 			return res.status(200).send({ message: "link_edited" })
 		} catch (error) {
-			return res.status(504).send({ message: error })
+			console.error("patchLink error:", error)
+			return res.status(500).send({ message: error.message || "internal_server_error" })
 		}
 	},
+
 	deleteLink: async (req, res) => {
-		const id = req.params.id
+		const { id } = req.params
+		const { userId } = req.body
+
+		if (!id || !userId) {
+			return res.status(400).send({ message: "missing_fields" })
+		}
+
 		try {
-			await prisma.link.delete({
-				where: {
-					id
-				}
-			})
-			res.status(200).send({ message: "link_deleted" })
+			const link = await prisma.link.findUnique({ where: { id } })
+			if (!link) {
+				return res.status(404).send({ message: "link_not_found" })
+			}
+
+			if (link.userId !== userId) {
+				return res.status(403).send({ message: "not_authorized" })
+			}
+
+			await prisma.link.delete({ where: { id } })
+			return res.status(200).send({ message: "link_deleted" })
 		} catch (error) {
-			return res.status(504).send({ message: error })
+			console.error("deleteLink error:", error)
+			return res.status(500).send({ message: error.message || "internal_server_error" })
 		}
 	}
 }
 
 module.exports = linkController
+

@@ -43,6 +43,7 @@ const schemas = {
 		title: Joi.string().required(),
 		description: Joi.string().required(),
 		url: Joi.string().required(),
+		isPublic: Joi.boolean(),
 		userId: Joi.string().required()
 	})
 }
