@@ -19,7 +19,7 @@ const pageController = {
 	},
 	getRegisterConfirmationPage: (req, res) => {
 		return res.render("./pages/auth/confirm", {
-			confirmationToken: req.query.token,
+			token: req.query.token,
 			query: req.query // wird gebraucht für `query.token is defined` in Twig
 		})
 	},

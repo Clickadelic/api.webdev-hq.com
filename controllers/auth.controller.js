@@ -80,56 +80,44 @@ const authController = {
 	},
 	confirmRegistration: async (req, res) => {
 		try {
-			const { email, token } = req.query
-			if (!email || !token) {
-				return res.status(400).json({ error: "Email oder Token fehlt" })
+			const { token } = req.query
+			if (!token) {
+				return res.status(400).json({ error: "Token missing." })
 			}
 
 			const verificationToken = await prisma.verificationToken.findUnique({
-				where: {
-					email_token: {
-						email,
-						token
-					}
-				}
+				where: { token }
 			})
 
 			if (!verificationToken) {
-				return res.status(404).send({ message: "no_such_verification_token" })
-			}
-
-			const user = await prisma.user.findUnique({
-				where: {
-					email: verificationToken.email
-				}
-			})
-
-			if (!user) {
-				return res.status(404).send({ message: "no_such_user_in_database" })
+				return res.status(400).send({ message: "no_such_verification_token" })
 			}
 
 			if (verificationToken.expires < new Date()) {
 				return res.status(400).send({ message: "verification_token_expired" })
 			}
 
+			const user = await prisma.user.findUnique({
+				where: { email: verificationToken.email }
+			})
+
+			if (!user) {
+				return res.status(404).send({ message: "no_such_user_in_database" })
+			}
+
 			await prisma.user.update({
-				where: {
-					email: user.email
-				},
-				data: {
-					verified: true
-				}
+				where: { email: user.email },
+				data: { emailVerified: new Date() }
 			})
 
 			await prisma.verificationToken.delete({
-				where: {
-					token: verificationToken.token
-				}
+				where: { token }
 			})
+
 			return res.status(200).send({ message: "email_verified_successfully" })
 		} catch (error) {
 			console.error(error)
-			return res.status(500).send({ message: "missing_token_or_email" })
+			return res.status(500).send({ message: "internal_server_error" })
 		}
 	},
 	login: async (req, res) => {
