@@ -11,16 +11,16 @@ const infoController = {
 				schema: "https://api.webdev-hq.com/docs",
 				author: "Tobias Hopp"
 			}
-			res.status(200).json(info)
+			return res.status(200).json(info)
 		} catch (error) {
-			res.status(400).json({ error: error })
+			return res.status(400).json({ error: error })
 		}
 	},
 	getHealthCheck: (req, res) => {
 		try {
-			res.status(200).json({ status: "ok", timestamp: new Date().toISOString() })
+			return res.status(200).json({ status: "ok", timestamp: new Date().toISOString() })
 		} catch (error) {
-			res.status(400).json({ error: error })
+			return res.status(400).json({ error: error })
 		}
 	}
 }

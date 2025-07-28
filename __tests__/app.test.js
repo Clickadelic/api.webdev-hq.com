@@ -1,13 +1,12 @@
 const request = require("supertest")
-// Todo: rewrite me according to NodeJS, Bad naming and importing
-const app = require("../api")
+const app = require("../app.js")
 
-describe("Test the root path", () => {
-	test("It should response the GET method", () => {
-		return request(app)
-			.get("/")
-			.then(response => {
-				expect(response.statusCode).toBe(200)
-			})
+describe("API Endpoints", () => {
+	describe("GET /", () => {
+		test("should respond with status 200", async () => {
+			const res = await request(app).get("/")
+			expect(res.statusCode).toBe(200)
+		})
 	})
+
 })
