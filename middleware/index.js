@@ -5,7 +5,7 @@ const prisma = new PrismaClient()
 const fs = require("fs")
 const path = require("path")
 
-const { registrationSchema, confirmationTokenSchema, loginSchema, resetPasswordSchema } = require("../schemas")
+const { registrationSchema, confirmationTokenSchema, loginSchema, resetPasswordSchema, validateSubscribtion } = require("../schemas")
 
 const middleware = {
 	logRequests: (req, res, next) => {
@@ -76,19 +76,26 @@ const middleware = {
 		}
 		next()
 	},
-	isLoggedIn: (req, res, next) => {
-		try {
-			const authHeader = req.headers.authorization || localStorage.getItem("token")
-			const token = authHeader.split(" ")[1]
-			const decoded = jwt.verify(token, process.env.JWT_SECRET)
-			req.userData = decoded
-			next()
-		} catch (err) {
-			return res.sendStatus(401).send({
-				message: "restricted_content_login_first"
-			})
+	validateSubscribtion: (req, res, next) => {
+		const { error } = validateSubscribtion.validate(req.body)
+		if (error) {
+			return res.status(400).send({ message: error.details[0].message })
 		}
+		next()
 	},
+	// isLoggedIn: (req, res, next) => {
+	// 	try {
+	// 		const authHeader = req.headers.authorization || localStorage.getItem("token")
+	// 		const token = authHeader.split(" ")[1]
+	// 		const decoded = jwt.verify(token, process.env.JWT_SECRET)
+	// 		req.userData = decoded
+	// 		next()
+	// 	} catch (err) {
+	// 		return res.sendStatus(401).send({
+	// 			message: "restricted_content_login_first"
+	// 		})
+	// 	}
+	// },
 	verifyTokenFromCookie: (req, res, next) => {
 		const token = req.cookies.token
 		if (!token) return res.redirect("/auth/login")

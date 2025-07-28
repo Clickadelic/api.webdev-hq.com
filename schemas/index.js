@@ -45,6 +45,11 @@ const schemas = {
 		url: Joi.string().required(),
 		isPublic: Joi.boolean(),
 		userId: Joi.string().required()
+	}),
+	validateSubscribtion: Joi.object({
+		name: Joi.string().required(),
+		email: Joi.string().email().required(),
+		agreedToSubscription: Joi.boolean().valid(true).required()
 	})
 }
 
