@@ -29,8 +29,8 @@
     {% endblock %}
 
     {% block custom_fonts_css %}
+    {% set font_base = './assets/fonts/Poppins/' %}
     <style id="custom-fonts-css">
-        {% set font_base = './assets/fonts/Poppins/' %}
         @font-face { font-family: "La Belle Aurore"; src: url("./assets/fonts/La-Belle-Aurore/LaBelleAurore-Regular.ttf"); }
 
         @font-face { font-family: "Poppins Black"; src: url(font_base ~ "Poppins-Black.ttf"); }

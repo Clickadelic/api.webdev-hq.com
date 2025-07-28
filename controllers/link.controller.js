@@ -34,10 +34,7 @@ const linkController = {
 		}
 	},
 	createLink: async (req, res) => {
-		const userId = req.body.userId
-		const title = req.body.title
-		const description = req.body.description
-		const url = req.body.url
+		const { userId, title, description, url } = req.body;
 
 		if (!title || !description || !url) {
 			return res.status(400).send({ message: "missing_fields" })
