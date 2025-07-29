@@ -25,7 +25,6 @@ pageRouter.get("/account", middleware.verifyTokenFromCookie, pageController.getA
 // Posts
 pageRouter.get("/posts", middleware.verifyTokenFromCookie, pageController.getPostsPage)
 pageRouter.get("/posts/create", middleware.verifyTokenFromCookie, pageController.getPostsCreatePage)
-pageRouter.get("/posts/:id", middleware.verifyTokenFromCookie, pageController.getPostByIdPage)
 
 // Links
 pageRouter.get("/links", middleware.verifyTokenFromCookie, pageController.getLinksPage)

@@ -59,9 +59,6 @@ const pageController = {
 	getPostsCreatePage: (req, res) => {
 		return res.render("./pages/posts/create")
 	},
-	// getPostsEditPage:(req, res) => {
-	// 	return res.render("./pages/posts/edit")
-	// },
 	getLinksPage: async (req, res) => {
 		const links = await prisma.link.findMany({
 			orderBy: {
@@ -90,10 +87,6 @@ const pageController = {
 	},
 	getAdminSubscribersPage: async (req, res) => {
 		const subscribers = await prisma.subscriber.findMany()
-		// TODO: eventuell filtern
-		// subscribers.forEach(subscriber => {
-		// 	subscriber.password = undefined
-		// })
 		return res.render("./pages/admin/subscribers", { subscribers })
 	}
 }

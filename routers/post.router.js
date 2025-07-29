@@ -1,5 +1,5 @@
 const express = require("express")
-
+const middleware = require("../middleware")
 const postRouter = express.Router()
 const postController = require("../controllers/post.controller")
 
@@ -10,4 +10,4 @@ postRouter.post("/posts", postController.createPost)
 postRouter.patch("/posts/:id", postController.patchPost)
 postRouter.delete("/posts/:id", postController.deletePost)
 
-module.exports = linkRouter
+module.exports = postRouter

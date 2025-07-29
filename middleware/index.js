@@ -76,6 +76,13 @@ const middleware = {
 		}
 		next()
 	},
+	validatePost: (req, res, next) => {
+		const { error } = res.locals.postSchema.validate(req.body)
+		if (error) {
+			return res.status(400).send({ message: error.details[0].message })
+		}
+		next()
+	},
 	validateSubscribtion: (req, res, next) => {
 		const { error } = validateSubscribtion.validate(req.body)
 		if (error) {
