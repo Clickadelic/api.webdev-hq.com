@@ -22,17 +22,17 @@ pageRouter.get("/auth/reset-password", pageController.getResetPasswordPage)
 // Protected Routes
 pageRouter.get("/account", middleware.verifyTokenFromCookie, pageController.getAccountPage)
 
-// Posts
+// Protected Posts
 pageRouter.get("/posts", middleware.verifyTokenFromCookie, pageController.getPostsPage)
 pageRouter.get("/posts/create", middleware.verifyTokenFromCookie, pageController.getPostsCreatePage)
 
-// Links
+// Protected Links
 pageRouter.get("/links", middleware.verifyTokenFromCookie, pageController.getLinksPage)
 pageRouter.get("/links/:id", middleware.verifyTokenFromCookie, pageController.getLinkByIdPage)
 
-// Admin Routes
-pageRouter.get("/admin", pageController.getAdminPage)
-pageRouter.get("/admin/users", pageController.getAdminUsersPage)
-pageRouter.get("/admin/subscribers", pageController.getAdminSubscribersPage)
+// Protected Admin Routes
+pageRouter.get("/admin", middleware.verifyTokenFromCookie, pageController.getAdminPage)
+pageRouter.get("/admin/users", middleware.verifyTokenFromCookie, pageController.getAdminUsersPage)
+pageRouter.get("/admin/subscribers", middleware.verifyTokenFromCookie, pageController.getAdminSubscribersPage)
 
 module.exports = pageRouter
