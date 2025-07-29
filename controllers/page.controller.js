@@ -87,6 +87,14 @@ const pageController = {
 			user.password = undefined
 		})
 		return res.render("./pages/admin/users", { users })
+	},
+	getAdminSubscribersPage: async (req, res) => {
+		const subscribers = await prisma.subscriber.findMany()
+		// TODO: eventuell filtern
+		// subscribers.forEach(subscriber => {
+		// 	subscriber.password = undefined
+		// })
+		return res.render("./pages/admin/subscribers", { subscribers })
 	}
 }
 

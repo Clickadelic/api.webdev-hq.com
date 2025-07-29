@@ -1,4 +1,3 @@
 # WebDev HQ Rest-API
 
-Avatars for "/account" downloaded from:
-https://iamvector.com/all-icons/account-user-avatar
+This API provides several services for the WebDev HQ Chrome-Extension.

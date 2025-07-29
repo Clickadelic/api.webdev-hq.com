@@ -34,5 +34,6 @@ pageRouter.get("/links/:id", middleware.verifyTokenFromCookie, pageController.ge
 // Admin Routes
 pageRouter.get("/admin", pageController.getAdminPage)
 pageRouter.get("/admin/users", pageController.getAdminUsersPage)
+pageRouter.get("/admin/subscribers", pageController.getAdminSubscribersPage)
 
 module.exports = pageRouter
