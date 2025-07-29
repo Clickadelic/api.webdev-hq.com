@@ -83,19 +83,6 @@ const middleware = {
 		}
 		next()
 	},
-	// isLoggedIn: (req, res, next) => {
-	// 	try {
-	// 		const authHeader = req.headers.authorization || localStorage.getItem("token")
-	// 		const token = authHeader.split(" ")[1]
-	// 		const decoded = jwt.verify(token, process.env.JWT_SECRET)
-	// 		req.userData = decoded
-	// 		next()
-	// 	} catch (err) {
-	// 		return res.sendStatus(401).send({
-	// 			message: "restricted_content_login_first"
-	// 		})
-	// 	}
-	// },
 	verifyTokenFromCookie: (req, res, next) => {
 		const token = req.cookies.token
 		if (!token) return res.redirect("/auth/login")
