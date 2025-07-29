@@ -85,10 +85,6 @@ const linkController = {
 				return res.status(404).send({ message: "link_not_found" })
 			}
 
-			if (existingLink.userId !== userId) {
-				return res.status(403).send({ message: "not_authorized" })
-			}
-
 			await prisma.link.update({
 				where: { id },
 				data: { title, description, url, isPublic }
