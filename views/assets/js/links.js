@@ -129,8 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		try {
 			const response = await fetch(`/common/v1/links/${id}`, {
 				method: "DELETE",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ userId })
+				headers: { "Content-Type": "application/json" }
 			})
 
 			if (response.ok) {
