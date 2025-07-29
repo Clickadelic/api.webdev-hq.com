@@ -40,7 +40,7 @@ const handleLogin = async e => {
 			// Weiterleitung nach Login
 			// TODO: Make me .ENV
 			/* ++++++++++++++++++++++++++++++++++++++++++++++++++ */
-			setTimeout(() => (window.location.href = "/"), 2000)
+			setTimeout(() => (window.location.href = "/"), 1500)
 		} else {
 			toast(data.message || "Login failed.", "error")
 			document.querySelector("input[name='email']").focus()

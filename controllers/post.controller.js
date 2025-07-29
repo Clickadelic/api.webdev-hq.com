@@ -11,7 +11,6 @@ const postController = {
             return res.status(500).send({ message: error.message || "internal_server_error" })
         }
     },
-
     getPostById: async (req, res) => {
         const id = req.params.id
         try {
@@ -25,7 +24,6 @@ const postController = {
             return res.status(500).send({ message: error.message || "internal_server_error" })
         }
     },
-
     createPost: async (req, res) => {
         const { title, description, slug, content, status } = req.body
 
@@ -34,19 +32,13 @@ const postController = {
             !description || typeof description !== "string" ||
             !slug || typeof slug !== "string" || slug.trim() === "" ||
             !content || typeof content !== "string" ||
-            !status || typeof status !== "boolean"
+            !status || typeof status !== "string" || status.trim() === ""
         ) {
             return res.status(400).send({ message: "missing_or_invalid_fields" })
         }
 
         try {
-            // const existingPost = await prisma.post.findFirst()
-            // // Post Check
-            // // TODO: Check if post already exists
-            // if (existingPost) {
-            //     return res.status(409).send({ message: "post_already_exists" })
-            // }
-
+            // TODO: Check if post already exists
             await prisma.post.create({
                 data: {
                     title,
@@ -62,9 +54,8 @@ const postController = {
             return res.status(500).send({ message: error.message || "internal_server_error" })
         }
     },
-
     patchPost: async (req, res) => {
-        const { id, title, description, publishStatus,  slug, } = req.body
+        const { id, title, description, status,  slug, } = req.body
 
         if (
             !id || typeof id !== "string" ||
@@ -92,7 +83,6 @@ const postController = {
             return res.status(500).send({ message: error.message || "internal_server_error" })
         }
     },
-
     deletePost: async (req, res) => {
         const { id } = req.params
 
