@@ -56,6 +56,12 @@ const pageController = {
 	getPostByIdPage: (req, res) => {
 		return res.render("./pages/posts/post")
 	},
+	getPostsCreatePage: (req, res) => {
+		return res.render("./pages/posts/create")
+	},
+	// getPostsEditPage:(req, res) => {
+	// 	return res.render("./pages/posts/edit")
+	// },
 	getLinksPage: async (req, res) => {
 		const links = await prisma.link.findMany({
 			orderBy: {

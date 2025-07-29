@@ -4,7 +4,7 @@
 {% block title %}WebDev HQ &middot; API-Service{% endblock %}
 {% if not user %}
 	{% block content %}
-		{% include '../blocks/welcome.block.twig' %}
+		{% include '../partials/welcome.block.twig' %}
 	{% endblock %}
 {% else %}
 	{% block content %}
