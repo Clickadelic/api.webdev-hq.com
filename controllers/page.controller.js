@@ -19,7 +19,7 @@ const pageController = {
 	},
 	getRegisterConfirmationPage: (req, res) => {
 		return res.render("./pages/auth/confirm", {
-			confirmationToken: req.query.token,
+			token: req.query.token,
 			query: req.query // wird gebraucht für `query.token is defined` in Twig
 		})
 	},
@@ -81,8 +81,12 @@ const pageController = {
 	getAdminPage: (req, res) => {
 		return res.render("./pages/admin")
 	},
-	getAdminUsersPage: (req, res) => {
-		return res.render("./pages/admin/users")
+	getAdminUsersPage: async (req, res) => {
+		const users = await prisma.user.findMany()
+		users.forEach(user => {
+			user.password = undefined
+		})
+		return res.render("./pages/admin/users", { users })
 	}
 }
 

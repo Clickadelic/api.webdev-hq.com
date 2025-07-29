@@ -3,7 +3,10 @@
 		<div class="container mx-auto flex justify-between px-3 sm:px-0">
 			<div class="flex justify-between md:space-x-2 lg:space-x-4 relative">
 				{% block logo %}
-					{% include 'partials/layout/logo.twig' %}
+					{% include 'partials/layout/logo.twig' with {
+						'classes': ['text-2xl', 'my-3']
+					}
+				%}
 				{% endblock %}
 				{% block mega_menu %}
 					{% include 'partials/menus/mega-menu.twig' %}
