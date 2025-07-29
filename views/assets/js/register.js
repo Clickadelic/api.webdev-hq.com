@@ -83,7 +83,6 @@ if (window.location.pathname === "/auth/confirm") {
 		})
         .then(response => response.json()).
 		then(data => {
-			console.log("Response data is", data.message)
 			toast(data.message, "Account has been verified.")
 			messageBox.innerHTML = data.message
 		})

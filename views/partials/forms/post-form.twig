@@ -1,0 +1,25 @@
+<form class="space-y-3" method="POST" action="/common/v1/posts" id="post-form">
+	<div class="md:flex md:flex-row md:flex-start md:justify-start md:items-center md:gap-2">
+		<input type="text" name="title" class="w-full bg-slate-200 rounded-sm p-3" placeholder="Title">
+		<select name="post-status" class="w-56 bg-slate-200 rounded-sm p-3">
+			<option value="DRAFT">Draft</option>
+			<option value="PUBLISHED">Published</option>
+		</select>
+	</div>
+	<input type="text" name="slug" class="w-full bg-slate-200 rounded-sm p-3" placeholder="the-post-slug">
+	<textarea name="description" rows="3" class="w-full bg-slate-200 rounded-sm p-3" placeholder="Description"></textarea>
+	<textarea name="content" rows="10" class="w-full bg-slate-200 rounded-sm p-3" placeholder="Once upon a time..."></textarea>
+	<button type="submit" class="w-full flex justify-center items-center gap-2 p-3 text-white bg-mantis-primary hover:bg-mantis-primary-hover rounded-sm hover:cursor-pointer">
+		<span>
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+				<path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+			</svg>
+		</span>
+		<span class="flex" id="create-post-btn-text">
+			New post
+		</span>
+		<span class="hidden" id="update-post-btn-text">
+			Update post
+		</span>
+	</button>
+</form>

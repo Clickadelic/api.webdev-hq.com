@@ -1,12 +1,5 @@
-const fs = require("fs")
-const path = require("path")
-const crypto = require("crypto")
-
 const { PrismaClient } = require("@prisma/client")
 const prisma = new PrismaClient()
-
-const handlebars = require("handlebars")
-const transporter = require("../mail")
 
 const linkController = {
 	getLinks: async (req, res) => {
@@ -34,10 +27,9 @@ const linkController = {
 	},
 
 	createLink: async (req, res) => {
-		const { userId, title, description, url, isPublic } = req.body
+		const { title, description, url, isPublic } = req.body
 
 		if (
-			!userId || typeof userId !== "string" ||
 			!title || typeof title !== "string" || title.trim() === "" ||
 			!description || typeof description !== "string" ||
 			!url || typeof url !== "string" ||
@@ -57,8 +49,7 @@ const linkController = {
 					title,
 					url,
 					description,
-					isPublic,
-					userId
+					isPublic
 				}
 			})
 			return res.status(201).send({ message: "link_created" })
@@ -69,15 +60,14 @@ const linkController = {
 	},
 
 	patchLink: async (req, res) => {
-		const { id, title, description, url, isPublic, userId } = req.body
+		const { id, title, description, url, isPublic } = req.body
 
 		if (
 			!id || typeof id !== "string" ||
 			!title || typeof title !== "string" || title.trim() === "" ||
 			!description || typeof description !== "string" ||
 			!url || typeof url !== "string" ||
-			typeof isPublic === "undefined" ||
-			!userId || typeof userId !== "string"
+			typeof isPublic === "undefined"
 		) {
 			return res.status(400).send({ message: "missing_or_invalid_fields" })
 		}
@@ -86,10 +76,6 @@ const linkController = {
 			const existingLink = await prisma.link.findUnique({ where: { id } })
 			if (!existingLink) {
 				return res.status(404).send({ message: "link_not_found" })
-			}
-
-			if (existingLink.userId !== userId) {
-				return res.status(403).send({ message: "not_authorized" })
 			}
 
 			await prisma.link.update({
@@ -105,9 +91,8 @@ const linkController = {
 
 	deleteLink: async (req, res) => {
 		const { id } = req.params
-		const { userId } = req.body
 
-		if (!id || !userId) {
+		if (!id) {
 			return res.status(400).send({ message: "missing_fields" })
 		}
 
@@ -115,10 +100,6 @@ const linkController = {
 			const link = await prisma.link.findUnique({ where: { id } })
 			if (!link) {
 				return res.status(404).send({ message: "link_not_found" })
-			}
-
-			if (link.userId !== userId) {
-				return res.status(403).send({ message: "not_authorized" })
 			}
 
 			await prisma.link.delete({ where: { id } })

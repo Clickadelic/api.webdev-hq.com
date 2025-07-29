@@ -37,15 +37,24 @@ const schemas = {
 		id_token: Joi.string().allow(null, ""),
 		session_state: Joi.string().allow(null, "")
 	}),
+	// Post
+	postSchema: Joi.object({
+		id: Joi.string().required(), // cuid()
+		title: Joi.string().required(),
+		description: Joi.string().required(),
+		slug: Joi.string().required(),
+		content: Joi.string().required(),
+		status: Joi.boolean().required(),
+	}),
 	// Link
 	linkSchema: Joi.object({
 		id: Joi.string().required(), // cuid()
 		title: Joi.string().required(),
 		description: Joi.string().required(),
 		url: Joi.string().required(),
-		isPublic: Joi.boolean(),
-		userId: Joi.string().required()
+		isPublic: Joi.boolean()
 	}),
+	// Newsletter Request
 	validateSubscribtion: Joi.object({
 		name: Joi.string().required(),
 		email: Joi.string().email().required(),

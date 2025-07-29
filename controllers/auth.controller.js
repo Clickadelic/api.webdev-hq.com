@@ -215,11 +215,11 @@ const authController = {
 				html: html
 			}
 
-			transporter.sendMail(mailOptions, (error, info) => {
+			transporter.sendMail(mailOptions, (error) => {
 				if (error) {
 					return res.status(504).send({ message: error })
 				}
-				console.log("Success sending mail.", info)
+				console.log("Success sending mail.")
 			})
 
 			return res.status(200).json({ message: "password_reset_token_sent" })

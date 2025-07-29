@@ -8,9 +8,6 @@ const pageController = {
 	getDocsPage: (req, res) => {
 		return res.render("./pages/docs")
 	},
-	getAboutPage: (req, res) => {
-		return res.render("./pages/about")
-	},
 	getRegisterPage: (req, res) => {
 		return res.render("./pages/auth/register", {
 			confirmationToken: req.query.token,
@@ -53,14 +50,22 @@ const pageController = {
 	getAccountPage: (req, res) => {
 		return res.render("./pages/account")
 	},
-	getPostsPage: (req, res) => {
-		return res.render("./pages/posts")
+	getPostsPage: async (req, res) => {
+		const posts = await prisma.post.findMany({
+			orderBy: {
+				createdAt: "desc"
+			}
+		})
+		return res.render("./pages/posts", { posts })
+	},
+	getPostByIdPage: (req, res) => {
+		return res.render("./pages/posts/post")
+	},
+	getPostsCreatePage: (req, res) => {
+		return res.render("./pages/posts/create")
 	},
 	getLinksPage: async (req, res) => {
 		const links = await prisma.link.findMany({
-			where: {
-				userId: req.user.id
-			},
 			orderBy: {
 				createdAt: "desc"
 			}
@@ -69,9 +74,6 @@ const pageController = {
 	},
 	getLinkByIdPage: async (req, res) => {
 		const links = await prisma.link.findMany({
-			where: {
-				userId: req.user.id
-			},
 			orderBy: {
 				createdAt: "desc"
 			}
@@ -87,6 +89,10 @@ const pageController = {
 			user.password = undefined
 		})
 		return res.render("./pages/admin/users", { users })
+	},
+	getAdminSubscribersPage: async (req, res) => {
+		const subscribers = await prisma.subscriber.findMany()
+		return res.render("./pages/admin/subscribers", { subscribers })
 	}
 }
 

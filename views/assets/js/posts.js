@@ -4,27 +4,28 @@ let isEditing = false
 let currentEditId = null
 
 document.addEventListener("DOMContentLoaded", () => {
-	if (window.location.pathname !== "/links") return
+	if (window.location.pathname !== "/posts/create") return
 
-	const linkForm = document.getElementById("link-form")
-	const editBtns = document.getElementsByClassName("edit-link-btn")
-	const deleteBtns = document.getElementsByClassName("delete-link-btn")
-	const createText = document.getElementById("create-link-btn-text")
-	const updateText = document.getElementById("update-link-btn-text")
+	const postForm = document.getElementById("post-form")
+	const editBtns = document.getElementsByClassName("edit-post-btn")
+	const deleteBtns = document.getElementsByClassName("delete-post-btn")
+	const createText = document.getElementById("create-post-btn-text")
+	const updateText = document.getElementById("update-post-btn-text")
 	const modal = document.getElementById("modal")
 
 	// Form submit handler
-	linkForm.addEventListener("submit", e => {
+	postForm.addEventListener("submit", e => {
 		e.preventDefault()
-		isEditing ? handleLinkUpdate() : handleNewLink()
+		isEditing ? handlePostUpdate() : handleNewPost()
+		// handleNewPost()
 	})
 
 	// Set up edit buttons
 	Array.from(editBtns).forEach(btn => {
 		btn.addEventListener("click", e => {
 			e.stopPropagation()
-			const linkId = btn.getAttribute("data-link-id")
-			prepareLinkUpdate(linkId)
+			const postId = btn.getAttribute("data-post-id")
+			preparePostUpdate(id)
 		})
 	})
 
@@ -32,8 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	Array.from(deleteBtns).forEach(btn => {
 		btn.addEventListener("click", e => {
 			e.stopPropagation()
-			const linkId = btn.getAttribute("data-link-id")
-			handleLinkDeletion(linkId)
+			const postId = btn.getAttribute("data-post-id")
+			handleLinkDeletion(postId)
 		})
 	})
 
@@ -44,22 +45,25 @@ document.addEventListener("DOMContentLoaded", () => {
 		updateText.classList.add("hidden")
 	}
 
-	async function handleNewLink() {
+	async function handleNewPost() {
 		const formData = getFormData()
+        // console.log(formData)
 		if (!validateFormData(formData)) return
 
 		try {
-			const response = await fetch(`/common/v1/links`, {
+			const response = await fetch(`/common/v1/posts`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(formData)
 			})
 
 			if (response.ok) {
-				toast("Link created.", "success")
-				window.location.href = "/links"
+				toast("Post created.", "success")
+                setTimeout(() => {
+                    window.location.href = "/posts"
+                }, 1500)
 			} else {
-				toast("Link creation failed.", "error")
+				toast("Post creation failed.", "error")
 			}
 		} catch (error) {
 			toast("Something went wrong.", "error")
@@ -67,9 +71,9 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	}
 
-	async function prepareLinkUpdate(id) {
+	async function preparePostUpdate(id) {
 		if (!id) {
-			toast("Link ID is missing.", "error")
+			toast("Post ID is missing.", "error")
 			return
 		}
 
@@ -82,38 +86,40 @@ document.addEventListener("DOMContentLoaded", () => {
 		modal.classList.add("flex")
 
 		try {
-			const response = await fetch(`/common/v1/links/${id}`)
-			const linkData = await response.json()
+			const response = await fetch(`/common/v1/posts/${id}`)
+			const postData = await response.json()
 
 			if (!response.ok) {
-				toast("Link not found.", "error")
+				toast("Post not found.", "error")
 				return
 			}
 
-			fillFormWithData(linkData)
+			fillFormWithData(postData)
 		} catch (error) {
 			console.error("Something went wrong:", error)
 			toast("Something went wrong.", "error")
 		}
 	}
 
-	async function handleLinkUpdate() {
+	async function handlePostUpdate() {
 		const formData = getFormData()
 		formData.id = currentEditId
 
 		if (!validateFormData(formData)) return
 
 		try {
-			const response = await fetch(`/common/v1/links/${formData.id}`, {
+			const response = await fetch(`/common/v1/posts/${formData.id}`, {
 				method: "PATCH",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(formData)
 			})
 
 			if (response.ok) {
-				toast("Link updated.", "success")
-				window.location.href = "/links"
+				toast("Post updated.", "success")
+				window.location.href = "/posts"
 			} else {
+				const data = await response.json()
+				console.log(data)
 				toast("Update failed.", "error")
 			}
 		} catch (error) {
@@ -122,17 +128,17 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	}
 
-	async function handleLinkDeletion(id) {
+	async function handlePostDeletion(id) {
 
 		try {
-			const response = await fetch(`/common/v1/links/${id}`, {
+			const response = await fetch(`/common/v1/posts/${id}`, {
 				method: "DELETE",
 				headers: { "Content-Type": "application/json" }
 			})
 
 			if (response.ok) {
-				document.querySelector(`#link-${id}`).remove()
-				toast("Link deleted.", "success")
+				document.querySelector(`#post-${id}`).remove()
+				toast("Post deleted.", "success")
 			} else {
 				toast("Deletion failed.", "error")
 			}
@@ -147,21 +153,24 @@ document.addEventListener("DOMContentLoaded", () => {
 	function getFormData() {
 		return {
 			title: document.querySelector("input[name='title']").value.trim(),
-			url: document.querySelector("input[name='url']").value.trim(),
 			description: document.querySelector("textarea[name='description']").value.trim(),
-			isPublic: document.querySelector("input[name='is-public']").checked
+            slug: document.querySelector("input[name='slug']").value.trim(),
+			content: document.querySelector("textarea[name='content']").value.trim(),
+            status: document.querySelector("select[name='post-status']").value.trim(),
 		}
 	}
 
 	function fillFormWithData(data) {
 		document.querySelector("input[name='title']").value = data.title || ""
-		document.querySelector("input[name='url']").value = data.url || ""
 		document.querySelector("textarea[name='description']").value = data.description || ""
-		document.querySelector("input[name='is-public']").checked = !!data.isPublic
+		document.querySelector("select[name='post-status']").value = data.status || ""
+		document.querySelector("input[name='slug']").value = data.url || ""
+		document.querySelector("textarea[name='content']").value = data.content || ""
+
 	}
 
-	function validateFormData({ title, url, description }) {
-		if (!title || !url || !description) {
+	function validateFormData({ title, description, content, slug, status }) {
+		if (!title || !description || !content || !slug || !status) {
 			toast("Please fill out all required fields.", "error")
 			return false
 		}
