@@ -1,17 +1,17 @@
 <div class="w-[220px] rounded border border-slate-100 shadow hover:shadow-lg transition flex justify-center items-center flex-col overflow-hidden">
-    <a href="{{ app.url }}" class="shadow w-full p-3 rounded-tl-md rounded-tr-md hover:cursor-pointer" title="AppTitle">
+    <a href="{{ navLink.url }}" class="shadow w-full p-3 rounded-tl-md rounded-tr-md hover:cursor-pointer" title="AppTitle">
         <div class="p-2 rounded-bl-md rounded-br-md">
             <h3 class="text-slate-800 font-medium text-md flex gap-2 flex-start">
                 <span class="inline-block mt-1">
-                    {{ app.icon }}
+                    {{ navLink.icon }}
                 </span>
                 <span>
-                    {{ app.title }}
+                    {{ navLink.title }}
                 </span>
             </h3>
         </div>
         <div class="pb-3 px-2 rounded-bl-md rounded-br-md">
-            <p class="text-sm text-slate-600">{{ app.description }}.</p>
+            <p class="text-sm text-slate-600">{{ navLink.description }}.</p>
         </div>
     </a>
 </div>
