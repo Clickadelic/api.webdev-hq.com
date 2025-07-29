@@ -3,7 +3,7 @@ const { toast } = require("./toast")
 if (window.location.pathname === "/auth/confirm") {
 	document.addEventListener("DOMContentLoaded", () => {
 		const token = window.location.search.split("=")[1]
-		console.log(token)
+
 		if (token) {
 			fetch("/common/v1/auth/confirm?token=" + token, {
 				method: "POST",

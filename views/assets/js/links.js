@@ -114,8 +114,6 @@ document.addEventListener("DOMContentLoaded", () => {
 				toast("Link updated.", "success")
 				window.location.href = "/links"
 			} else {
-				const data = await response.json()
-				console.log(data)
 				toast("Update failed.", "error")
 			}
 		} catch (error) {
