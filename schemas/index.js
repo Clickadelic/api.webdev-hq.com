@@ -45,6 +45,7 @@ const schemas = {
 		url: Joi.string().required(),
 		isPublic: Joi.boolean()
 	}),
+	// Newsletter Request
 	validateSubscribtion: Joi.object({
 		name: Joi.string().required(),
 		email: Joi.string().email().required(),

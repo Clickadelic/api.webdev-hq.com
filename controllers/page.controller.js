@@ -58,9 +58,6 @@ const pageController = {
 	},
 	getLinksPage: async (req, res) => {
 		const links = await prisma.link.findMany({
-			where: {
-				userId: req.user.id
-			},
 			orderBy: {
 				createdAt: "desc"
 			}
@@ -69,9 +66,6 @@ const pageController = {
 	},
 	getLinkByIdPage: async (req, res) => {
 		const links = await prisma.link.findMany({
-			where: {
-				userId: req.user.id
-			},
 			orderBy: {
 				createdAt: "desc"
 			}

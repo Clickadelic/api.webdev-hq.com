@@ -125,7 +125,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	async function handleLinkDeletion(id) {
-		const userId = document.querySelector("input[name='userId']").value
 
 		try {
 			const response = await fetch(`/common/v1/links/${id}`, {
@@ -150,7 +149,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	function getFormData() {
 		return {
-			userId: document.querySelector("input[name='userId']").value.trim(),
 			title: document.querySelector("input[name='title']").value.trim(),
 			url: document.querySelector("input[name='url']").value.trim(),
 			description: document.querySelector("textarea[name='description']").value.trim(),
@@ -159,15 +157,14 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	function fillFormWithData(data) {
-		document.querySelector("input[name='userId']").value = data.userId || ""
 		document.querySelector("input[name='title']").value = data.title || ""
 		document.querySelector("input[name='url']").value = data.url || ""
 		document.querySelector("textarea[name='description']").value = data.description || ""
 		document.querySelector("input[name='is-public']").checked = !!data.isPublic
 	}
 
-	function validateFormData({ userId, title, url, description }) {
-		if (!userId || !title || !url || !description) {
+	function validateFormData({ title, url, description }) {
+		if (!title || !url || !description) {
 			toast("Please fill out all required fields.", "error")
 			return false
 		}
