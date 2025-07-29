@@ -36,7 +36,11 @@ const handleLogin = async e => {
 			toast("Login successful.", "success")
 			document.querySelector("input[name='email']").value = ""
 			document.querySelector("input[name='password']").value = ""
-			setTimeout(() => (window.location.href = `${process.env.SUCCESSFUL_LOGIN_REDIRECT}`), 2000) // Weiterleitung nach Login
+			/* ++++++++++++++++++++++++++++++++++++++++++++++++++ */
+			// Weiterleitung nach Login
+			// TODO: Make me .ENV
+			/* ++++++++++++++++++++++++++++++++++++++++++++++++++ */
+			setTimeout(() => (window.location.href = "/"), 2000)
 		} else {
 			toast(data.message || "Login failed.", "error")
 			document.querySelector("input[name='email']").focus()
