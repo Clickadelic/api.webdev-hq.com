@@ -8,9 +8,6 @@ const pageController = {
 	getDocsPage: (req, res) => {
 		return res.render("./pages/docs")
 	},
-	getAboutPage: (req, res) => {
-		return res.render("./pages/about")
-	},
 	getRegisterPage: (req, res) => {
 		return res.render("./pages/auth/register", {
 			confirmationToken: req.query.token,
@@ -55,6 +52,9 @@ const pageController = {
 	},
 	getPostsPage: (req, res) => {
 		return res.render("./pages/posts")
+	},
+	getPostByIdPage: (req, res) => {
+		return res.render("./pages/posts/post")
 	},
 	getLinksPage: async (req, res) => {
 		const links = await prisma.link.findMany({

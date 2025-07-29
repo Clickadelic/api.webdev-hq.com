@@ -17,11 +17,9 @@
 					<section class="flex-1 px-4 py-2 min-h-[500px]">
 						<h2 class="text-xl font-medium text-slate-800 mb-6">Welcome, {{ user.username }}</h2>
 						<div class="flex flex-row gap-4 justify-start">
-							
 							{% for app in apps %}
 								{% include 'partials/link-card.twig' %}
 							{% endfor %}
-
 						</div>
 					</section>
 				</div>
