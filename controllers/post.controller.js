@@ -54,7 +54,7 @@ const postController = {
             return res.status(500).send({ message: error.message || "internal_server_error" })
         }
     },
-    patchPost: async (req, res) => {
+    patchPostById: async (req, res) => {
         const { id, title, description, status,  slug, } = req.body
 
         if (
@@ -70,7 +70,7 @@ const postController = {
         try {
             const existingLink = await prisma.link.findUnique({ where: { id } })
             if (!existingLink) {
-                return res.status(404).send({ message: "link_not_found" })
+                return res.status(404).send({ message: "post_not_found" })
             }
 
             await prisma.link.update({
@@ -83,7 +83,7 @@ const postController = {
             return res.status(500).send({ message: error.message || "internal_server_error" })
         }
     },
-    deletePost: async (req, res) => {
+    deletePostById: async (req, res) => {
         const { id } = req.params
 
         if (!id) {
@@ -91,13 +91,13 @@ const postController = {
         }
 
         try {
-            const link = await prisma.link.findUnique({ where: { id } })
+            const link = await prisma.post.findUnique({ where: { id } })
             if (!link) {
-                return res.status(404).send({ message: "link_not_found" })
+                return res.status(404).send({ message: "post_not_found" })
             }
 
-            await prisma.link.delete({ where: { id } })
-            return res.status(200).send({ message: "link_deleted" })
+            await prisma.post.delete({ where: { id } })
+            return res.status(200).send({ message: "post_deleted" })
         } catch (error) {
             console.error("deleteLink error:", error)
             return res.status(500).send({ message: error.message || "internal_server_error" })
