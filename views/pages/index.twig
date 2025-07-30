@@ -27,8 +27,9 @@
 	</div>
 	{% endblock %}
 {% endif %}
-{% if not user %}
-	{% block footer_scripts %}
+
+{% block footer_scripts %}
+	{% if not user %}
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.net.min.js"></script>
 	<script>
@@ -45,5 +46,5 @@
 			scaleMobile: 0.5
 		})
 	</script>
-	{% endblock %}
-{% endif %}
+	{% endif %}
+{% endblock %}
