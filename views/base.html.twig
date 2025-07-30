@@ -119,13 +119,13 @@
 {% endblock %}
 
 {% block body %}
-<body id="top" class="min-h-screen flex flex-col font-poppins {% block body_class %}bg-gradient-to-r from-slate-50 to-slate-200{% endblock %}">
+<body id="top" class="min-h-screen flex flex-col font-poppins {% block body_class %}bg-slate-100{% endblock %}">
     {% block body_content %}
         {% block header %}
             {% include 'partials/layout/header.twig' %}
         {% endblock %}
 
-        <div class="container mx-auto py-2 flex flex-grow">
+        <div class="container mx-auto py-2 flex flex-grow" id="content-wrapper">
             {% block layout %}
                 <main class="{% block content_class %}flex-1{% endblock %}">
                     {% block content %}
@@ -198,6 +198,7 @@
     {% block scripts %}
     <script src="{{ asset('assets/js/scripts.min.js') }}" type="module"></script>
     {% endblock %}
+    {% block footer_scripts %}{% endblock %}
 </body>
 {% endblock %}
 </html>
