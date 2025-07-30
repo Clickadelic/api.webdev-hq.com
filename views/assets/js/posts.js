@@ -138,10 +138,8 @@ document.addEventListener("DOMContentLoaded", () => {
 			if (response.ok) {
 				const postRow = document.querySelector(`#post-${id}`)
 				postRow.classList.add("border-rose-500")
-				setTimeout(() => {
-					document.querySelector(`#post-${id}`).remove()
-					toast("Post deleted.", "success")
-				}, 1000)
+				postRow.remove()
+				toast("Post deleted.", "success")
 			} else {
 				toast("Deletion failed.", "error")
 			}
