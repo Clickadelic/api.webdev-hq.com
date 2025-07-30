@@ -73,8 +73,6 @@ if (window.location.pathname === "/auth/confirm") {
   document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search)
     const token = urlParams.get("token")
-
-    const messageBox = document.getElementById("message-box")
 	
     if (token) {
 		fetch("/common/v1/auth/confirm?token=" + encodeURIComponent(token), {
@@ -84,14 +82,13 @@ if (window.location.pathname === "/auth/confirm") {
         .then(response => response.json()).
 		then(data => {
 			toast(data.message, "Account has been verified.")
-			messageBox.innerHTML = data.message
 		})
         .catch(error => {
           console.error("Error confirming email:", error)
           toast("Something went wrong.", "error")
         })
     } else {
-      toast("Token missing.", "error")
+      	toast("Token missing.", "error")
     }
   })
 }

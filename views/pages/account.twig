@@ -56,8 +56,10 @@
 						<div data-content="edit-profile" class="hidden min-h-96">
 							{% include 'partials/forms/account-form.twig' %}
 						</div>
-						<div data-content="delete-profile" class="hidden min-h-96">
-							<button class="asd">Delete account</button>
+						<div data-content="delete-profile" class="hidden min-h-96 text-center pt-4">
+							<p class="text-lg font-medium text-rose-700">Are you sure you want to delete your account?</p>
+							<p class="mb-4">This action cannot be undone.</p>
+							<button class="w-48 px-4 py-2 mx-auto bg-rose-500 hover:bg-rose-600 text-white rounded-sm hover:cursor-pointer">Yes, delete account</button>
 						</div>
 
 					</div>

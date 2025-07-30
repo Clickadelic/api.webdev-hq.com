@@ -52,7 +52,7 @@ const authController = {
 			const templatePath = path.join(__dirname, "../mail/templates/confirm-registration.hbs")
 			const source = fs.readFileSync(templatePath, "utf8")
 			const template = handlebars.compile(source)
-			const confirmationLink = `${process.env.APP_URL}:${process.env.PORT}/auth/confirm?token=${verificationToken}`
+			const confirmationLink = `${process.env.APP_URL}/auth/confirm?token=${verificationToken}`
 			const html = template({
 				name: newUser.username,
 				confirmationLink
