@@ -1,17 +1,17 @@
 {% block content %}
 <div class="h-full flex flex-col items-center justify-center text-center text-slate-800 lg:max-w-[680px] mx-auto">
 
-    <div class="bg-white/30 backdrop-blur rounded p-2">
-        <div class="bg-white rounded py-8 md:py-24 px-12">
+    <div class="bg-white/30 backdrop-blur rounded p-2 shadow">
+        <div class="bg-white rounded py-6 md:py-12 px-12">
             {% include 'partials/layout/logo.twig' with {
-                'classes': ['text-2xl', 'mb-5', 'w-[172px]', 'mx-auto']
+                'classes': ['text-2xl', 'mb-8', 'w-[172px]', 'mx-auto']
             }
             %}
                 
             {{ end }}
             <h2 class="text-2xl font-medium text-slate-800 mt-6 mb-2"><span class="text-slate-500">{ </span><span>API</span><span class="text-slate-500"> }</span> Service</h2>
             <p class="text-lg text-slate-500">This API provides access &shy;to various <br>features and functionalities &shy;of the WebDev HQ platform.</p>
-            <div class="flex justify-center space-x-3 mt-4 md:mt-8 lg:mt-12">
+            <div class="flex justify-center space-x-3 mt-4 md:mt-8 lg:mt-8">
                 {% if user %}
                     <a href="/dashboard" class="flex justify-between px-3 py-2 text-mantis-primary border border-mantis-primary hover:bg-mantis-primary-hover hover:text-white rounded-sm">Dashboard</a>
                 {% else %}
