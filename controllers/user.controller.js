@@ -36,7 +36,7 @@ const userController = {
 			res.status(400).json({ message: error })
 		}
 	},
-	updateUserById: async (req, res) => {
+	patchUserById: async (req, res) => {
 		// const { username, email, bio, image, password } = req.body
 		try {
 			const { error } = UserSchema.validate(req.body)

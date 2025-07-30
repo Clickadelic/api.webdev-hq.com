@@ -11,7 +11,6 @@ const linkController = {
 			return res.status(500).send({ message: error.message || "internal_server_error" })
 		}
 	},
-
 	getLinkById: async (req, res) => {
 		const id = req.params.id
 		try {
@@ -25,7 +24,6 @@ const linkController = {
 			return res.status(500).send({ message: error.message || "internal_server_error" })
 		}
 	},
-
 	createLink: async (req, res) => {
 		const { title, description, url, isPublic } = req.body
 
@@ -58,8 +56,7 @@ const linkController = {
 			return res.status(500).send({ message: error.message || "internal_server_error" })
 		}
 	},
-
-	patchLink: async (req, res) => {
+	patchLinkById: async (req, res) => {
 		const { id, title, description, url, isPublic } = req.body
 
 		if (
@@ -88,8 +85,7 @@ const linkController = {
 			return res.status(500).send({ message: error.message || "internal_server_error" })
 		}
 	},
-
-	deleteLink: async (req, res) => {
+	deleteLinkById: async (req, res) => {
 		const { id } = req.params
 
 		if (!id) {

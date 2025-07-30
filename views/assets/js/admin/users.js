@@ -1,32 +1,33 @@
+const toast = require("../toast")
+
 if (window.location.pathname === "/admin/users") {
 	document.addEventListener("DOMContentLoaded", function () {
-		const users = fetch("/common/v1/users", {
-			method: "GET",
-			headers: { "Content-Type": "application/json" }
+		const deleteBtns = document.getElementsByClassName("delete-user-btn")
+		// Set up delete buttons
+		Array.from(deleteBtns).forEach(btn => {
+			btn.addEventListener("click", e => {
+				e.stopPropagation()
+				const id = btn.getAttribute("data-user-id")
+				handleUserDeletion(id)
+			})
 		})
-			.then(response => {
-				if (response.ok) {
-					return response.json()
-				}
-			})
-			.then(data => {
-				data.forEach(user => {
-					const userRow = document.createElement("tr")
-					userRow.id = `user-${user.id}`
-					userRow.classList.add("w-full", "flex", "justify-between", "mb-2")
+	})
+}
 
-					userRow.innerHTML = `
-						<td class="w-1/3">${user.username}</td>
-						<td class="w-1/3">${user.email}</td>
-						<td class="w-1/3">${user.role}</td>
-					`
-
-					const table = document.getElementById("users-table")
-					table.appendChild(userRow)
-				})
-			})
-			.catch(error => {
-				console.error("Error fetching users:", error)
-			})
+function handleUserDeletion(id) {
+	fetch(`/common/v1/users/${id}`, {
+		method: "DELETE"
+	})
+	.then(response => response.json())
+	.then(data => {
+		if (data.message === "user_deleted") {
+			document.getElementById(`user-${id}`).remove()
+			toast("User deleted.", "success")
+		} else {
+			console.error(data.message)
+		}
+	})
+	.catch(error => {
+		console.error("Error:", error)
 	})
 }
