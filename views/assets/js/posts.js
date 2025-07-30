@@ -4,7 +4,7 @@ let isEditing = false
 let currentEditId = null
 
 document.addEventListener("DOMContentLoaded", () => {
-	if (window.location.pathname !== "/posts/create") return
+	if (window.location.pathname !== "/posts" && window.location.pathname !== "/posts/create") return
 
 	const postForm = document.getElementById("post-form")
 	const editBtns = document.getElementsByClassName("edit-post-btn")
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	Array.from(editBtns).forEach(btn => {
 		btn.addEventListener("click", e => {
 			e.stopPropagation()
-			const postId = btn.getAttribute("data-post-id")
+			const id = btn.getAttribute("data-post-id")
 			preparePostUpdate(id)
 		})
 	})
@@ -33,8 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	Array.from(deleteBtns).forEach(btn => {
 		btn.addEventListener("click", e => {
 			e.stopPropagation()
-			const postId = btn.getAttribute("data-post-id")
-			handleLinkDeletion(postId)
+			const id = btn.getAttribute("data-post-id")
+			handlePostDeletion(id)
 		})
 	})
 
@@ -47,7 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	async function handleNewPost() {
 		const formData = getFormData()
-        // console.log(formData)
 		if (!validateFormData(formData)) return
 
 		try {
@@ -137,7 +136,9 @@ document.addEventListener("DOMContentLoaded", () => {
 			})
 
 			if (response.ok) {
-				document.querySelector(`#post-${id}`).remove()
+				const postRow = document.querySelector(`#post-${id}`)
+				postRow.classList.add("border-rose-500")
+				postRow.remove()
 				toast("Post deleted.", "success")
 			} else {
 				toast("Deletion failed.", "error")
@@ -149,7 +150,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	// Helpers
-
 	function getFormData() {
 		return {
 			title: document.querySelector("input[name='title']").value.trim(),
@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		document.querySelector("input[name='title']").value = data.title || ""
 		document.querySelector("textarea[name='description']").value = data.description || ""
 		document.querySelector("select[name='post-status']").value = data.status || ""
-		document.querySelector("input[name='slug']").value = data.url || ""
+		document.querySelector("input[name='slug']").value = data.slug || ""
 		document.querySelector("textarea[name='content']").value = data.content || ""
 
 	}

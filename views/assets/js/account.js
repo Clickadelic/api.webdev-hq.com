@@ -1,3 +1,5 @@
+const toast = require("./toast")
+
 if (window.location.pathname === "/account") {
 	document.addEventListener("DOMContentLoaded", function () {
 		const tabs = document.querySelectorAll("[data-tab]")
@@ -23,4 +25,32 @@ if (window.location.pathname === "/account") {
 		// Ersten Tab aktivieren beim Laden
 		tabs[0].click()
 	})
+	document.getElementsByTagName("form")[0].addEventListener("submit", e => {
+		e.preventDefault()
+		handleAccountUpdate(e)
+	})
+}
+
+const handleAccountUpdate = async e => {
+	e.preventDefault()
+	const form = e.target
+	const formData = new FormData(form)
+	const data = Object.fromEntries(formData)
+	console.log(data)
+	try {
+		const response = await fetch(`/common/v1/users/${data.id}`, {
+			method: "PATCH",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(data)
+		})
+
+		if (response.ok) {
+			toast("Account updated.", "success")
+		} else {
+			toast("Update failed.", "error")
+		}
+	} catch (error) {
+		toast("Something went wrong.", "error")
+		console.error(error)
+	}
 }

@@ -1,8 +1,8 @@
 
 <form class="space-y-3" method="POST" action="/common/v1/users/">
-	<input type="text" name="userId" class="w-full bg-slate-200 rounded-sm p-3" hidden value="{{ user.id }}">
-	<input type="text" name="title" class="w-full bg-slate-200 rounded-sm p-3" placeholder="Username" value="{{ user.username }}">
-	<input type="email" name="email" class="w-full bg-slate-200 rounded-sm p-3" placeholder="E-mail" value="{{ user.email }}">
+	<input type="text" name="id" class="w-full bg-slate-200 rounded-sm p-3" hidden value="{{ user.id }}">
+	<input type="text" name="name" autocomplete="username" class="w-full bg-slate-200 rounded-sm p-3" placeholder="Username" value="{{ user.username }}">
+	<input type="email" name="email" autocomplete="email" class="w-full bg-slate-200 rounded-sm p-3" placeholder="E-mail" value="{{ user.email }}">
 	<textarea name="bio" rows="3" class="w-full bg-slate-200 rounded-sm p-3" placeholder="Bio" value="{{ user.bio }}"></textarea>
 	<button type="submit" class="w-full flex justify-center items-center gap-2 p-3 text-white bg-mantis-primary hover:bg-mantis-primary-hover rounded-sm hover:cursor-pointer">
 		<span>
