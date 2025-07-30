@@ -37,6 +37,18 @@ const schemas = {
 		id_token: Joi.string().allow(null, ""),
 		session_state: Joi.string().allow(null, "")
 	}),
+	userSchema: Joi.object({
+		id: Joi.string().required(), // cuid()
+		name: Joi.string().required(),
+		email: Joi.string().email().required(),
+		password: Joi.string().allow(null, ""),
+		emailVerified: Joi.date().allow(null),
+		bio: Joi.string().allow(null, ""),
+		image: Joi.string().allow(null, ""),
+		role: Joi.string().required(),
+		createdAt: Joi.date().required(),
+		updatedAt: Joi.date().required()
+	}),
 	// Post
 	postSchema: Joi.object({
 		id: Joi.string().required(), // cuid()
