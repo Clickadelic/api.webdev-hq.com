@@ -14,20 +14,21 @@ if (window.location.pathname === "/admin/users") {
 	})
 }
 
-function handleUserDeletion(id) {
-	fetch(`/common/v1/users/${id}`, {
-		method: "DELETE"
-	})
-	.then(response => response.json())
-	.then(data => {
-		if (data.message === "user_deleted") {
-			document.getElementById(`user-${id}`).remove()
+async function handleUserDeletion(id) {
+	try {
+		const response = await fetch(`/common/v1/users/${id}`, {
+			method: "DELETE",
+			headers: { "Content-Type": "application/json" }
+		})
+		if (response.ok) {
+			const userRow = document.querySelector(`#user-${id}`)
+			userRow.classList.add("border-rose-500")
+			userRow.remove()
 			toast("User deleted.", "success")
 		} else {
-			console.error(data.message)
+			toast("Deletion failed.", "error")
 		}
-	})
-	.catch(error => {
-		console.error("Error:", error)
-	})
+	} catch (error) {
+		toast("Something went wrong.", "error")
+	}
 }
