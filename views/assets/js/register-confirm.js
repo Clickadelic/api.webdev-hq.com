@@ -7,6 +7,10 @@ if (window.location.pathname === "/auth/confirm") {
 }
 
 async function validateToken () {
+	const messageBox = document.getElementById("message-box")
+	messageBox.classList.remove("hidden")
+	messageBox.classList.add("border-sky-500", "bg-sky-100", "text-sky-700")
+	messageBox.innerHTML = "Verifying token..."
 	const token = window.location.search.split("=")[1]
 	const response = await fetch("/common/v1/auth/confirm?token=" + token, {
 		method: "POST",
@@ -15,8 +19,14 @@ async function validateToken () {
 	})
 	const data = await response.json()
 	if (response.ok) {
-		toast(data.message, "success")
+		messageBox.classList.add("border-green-500", "bg-green-100", "text-green-700")
+		messageBox.innerHTML = data.message
+		setTimeout(() => {
+			window.location.href = "/auth/login"
+		}, 1500)
 	} else {
-		toast("Something went wrong.", "error")
+		messageBox.classList.remove("hidden")
+		messageBox.classList.add("border-rose-500", "bg-rose-100", "text-rose-700")
+		messageBox.innerHTML = data.message
 	}
 }
