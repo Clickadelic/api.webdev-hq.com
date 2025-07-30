@@ -1,4 +1,4 @@
-const { toast } = require("./toast")
+const { toast } = require("../toast")
 
 if (window.location.pathname === "/admin/users") {
 	document.addEventListener("DOMContentLoaded", function () {
