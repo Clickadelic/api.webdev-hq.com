@@ -12,7 +12,6 @@ const server = app.listen(PORT, () => {
 	console.log(chalk.greenBright("----------------------------------------"))
 })
 
-// 🔌 Prisma-Verbindung sauber trennen beim Beenden
 const shutdown = async (signal) => {
 	console.log(chalk.yellowBright(`\n${signal} received. Prisma-Client disconnecting...`))
 	await prisma.$disconnect()
