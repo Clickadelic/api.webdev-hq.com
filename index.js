@@ -14,32 +14,13 @@ const server = app.listen(PORT, () => {
 
 // 🔌 Prisma-Verbindung sauber trennen beim Beenden
 const shutdown = async (signal) => {
-	console.log(chalk.yellowBright(`\n${signal} receive. Disconnecting Prisma, shutting down connection`))
+	console.log(chalk.yellowBright(`\n${signal} received. Prisma-Client disconnecting...`))
 	await prisma.$disconnect()
 	server.close(() => {
-		console.log(chalk.redBright("Server wurde beendet."))
+		console.log(chalk.redBright("Server was shut down."))
 		process.exit(0)
 	})
 }
 
-// process.on("SIGINT", () => shutdown("SIGINT"))
-// process.on("SIGTERM", () => shutdown("SIGTERM"))
-
-// Verbindungen ordentlich schließen bei Prozessende
-process.on("SIGINT", async () => {
-	console.log("\nSIGINT received. Disconnecting Prisma, shutting down connection")
-	await prisma.$disconnect()
-	server.close(() => {
-		console.log("Server beendet.")
-		process.exit(0)
-	})
-})
-
-process.on("SIGTERM", async () => {
-	console.log("\nSIGTERM received. Disconnecting Prisma, shutting down connection")
-	await prisma.$disconnect()
-	server.close(() => {
-		console.log("Server beendet.")
-		process.exit(0)
-	})
-})
+process.on("SIGINT", () => shutdown("SIGINT"))
+process.on("SIGTERM", () => shutdown("SIGTERM"))
