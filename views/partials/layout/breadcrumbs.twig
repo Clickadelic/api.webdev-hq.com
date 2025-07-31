@@ -21,7 +21,7 @@
 					</li>
 					<li>
 						{% if not loop.last %}
-							<a href="{{ url }}" class="text-blue-500 hover:underline">{{ segment|capitalize }}</a>
+							<a href="{{ url }}" class="text-blue-500 hover:underline">{{ segment|replace({'-': ' '})|capitalize }}</a>
 						{% else %}
 							<span class="text-gray-800">{{ segment|replace({'-': ' '})|capitalize }}</span>
 						{% endif %}
