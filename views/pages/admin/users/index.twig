@@ -11,7 +11,18 @@
 				{% include 'partials/admin-sidebar.twig' %}
 			{% endblock %}
 			<section class="flex-1 px-4 py-2 min-h-[500px]">
-				<h2 class="text-xl font-medium text-slate-800 mb-6">Users</h2>
+				<div class="flex justify-between">
+					<h2 class="text-xl font-medium text-slate-800">Links</h2>
+					<button class="modal-open flex justify-center items-center gap-2 p-3 text-white bg-mantis-primary hover:bg-mantis-primary-hover rounded-sm hover:cursor-pointer">
+						<span class="inline-flex">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+								<path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+							</svg>
+						</span>
+						<span class="inline-flex">New user</span>
+					</button>
+				</div>
+				<hr class="my-6 border-gray-200" />
 				<div class="overflow-x-auto">
 					<table class="min-w-full dark:divide-gray-700">
 						<thead>
@@ -85,4 +96,20 @@
 		</div>
 	</div>
 </div>
+{% endblock %}
+
+{# Modal Window with form #}
+{% block modal_icon %}
+	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+		<path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
+	</svg>
+{% endblock %}
+{% block modal_title %}
+	New user
+{% endblock %}
+{% block modal_subtitle %}
+	Register a new user
+{% endblock %}
+{% block modal_body %}
+	{% include 'partials/forms/register-form.twig' %}
 {% endblock %}
