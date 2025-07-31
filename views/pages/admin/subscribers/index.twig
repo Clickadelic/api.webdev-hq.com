@@ -42,7 +42,7 @@
 										{{ user.email }}
 									</td>
 									<td class="px-3 py-1 whitespace-nowrap text-sm font-medium ">
-										{{ user.createdAt.toDateString() }}
+										{{ user.createdAt|date("d.m.Y") }}
 									</td>
 									<td class="px-3 py-1 whitespace-nowrap text-sm font-medium ">
 										<button class="delete-user-btn rounded p-2 text-rose-400 hover:cursor-pointer" data-user-id="{{ user.id }}" title="Delete">

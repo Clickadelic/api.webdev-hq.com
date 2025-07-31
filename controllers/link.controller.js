@@ -57,10 +57,9 @@ const linkController = {
 		}
 	},
 	patchLinkById: async (req, res) => {
-		const { id, title, description, url, isPublic, userId } = req.body
+		const { title, description, url, isPublic, userId } = req.body
 
 		if (
-			!id || typeof id !== "string" ||
 			!title || typeof title !== "string" || title.trim() === "" ||
 			!description || typeof description !== "string" ||
 			!url || typeof url !== "string" ||

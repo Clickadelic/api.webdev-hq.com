@@ -20,7 +20,7 @@ pageRouter.get("/auth/confirm", pageController.getRegisterConfirmationPage)
 pageRouter.get("/auth/reset-password", pageController.getResetPasswordPage)
 
 // Protected Routes
-pageRouter.get("/account", middleware.verifyTokenFromCookie, pageController.getAccountPage)
+pageRouter.get("/profile", middleware.verifyTokenFromCookie, pageController.getProfilePage)
 
 // Protected Posts
 pageRouter.get("/posts", middleware.verifyTokenFromCookie, pageController.getPostsPage)

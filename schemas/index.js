@@ -63,9 +63,9 @@ const schemas = {
 	linkSchema: Joi.object({
 		id: Joi.string().required(), // cuid()
 		title: Joi.string().required(),
-		description: Joi.string().required(),
+		description: Joi.string().optional(),
 		url: Joi.string().required(),
-		isPublic: Joi.boolean(),
+		isPublic: Joi.boolean().default(false),
 		userId: Joi.string().required()
 	}),
 	// Newsletter Request

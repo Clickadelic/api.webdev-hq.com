@@ -43,7 +43,7 @@ const pageController = {
 	getNewsletterConfirmationPage: (req, res) => {
 		return res.render("./pages/newsletter-confirm", { confirmationToken: req.query.token })
 	},
-	getAccountPage: (req, res) => {
+	getProfilePage: (req, res) => {
 		return res.render("./pages/account")
 	},
 	getPostsPage: async (req, res) => {

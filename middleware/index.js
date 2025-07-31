@@ -7,7 +7,8 @@ const {
 	confirmationTokenSchema,
 	loginSchema,
 	resetPasswordSchema,
-	validateSubscribtion
+	validateSubscribtion,
+	linkSchema
 } = require("../schemas")
 
 const middleware = {
@@ -73,7 +74,7 @@ const middleware = {
 		next()
 	},
 	validateLink: (req, res, next) => {
-		const { error } = res.locals.linkSchema.validate(req.body)
+		const { error } = linkSchema.validate(req.body)
 		if (error) {
 			return res.status(400).send({ message: error.details[0].message })
 		}
