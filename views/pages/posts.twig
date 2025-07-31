@@ -1,0 +1,30 @@
+{# child.html.twig #}
+{% extends "base.html.twig" %}
+
+{% block title %}Posts &middot; WebDev HQ API{% endblock %}
+
+{% block content %}
+<div class="p-2 bg-white/30 backdrop-blur rounded mx-1 sm:mx-0 shadow">
+	<div class="bg-white p-4 rounded">
+		<div class="flex justify-between gap-6 min-h-[500px]">
+			{% block sidebar %}
+				{% include 'partials/sidebar.twig' %}
+			{% endblock %}
+			<section class="flex-1 px-4 py-2">
+				<h2 class="text-xl font-medium text-slate-800 mb-6">Posts</h2>
+				<hr class="my-6 border-gray-200" />
+
+				{% for post in posts %}
+					<div class="shadow rounded mb-4 p-2">
+						<h2>{{ post.title }}</h2>
+						<p>{{ post.descption }}</p>
+					</div>
+				{% else %}
+					<div>No post found card here.</div>
+				{% endfor %}
+
+			</section>
+		</div>
+	</div>
+</div>
+{% endblock %}

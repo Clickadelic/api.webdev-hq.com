@@ -1,4 +1,4 @@
-const prisma = require("../lib/prisma")
+const prisma = require("../prisma")
 
 const postController = {
     getPosts: async (req, res) => {
@@ -24,16 +24,17 @@ const postController = {
         }
     },
     createPost: async (req, res) => {
-        const { title, description, slug, content, status } = req.body
+        const { title, description, slug, content, status, userId } = req.body
 
         if (
             !title || typeof title !== "string" || title.trim() === "" ||
             !description || typeof description !== "string" ||
             !slug || typeof slug !== "string" || slug.trim() === "" ||
             !content || typeof content !== "string" ||
-            !status || typeof status !== "string" || status.trim() === ""
+            !status || typeof status !== "string" || status.trim() === "" ||
+            !userId || typeof userId !== "string" || userId.trim() === ""
         ) {
-            return res.status(400).send({ message: "missing_or_invalid_fields" })
+            return res.status(400).send({ message: "Missing or invalid fields" })
         }
 
         try {
@@ -44,13 +45,14 @@ const postController = {
                     description,
                     slug,
                     content,
-                    status
+                    status,
+                    userId
                 }
             })
-            return res.status(201).send({ message: "post_created" })
+            return res.status(201).send({ message: "Post has been created." })
         } catch (error) {
             console.error("createPost error:", error)
-            return res.status(500).send({ message: error.message || "internal_server_error" })
+            return res.status(500).send({ message: error.message || "Internal server error" })
         }
     },
     patchPostById: async (req, res) => {
@@ -63,7 +65,7 @@ const postController = {
             !content || typeof content !== "string" ||
             !status || typeof status !== "string" || status.trim() === ""
         ) {
-            return res.status(400).send({ message: "missing_or_invalid_fields" })
+            return res.status(400).send({ message: "Missing or invalid fields" })
         }
 
         try {

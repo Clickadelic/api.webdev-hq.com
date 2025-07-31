@@ -2,7 +2,7 @@ const fs = require("fs")
 const path = require("path")
 const crypto = require("crypto")
 
-const prisma = require("../lib/prisma")
+const prisma = require("../prisma")
 
 const handlebars = require("handlebars")
 const transporter = require("../mail")

@@ -1,4 +1,4 @@
-const prisma = require("../lib/prisma")
+const prisma = require("../prisma")
 
 const pageController = {
 	getIndexPage: (req, res) => {
@@ -43,9 +43,6 @@ const pageController = {
 	getNewsletterConfirmationPage: (req, res) => {
 		return res.render("./pages/newsletter-confirm", { confirmationToken: req.query.token })
 	},
-	getDashboardPage: (req, res) => {
-		return res.render("./pages/dashboard")
-	},
 	getAccountPage: (req, res) => {
 		return res.render("./pages/account")
 	},
@@ -78,20 +75,6 @@ const pageController = {
 			}
 		})
 		return res.render("./pages/links", { links })
-	},
-	getAdminPage: (req, res) => {
-		return res.render("./pages/admin")
-	},
-	getAdminUsersPage: async (req, res) => {
-		const users = await prisma.user.findMany()
-		users.forEach(user => {
-			user.password = undefined
-		})
-		return res.render("./pages/admin/users", { users })
-	},
-	getAdminSubscribersPage: async (req, res) => {
-		const subscribers = await prisma.subscriber.findMany()
-		return res.render("./pages/admin/subscribers", { subscribers })
 	}
 }
 

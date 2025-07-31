@@ -19,6 +19,8 @@ const authRouter = require("./routers/auth.router")
 const userRouter = require("./routers/user.router")
 const newsletterRouter = require("./routers/newsletter.router")
 const chromeExtensionRouter = require("./routers/chrome-extension.router")
+const adminRouter = require("./routers/admin.router")
+
 const clearTwigCache = () => {
 	twig.cache(false)
 }
@@ -45,6 +47,7 @@ app.use(middleware.setBreadcrumbs)
 app.use(middleware.checkAuthStatus)
 
 app.use("/", pageRouter)
+app.use("/", adminRouter)
 app.use("/common/v1", infoRouter)
 app.use("/common/v1", authRouter)
 app.use("/common/v1", userRouter)

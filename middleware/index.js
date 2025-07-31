@@ -1,10 +1,14 @@
 const jwt = require("jsonwebtoken")
 const chalk = require("chalk")
-const prisma = require("../lib/prisma")
-const fs = require("fs")
-const path = require("path")
+const prisma = require("../prisma")
 
-const { registrationSchema, confirmationTokenSchema, loginSchema, resetPasswordSchema, validateSubscribtion } = require("../schemas")
+const {
+	registrationSchema,
+	confirmationTokenSchema,
+	loginSchema,
+	resetPasswordSchema,
+	validateSubscribtion
+} = require("../schemas")
 
 const middleware = {
 	logRequests: (req, res, next) => {
@@ -102,18 +106,14 @@ const middleware = {
 			return res.redirect("/auth/login")
 		}
 	},
-	// TODO: Improve me
 	checkAuthStatus: async (req, res, next) => {
 		const token = req.cookies.token
-
 		if (!token) {
 			res.locals.user = null
 			return next()
 		}
-
 		try {
 			const decoded = jwt.verify(token, process.env.JWT_SECRET)
-
 			// optional: vollständigen User aus DB laden
 			const user = await prisma.user.findUnique({
 				where: { id: decoded.id }

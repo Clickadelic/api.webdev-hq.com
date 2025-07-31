@@ -30,9 +30,4 @@ pageRouter.get("/posts/create", middleware.verifyTokenFromCookie, pageController
 pageRouter.get("/links", middleware.verifyTokenFromCookie, pageController.getLinksPage)
 pageRouter.get("/links/:id", middleware.verifyTokenFromCookie, pageController.getLinkByIdPage)
 
-// Protected Admin Routes
-pageRouter.get("/admin", middleware.verifyTokenFromCookie, pageController.getAdminPage)
-pageRouter.get("/admin/users", middleware.verifyTokenFromCookie, pageController.getAdminUsersPage)
-pageRouter.get("/admin/subscribers", middleware.verifyTokenFromCookie, pageController.getAdminSubscribersPage)
-
 module.exports = pageRouter

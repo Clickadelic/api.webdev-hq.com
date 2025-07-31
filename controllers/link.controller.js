@@ -1,4 +1,4 @@
-const prisma = require("../lib/prisma")
+const prisma = require("../prisma")
 
 const linkController = {
 	getLinks: async (req, res) => {
@@ -25,20 +25,19 @@ const linkController = {
 	},
 	createLink: async (req, res) => {
 		const { title, description, url, isPublic } = req.body
-
 		if (
 			!title || typeof title !== "string" || title.trim() === "" ||
 			!description || typeof description !== "string" ||
 			!url || typeof url !== "string" ||
 			typeof isPublic === "undefined"
 		) {
-			return res.status(400).send({ message: "missing_or_invalid_fields" })
+			return res.status(400).send({ message: "Missing or invalid fields" })
 		}
 
 		try {
 			const existingLink = await prisma.link.findFirst({ where: { url } })
 			if (existingLink) {
-				return res.status(409).send({ message: "link_already_exists" })
+				return res.status(409).send({ message: "link already exists" })
 			}
 
 			await prisma.link.create({
@@ -46,7 +45,8 @@ const linkController = {
 					title,
 					url,
 					description,
-					isPublic
+					isPublic,
+					userId
 				}
 			})
 			return res.status(201).send({ message: "link_created" })

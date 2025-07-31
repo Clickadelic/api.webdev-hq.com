@@ -1,10 +1,10 @@
-const { toast } = require("./toast")
+const { toast } = require("../toast")
 
 let isEditing = false
 let currentEditId = null
 
 document.addEventListener("DOMContentLoaded", () => {
-	if (window.location.pathname !== "/posts" && window.location.pathname !== "/posts/create") return
+	if (window.location.pathname !== "/admin/posts" && window.location.pathname !== "/admin/posts/create") return
 
 	const postForm = document.getElementById("post-form")
 	const editBtns = document.getElementsByClassName("edit-post-btn")
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			if (response.ok) {
 				toast("Post created.", "success")
                 setTimeout(() => {
-                    window.location.href = "/posts"
+                    window.location.href = "/admin/posts"
                 }, 1500)
 			} else {
 				toast("Post creation failed.", "error")
@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			if (response.ok) {
 				toast("Post updated.", "success")
-				window.location.href = "/posts"
+				window.location.href = "/admin/posts"
 			} else {
 				const data = await response.json()
 				console.log(data)
@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				postRow.remove()
 				toast("Post deleted.", "success")
 			} else {
-				toast("Deletion failed.", "error")
+				toast("Post deletion failed.", "error")
 			}
 		} catch (error) {
 			toast("Something went wrong.", "error")
@@ -157,10 +157,12 @@ document.addEventListener("DOMContentLoaded", () => {
             slug: document.querySelector("input[name='slug']").value.trim(),
 			content: document.querySelector("textarea[name='content']").value.trim(),
             status: document.querySelector("select[name='post-status']").value.trim(),
+			userId: document.querySelector("input[name='user-id']").value.trim(),
 		}
 	}
 
 	function fillFormWithData(data) {
+		document.querySelector("input[name='user-id']").value = data.userId || ""
 		document.querySelector("input[name='title']").value = data.title || ""
 		document.querySelector("textarea[name='description']").value = data.description || ""
 		document.querySelector("select[name='post-status']").value = data.status || ""

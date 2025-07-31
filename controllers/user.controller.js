@@ -1,12 +1,4 @@
-const prisma = require("../lib/prisma")
-
-const jwt = require("jsonwebtoken")
-const bcrypt = require("bcrypt")
-const transporter = require("../mail")
-const path = require("path")
-const fs = require("fs")
-
-const handlebars = require("handlebars")
+const prisma = require("../prisma")
 
 const userController = {
 	getUsers: async (req, res) => {
