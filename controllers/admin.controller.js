@@ -29,7 +29,6 @@ const adminController = {
 	getAdminLinkByIdPage: async (req, res) => {
 		return res.render("./pages/admin/links")
 	},
-	
 }
 
 module.exports = adminController

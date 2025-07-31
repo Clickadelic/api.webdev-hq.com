@@ -1,60 +1,52 @@
-<nav>
+{% if user.role == 'ADMIN' %}
 
-	<ul class="flex justify-end gap-3 my-2.5">
-		{% if user.role == 'ADMIN' %}
-		<li>
-			<a href="/admin" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-200 text-sm font-semibold rounded flex justify-between space-x-3" role="menuitem" tabindex="-1">
-				<span class="mt-[1px]">
-					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shield-lock" viewBox="0 0 16 16">
-						<path d="M5.338 1.59a61 61 0 0 0-2.837.856.48.48 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.7 10.7 0 0 0 2.287 2.233c.346.244.652.42.893.533q.18.085.293.118a1 1 0 0 0 .101.025 1 1 0 0 0 .1-.025q.114-.034.294-.118c.24-.113.547-.29.893-.533a10.7 10.7 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.8 11.8 0 0 1-2.517 2.453 7 7 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7 7 0 0 1-1.048-.625 11.8 11.8 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 63 63 0 0 1 5.072.56"/>
-						<path d="M9.5 6.5a1.5 1.5 0 0 1-1 1.415l.385 1.99a.5.5 0 0 1-.491.595h-.788a.5.5 0 0 1-.49-.595l.384-1.99a1.5 1.5 0 1 1 2-1.415"/>
-					</svg>
-				</span>
-				<span>
-					Admin
-				</span>
-			</a>
-		</li>
-		{% endif %}
-		<li>
-			<!-- Dropdown Tailwind 4.1 https://tailwindcss.com/plus/ui-blocks/application-ui/elements/dropdowns -->
-			<div class="relative inline-block text-left">
-				<div>
-					<button type="button" class="dropdown-btn inline-flex w-full justify-center gap-x-1.5 rounded-sm bg-white px-3 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-200 hover:cursor-pointer" aria-expanded="false" aria-haspopup="true">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mt-[2px] mr-1 bi bi-person-circle" viewBox="0 0 16 16">
-							<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-							<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+<li>
+    <a href="/admin" class="flex justify-between px-3 py-2 text-slate-700 hover:text-mantis-primary hover:bg-slate-100 rounded-sm" title="Register">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="inline-block mt-1 mr-2 bi bi-shield-check" viewBox="0 0 16 16">
+			<path d="M5.338 1.59a61 61 0 0 0-2.837.856.48.48 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.7 10.7 0 0 0 2.287 2.233c.346.244.652.42.893.533q.18.085.293.118a1 1 0 0 0 .101.025 1 1 0 0 0 .1-.025q.114-.034.294-.118c.24-.113.547-.29.893-.533a10.7 10.7 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.8 11.8 0 0 1-2.517 2.453 7 7 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7 7 0 0 1-1.048-.625 11.8 11.8 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 63 63 0 0 1 5.072.56"/>
+			<path d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
+		</svg>
+        Admin
+    </a>
+</li>
+{% endif %}
+<li>
+	<!-- Dropdown Tailwind 4.1 https://tailwindcss.com/plus/ui-blocks/application-ui/elements/dropdowns -->
+	<div class="relative inline-block text-left">
+		<div>
+			<button type="button" class="dropdown-btn inline-flex w-full justify-center gap-x-1 rounded-sm bg-white px-3 py-2 text-slate-700 hover:bg-slate-100 hover:text-mantis-primary hover:cursor-pointer" aria-expanded="false" aria-haspopup="true">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="mt-[4px] mr-1 bi bi-person-circle" viewBox="0 0 16 16">
+					<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+					<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+				</svg>
+				{{ user.username }}
+				<svg class="-mr-1 size-5 text-slate-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+					<path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+				</svg>
+			</button>
+		</div>
+		<div class="dropdown-menu absolute right-0 z-10 mt-2 w-48 origin-top-right divide-y divide-slate-100 rounded-sm bg-white shadow-lg ring-1 ring-black/5 focus:outline-none hidden" role="menu" aria-expanded="false" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+			<div class="py-1" role="none">
+				<a href="/profile" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-100 hover:text-mantis-primary" role="menuitem" tabindex="-1">
+					<span>
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="inline-flex -mt-1 bi bi-chevron-compact-right" viewBox="0 0 16 16">
+							<path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
 						</svg>
-						{{ user.username }}
-						<svg class="-mr-1 size-5 text-slate-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-							<path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
-						</svg>
-					</button>
-				</div>
-				<div class="dropdown-menu absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-slate-100 rounded-sm bg-white shadow-lg ring-1 ring-black/5 focus:outline-none hidden" role="menu" aria-expanded="false" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-					<div class="py-1" role="none">
-						<a href="/profile" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-100 hover:text-mantis-primary" role="menuitem" tabindex="-1">
-							<span>
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="inline-flex -mt-1 bi bi-chevron-compact-right" viewBox="0 0 16 16">
-									<path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
-								</svg>
-							</span>
-							<span>Profile</span>
-						</a>
-					</div>
-					<div class="py-1" role="none">
-						<button id="logout-btn" class="w-full flex flex-row justify-start gap-2 items-center px-4 py-2 text-sm text-slate-700 hover:cursor-pointer hover:bg-slate-100 hover:text-mantis-primary" role="menuitem" tabindex="-1">
-							<span class="inline-flex ml-2">
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
-									<path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
-									<path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
-								</svg>
-							</span>
-							<span class="inline-flex">Logout</span>
-						</button>
-					</div>
-				</div>
+					</span>
+					<span>Profile</span>
+				</a>
 			</div>
-		</li>
-	</ul>
-</nav>
+			<div class="py-1" role="none">
+				<button id="logout-btn" class="w-full flex flex-row justify-start gap-2 items-center px-4 py-2 text-sm text-slate-700 hover:cursor-pointer hover:bg-slate-100 hover:text-mantis-primary" role="menuitem" tabindex="-1">
+					<span class="inline-flex ml-2">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+							<path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+							<path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+						</svg>
+					</span>
+					<span class="inline-flex">Logout</span>
+				</button>
+			</div>
+		</div>
+	</div>
+</li>
