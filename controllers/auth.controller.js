@@ -114,7 +114,7 @@ const authController = {
 				where: { token }
 			})
 
-			return res.status(200).send({ message: "Email verified. Forwarding in 3 seconds." })
+			return res.status(200).send({ message: "Email verified. Redirecting..." })
 		} catch (error) {
 			console.error(error)
 			return res.status(500).send({ message: "Internal server error" })

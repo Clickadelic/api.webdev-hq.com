@@ -24,7 +24,7 @@ async function validateToken () {
 		messageBox.innerHTML = data.message
 		setTimeout(() => {
 			window.location.href = "/auth/login"
-		}, 3000)
+		}, 3500)
 	} else {
 		messageBox.classList.remove("hidden")
 		messageBox.classList.add("border-rose-500", "bg-rose-100", "text-rose-700")
