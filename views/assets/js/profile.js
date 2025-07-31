@@ -1,6 +1,6 @@
 const toast = require("./toast")
 
-if (window.location.pathname === "/account") {
+if (window.location.pathname === "/profile") {
 	document.addEventListener("DOMContentLoaded", function () {
 		const tabs = document.querySelectorAll("[data-tab]")
 		const contents = document.querySelectorAll("[data-content]")

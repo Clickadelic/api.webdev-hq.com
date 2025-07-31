@@ -104,6 +104,21 @@ const linkController = {
 			console.error("deleteLink error:", error)
 			return res.status(500).send({ message: error.message || "Internal server error." })
 		}
+	},
+	getLinksByUserId: async (req, res) => {
+		const { userId } = req.params
+
+		if (!userId) {
+			return res.status(400).send({ message: "Missing fields." })
+		}
+
+		try {
+			const links = await prisma.link.findMany({ where: { userId } })
+			return res.status(200).send(links)
+		} catch (error) {
+			console.error("getLinksByUserId error:", error)
+			return res.status(500).send({ message: error.message || "Internal server error." })
+		}
 	}
 }
 
