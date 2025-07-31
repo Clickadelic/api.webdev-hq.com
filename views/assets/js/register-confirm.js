@@ -19,11 +19,12 @@ async function validateToken () {
 	})
 	const data = await response.json()
 	if (response.ok) {
+		messageBox.classList.remove("border-sky-500", "bg-sky-100", "text-sky-700")
 		messageBox.classList.add("border-green-500", "bg-green-100", "text-green-700")
 		messageBox.innerHTML = data.message
 		setTimeout(() => {
 			window.location.href = "/auth/login"
-		}, 1500)
+		}, 3000)
 	} else {
 		messageBox.classList.remove("hidden")
 		messageBox.classList.add("border-rose-500", "bg-rose-100", "text-rose-700")
