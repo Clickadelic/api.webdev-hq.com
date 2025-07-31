@@ -1,4 +1,5 @@
 require("./toast.js")
+require("./copy-to-clipboard.js")
 require("./profile.js")
 require("./dropdown.js")
 require("./newsletter.js")
