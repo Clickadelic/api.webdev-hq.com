@@ -8,7 +8,7 @@ const cors = require("cors")
 const app = express()
 const chalk = require("chalk")
 const path = require("path")
-const fs = require("fs")
+const prisma = require("../lib/prisma")
 const twig = require("twig")
 const chokidar = require("chokidar")
 const middleware = require("./middleware")
@@ -20,7 +20,6 @@ const authRouter = require("./routers/auth.router")
 const userRouter = require("./routers/user.router")
 const newsletterRouter = require("./routers/newsletter.router")
 const chromeExtensionRouter = require("./routers/chrome-extension.router")
-
 const clearTwigCache = () => {
 	twig.cache(false)
 }
@@ -57,6 +56,15 @@ app.use("/common/v1", chromeExtensionRouter)
 
 app.use("/{*splat}", (req, res) => {
 	res.status(404).send({ message: "Frontend-route or endpoint not found. Error 404." })
+})
+
+process.on("SIGINT", async () => {
+	console.log("\nSIGINT received, disconnecting Prisma from DB...")
+	await prisma.$disconnect()
+	server.close(() => {
+		console.log("Server shut down.")
+		process.exit(0)
+	})
 })
 
 module.exports = app
