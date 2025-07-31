@@ -44,7 +44,7 @@ const pageController = {
 		return res.render("./pages/newsletter-confirm", { confirmationToken: req.query.token })
 	},
 	getProfilePage: (req, res) => {
-		return res.render("./pages/account")
+		return res.render("./pages/profile")
 	},
 	getPostsPage: async (req, res) => {
 		const posts = await prisma.post.findMany({
