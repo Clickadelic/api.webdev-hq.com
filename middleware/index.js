@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken")
 const chalk = require("chalk")
-const { PrismaClient } = require("@prisma/client")
-const prisma = new PrismaClient()
+const prisma = require("../lib/prisma")
 const fs = require("fs")
 const path = require("path")
 
@@ -103,6 +102,7 @@ const middleware = {
 			return res.redirect("/auth/login")
 		}
 	},
+	// TODO: Improve me
 	checkAuthStatus: async (req, res, next) => {
 		const token = req.cookies.token
 
