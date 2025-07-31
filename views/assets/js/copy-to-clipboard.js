@@ -1,4 +1,4 @@
-if (window.location.pathname === "/") {
+if (document.getElementById("copy-to-clipboard") && window.location.pathname === "/") {
 	const copyToClipboard = document.getElementById("copy-to-clipboard")
 	const apiUrl = document.querySelector("code")
 	copyToClipboard.addEventListener("click", () => {
