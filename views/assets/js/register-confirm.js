@@ -1,5 +1,3 @@
-const { toast } = require("./toast")
-
 if (window.location.pathname === "/auth/confirm") {
 	document.addEventListener("DOMContentLoaded", () => {
 		validateToken()
