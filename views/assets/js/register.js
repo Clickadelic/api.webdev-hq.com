@@ -68,4 +68,3 @@ if (window.location.pathname === "/auth/register") {
 		}
 	}
 }
-

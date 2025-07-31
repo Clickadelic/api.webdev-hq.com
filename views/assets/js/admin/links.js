@@ -56,7 +56,7 @@ if (window.location.pathname === "/admin/links") {
 
 				if (response.ok) {
 					toast("Link created.", "success")
-					window.location.href = "/links"
+					window.location.href = "/admin/links"
 				} else {
 					toast(response.statusText, "error")
 				}
@@ -111,7 +111,7 @@ if (window.location.pathname === "/admin/links") {
 
 				if (response.ok) {
 					toast("Link updated.", "success")
-					window.location.href = "/links"
+					window.location.href = "/admin/links"
 				} else {
 					toast("Link update failed.", "error")
 				}
@@ -159,11 +159,11 @@ if (window.location.pathname === "/admin/links") {
 			document.querySelector("input[name='title']").value = data.title || ""
 			document.querySelector("input[name='url']").value = data.url || ""
 			document.querySelector("textarea[name='description']").value = data.description || ""
-			document.querySelector("input[name='is-public']").checked = !!data.isPublic
+			document.querySelector("input[name='is-public']").checked = !!data.isPublic || false
 		}
 
 		function validateFormData({ title, url, description, isPublic, userId }) {
-			if (!title || !url || !description || !isPublic || !userId) {
+			if (!title || !url || !description || isPublic === undefined || !userId) {
 				toast("Please fill out all required fields.", "error")
 				return false
 			}
