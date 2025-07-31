@@ -57,6 +57,7 @@ const schemas = {
 		slug: Joi.string().required(),
 		content: Joi.string().required(),
 		status: Joi.boolean().required(),
+		userId: Joi.string().required()
 	}),
 	// Link
 	linkSchema: Joi.object({
@@ -64,7 +65,8 @@ const schemas = {
 		title: Joi.string().required(),
 		description: Joi.string().required(),
 		url: Joi.string().required(),
-		isPublic: Joi.boolean()
+		isPublic: Joi.boolean(),
+		userId: Joi.string().required()
 	}),
 	// Newsletter Request
 	validateSubscribtion: Joi.object({
