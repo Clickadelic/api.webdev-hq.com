@@ -2,6 +2,7 @@ const { toast } = require("../toast")
 
 let isEditing = false
 let currentEditId = null
+const redirectUrl = "/admin/posts"
 
 document.addEventListener("DOMContentLoaded", () => {
 	if (window.location.pathname !== "/admin/posts" && window.location.pathname !== "/admin/posts/create") return
@@ -17,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	postForm.addEventListener("submit", e => {
 		e.preventDefault()
 		isEditing ? handlePostUpdate() : handleNewPost()
-		// handleNewPost()
+		handleNewPost()
 	})
 
 	// Set up edit buttons
@@ -59,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			if (response.ok) {
 				toast("Post created.", "success")
                 setTimeout(() => {
-                    window.location.href = "/admin/posts"
+                    window.location.href = redirectUrl
                 }, 1500)
 			} else {
 				toast("Post creation failed.", "error")
@@ -115,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			if (response.ok) {
 				toast("Post updated.", "success")
-				window.location.href = "/admin/posts"
+				window.location.href = redirectUrl
 			} else {
 				const data = await response.json()
 				console.log(data)

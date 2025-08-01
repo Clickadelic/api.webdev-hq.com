@@ -2,7 +2,7 @@ const { toast } = require("../toast")
 
 let isEditing = false
 let currentEditId = null
-const redirectUrl = "/links"
+const redirectUrl = "/admin/links"
 
 if (window.location.pathname === "/admin/links") {
 	document.addEventListener("DOMContentLoaded", () => {

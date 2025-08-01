@@ -29,7 +29,6 @@ model User {
     createdAt             DateTime               @default(now())
     updatedAt             DateTime               @default(now())
     twoFactorConfirmation TwoFactorConfirmation?
-    Organization          Organization[]
     Link                  Link[]
     Post                  Post[]
 
@@ -100,19 +99,6 @@ model TwoFactorConfirmation {
     user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     @@unique([userId])
-}
-
-model Organization {
-    id          String   @id @default(cuid())
-    name        String
-    url         String?
-    description String?
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @default(now())
-    userId      String
-    user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-    @@unique([id])
 }
 
 model Post {

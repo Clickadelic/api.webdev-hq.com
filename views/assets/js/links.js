@@ -2,6 +2,7 @@ const { toast } = require("./toast")
 
 let isEditing = false
 let currentEditId = null
+const redirectUrl = "/links"
 
 if (window.location.pathname === "/links") {
 	document.addEventListener("DOMContentLoaded", () => {
@@ -56,7 +57,7 @@ if (window.location.pathname === "/links") {
 
 				if (response.ok) {
 					toast("Link created.", "success")
-					window.location.href = "/links"
+					window.location.href = redirectUrl
 				} else {
 					toast(response.statusText, "error")
 				}
@@ -111,7 +112,7 @@ if (window.location.pathname === "/links") {
 
 				if (response.ok) {
 					toast("Link updated.", "success")
-					window.location.href = "/admin/links"
+					window.location.href = redirectUrl
 				} else {
 					toast("Link update failed.", "error")
 				}
@@ -162,8 +163,8 @@ if (window.location.pathname === "/links") {
 			document.querySelector("input[name='is-public']").checked = !!data.isPublic || false
 		}
 
-		function validateFormData({ title, url, description, isPublic, userId }) {
-			if (!title || !url || !description || isPublic === undefined || !userId) {
+		function validateFormData({ title, url, description, userId }) {
+			if (!title || !url || !description || !userId) {
 				toast("Please fill out all required fields.", "error")
 				return false
 			}

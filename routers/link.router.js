@@ -4,8 +4,8 @@ const linkController = require("../controllers/link.controller")
 const middleware = require("../middleware")
 linkRouter.get("/links",  linkController.getLinks)
 linkRouter.get("/links/:id", linkController.getLinkById)
-linkRouter.post("/links", middleware.validateLink, linkController.createLink)
-linkRouter.patch("/links/:id", middleware.validateLink, linkController.patchLinkById)
+linkRouter.post("/links", linkController.createLink)
+linkRouter.patch("/links/:id", linkController.patchLinkById)
 linkRouter.delete("/links/:id", linkController.deleteLinkById)
 
 module.exports = linkRouter
