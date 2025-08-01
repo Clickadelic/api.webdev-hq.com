@@ -27,34 +27,26 @@
 					<table class="min-w-full dark:divide-gray-700">
 						<thead>
 							<tr>
-								<th scope="col" align="center" class="px-3 py-1 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+								<th scope="col" align="center" class="w-[90px] px-3 py-1 text-left text-xs font-medium text-gray-500 dark:text-gray-400 tracking-wider">
+									Published
+								</th>
+								<th scope="col" align="center" class="px-3 py-1 text-left text-xs font-medium text-gray-500 dark:text-gray-400 tracking-wider">
 									Title
 								</th>
-								<th scope="col" align="center" class="px-3 py-1 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+								<th scope="col" align="center" class="px-3 py-1 text-left text-xs font-medium text-gray-500 dark:text-gray-400 tracking-wider">
 									Description
 								</th>
-								<th scope="col" align="center" class="w-[50px] px-3 py-1 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+								<th scope="col" align="center" class="w-[50px] px-3 py-1 text-left text-xs font-medium text-gray-500 dark:text-gray-400 tracking-wider">
 									Slug
 								</th>
-								<th scope="col" align="center" class="w-[90px] px-3 py-1 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-									Status
-								</th>
-								<th scope="col" align="center" class="px-3 py-1 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Action</th>
+								
+								<th scope="col" align="center" class="px-3 py-1 text-right text-xs font-medium text-gray-500 dark:text-gray-400 tracking-wider">Action</th>
 							</tr>
 						</thead>
 						<tbody class="divide-y divide-gray-200 space-y-2">
 							{% for post in posts %}
 								<tr class="hover:bg-slate-50 hover:cursor-default transition ease-in-out duration-300 border border-transparent" id="post-{{ post.id }}">
-									<td class="px-3 py-1 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
-										<a href="{{ post.url }}" target="_blank" class="text-mantis-primary hover:text-mantis-primary-hover transition" title="{{ post.title }}">{{ post.title }}</a>
-									</td>
-									<td class="px-3 py-1 whitespace-nowrap text-sm">
-										{{ post.description }}
-									</td>
-									<td class="px-3 py-1 whitespace-nowrap text-sm text-gray-800 dark:text-gray-800">
-										{{ post.slug }}
-									</td>
-									<td class="px-3 py-1 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+									<td align="center" class="px-3 py-1 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
 										{% if post.status == 'PUBLISHED' %}
 										<span class="text-emerald-500">
 											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
@@ -71,7 +63,16 @@
 											</span>
 										{% endif %}
 									</td>
-									<td class="px-3 py-1 whitespace-nowrap text-right text-sm font-medium">
+									<td class="px-3 py-1 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+										<a href="{{ post.url }}" target="_blank" class="text-mantis-primary hover:text-mantis-primary-hover transition" title="{{ post.title }}">{{ post.title }}</a>
+									</td>
+									<td class="px-3 py-1 whitespace-nowrap text-sm">
+										{{ post.description }}
+									</td>
+									<td class="px-3 py-1 whitespace-nowrap text-sm text-gray-800 dark:text-gray-800">
+										{{ post.slug }}
+									</td>
+									<td align="right" class="px-3 py-1 whitespace-nowrap text-right text-sm font-medium">
 										<button class="edit-post-btn rounded p-2 text-slate-500 hover:cursor-pointer hover:text-mantis-primary" data-post-id="{{ post.id }}" title="Edit">
 											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
 												<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>

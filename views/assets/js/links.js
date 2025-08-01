@@ -1,4 +1,4 @@
-const { toast } = require("../toast")
+const { toast } = require("./toast")
 
 let isEditing = false
 let currentEditId = null
@@ -56,7 +56,7 @@ if (window.location.pathname === "/links") {
 
 				if (response.ok) {
 					toast("Link created.", "success")
-					window.location.href = "/admin/links"
+					window.location.href = "/links"
 				} else {
 					toast(response.statusText, "error")
 				}
@@ -111,7 +111,7 @@ if (window.location.pathname === "/links") {
 
 				if (response.ok) {
 					toast("Link updated.", "success")
-					window.location.href = "/links"
+					window.location.href = "/admin/links"
 				} else {
 					toast("Link update failed.", "error")
 				}
@@ -171,4 +171,3 @@ if (window.location.pathname === "/links") {
 		}
 	})
 }
-
