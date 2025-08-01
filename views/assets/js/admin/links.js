@@ -2,6 +2,7 @@ const { toast } = require("../toast")
 
 let isEditing = false
 let currentEditId = null
+const redirectUrl = "/links"
 
 if (window.location.pathname === "/admin/links") {
 	document.addEventListener("DOMContentLoaded", () => {
@@ -56,7 +57,7 @@ if (window.location.pathname === "/admin/links") {
 
 				if (response.ok) {
 					toast("Link created.", "success")
-					window.location.href = "/admin/links"
+					window.location.href = redirectUrl
 				} else {
 					toast(response.statusText, "error")
 				}
@@ -111,7 +112,7 @@ if (window.location.pathname === "/admin/links") {
 
 				if (response.ok) {
 					toast("Link updated.", "success")
-					window.location.href = "/admin/links"
+					window.location.href = redirectUrl
 				} else {
 					toast("Link update failed.", "error")
 				}

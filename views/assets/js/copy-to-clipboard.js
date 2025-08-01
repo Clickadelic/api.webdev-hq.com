@@ -6,6 +6,6 @@ if (document.getElementById("copy-to-clipboard") && window.location.pathname ===
 		navigator.clipboard.writeText(apiUrl.innerText)
 		apiUrl.innerText = "Copied!"
 		setTimeout(() => apiUrl.removeAttribute("style"), 2000)
-		setTimeout(() => (apiUrl.innerText = "https://api.webdev-hq.com/common/v1"), 2000)
+		setTimeout(() => (apiUrl.innerText = "https://api.webdev-hq.com/common/v1/info"), 2000)
 	})
 }
