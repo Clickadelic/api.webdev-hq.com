@@ -535,14 +535,14 @@
   .transform {
     transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
   }
-  .animate-pulse {
-    animation: var(--animate-pulse);
-  }
   .resize {
     resize: both;
   }
   .list-disc {
     list-style-type: disc;
+  }
+  .grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
   .grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -763,12 +763,6 @@
   .bg-mantis-primary {
     background-color: var(--color-mantis-primary);
   }
-  .bg-rose-200 {
-    background-color: var(--color-rose-200);
-  }
-  .bg-rose-700 {
-    background-color: var(--color-rose-700);
-  }
   .bg-slate-100 {
     background-color: var(--color-slate-100);
   }
@@ -984,9 +978,6 @@
   .text-rose-500 {
     color: var(--color-rose-500);
   }
-  .text-rose-700 {
-    color: var(--color-rose-700);
-  }
   .text-slate-400 {
     color: var(--color-slate-400);
   }
@@ -1073,10 +1064,6 @@
     --tw-duration: 300ms;
     transition-duration: 300ms;
   }
-  .duration-500 {
-    --tw-duration: 500ms;
-    transition-duration: 500ms;
-  }
   .ease-in-out {
     --tw-ease: var(--ease-in-out);
     transition-timing-function: var(--ease-in-out);
@@ -1127,13 +1114,6 @@
     &:hover {
       @media (hover: hover) {
         background-color: var(--color-mantis-primary-hover);
-      }
-    }
-  }
-  .hover\:bg-rose-200 {
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--color-rose-200);
       }
     }
   }
@@ -1251,9 +1231,24 @@
       margin-inline: auto;
     }
   }
+  .md\:my-6 {
+    @media (width >= 48rem) {
+      margin-block: calc(var(--spacing) * 6);
+    }
+  }
   .md\:mt-8 {
     @media (width >= 48rem) {
       margin-top: calc(var(--spacing) * 8);
+    }
+  }
+  .md\:mb-4 {
+    @media (width >= 48rem) {
+      margin-bottom: calc(var(--spacing) * 4);
+    }
+  }
+  .md\:mb-6 {
+    @media (width >= 48rem) {
+      margin-bottom: calc(var(--spacing) * 6);
     }
   }
   .md\:mb-8 {
@@ -1345,6 +1340,21 @@
         margin-inline-start: calc(calc(var(--spacing) * 3) * var(--tw-space-x-reverse));
         margin-inline-end: calc(calc(var(--spacing) * 3) * calc(1 - var(--tw-space-x-reverse)));
       }
+    }
+  }
+  .md\:p-4 {
+    @media (width >= 48rem) {
+      padding: calc(var(--spacing) * 4);
+    }
+  }
+  .md\:px-4 {
+    @media (width >= 48rem) {
+      padding-inline: calc(var(--spacing) * 4);
+    }
+  }
+  .md\:py-2 {
+    @media (width >= 48rem) {
+      padding-block: calc(var(--spacing) * 2);
     }
   }
   .md\:py-12 {
