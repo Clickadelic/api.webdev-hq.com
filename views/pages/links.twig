@@ -27,36 +27,24 @@
 					<table class="min-w-full dark:divide-gray-700">
 						<thead>
 							<tr>
-								<th scope="col" align="center" class="px-3 py-1 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-									Title
-								</th>
-								<th scope="col" align="center" class="px-3 py-1 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-									Description
-								</th>
-								<th scope="col" align="center" class="w-[50px] px-3 py-1 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-									Target
-								</th>
 								<th scope="col" align="center" class="w-[90px] px-3 py-1 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
 									Is public
 								</th>
-								<th scope="col" align="center" class="px-3 py-1 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Action</th>
+								<th scope="col" class="px-3 py-1 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+									Title
+								</th>
+								<th scope="col" class="px-3 py-1 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+									Description
+								</th>
+								<th scope="col" class="w-[50px] px-3 py-1 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+									Target
+								</th>
+								<th scope="col" class="px-3 py-1 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Action</th>
 							</tr>
 						</thead>
 						<tbody class="divide-y divide-gray-200 space-y-2">
 							{% for link in links %}
 								<tr class="hover:bg-slate-50 hover:cursor-default transition" id="link-{{ link.id }}">
-									<td class="px-3 py-1 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
-										<a href="{{ link.url }}" target="_blank" class="text-mantis-primary hover:text-mantis-primary-hover transition" title="{{ link.title }}">{{ link.title }}</a>
-									</td>
-									<td class="px-3 py-1 whitespace-nowrap text-sm">
-										{{ link.description }}
-									</td>
-									<td class="px-3 py-1 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
-											<path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5"/>
-											<path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z"/>
-										</svg>
-									</td>
 									<td class="px-3 py-1 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
 										{% if link.isPublic == true %}
 										<span class="text-emerald-500">
@@ -73,6 +61,18 @@
 												</svg>
 											</span>
 										{% endif %}
+									</td>
+									<td class="px-3 py-1 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+										<a href="{{ link.url }}" target="_blank" class="text-mantis-primary hover:text-mantis-primary-hover transition" title="{{ link.title }}">{{ link.title }}</a>
+									</td>
+									<td class="px-3 py-1 whitespace-nowrap text-sm">
+										{{ link.description }}
+									</td>
+									<td class="px-3 py-1 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+											<path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5"/>
+											<path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z"/>
+										</svg>
 									</td>
 									<td class="px-3 py-1 whitespace-nowrap text-right text-sm font-medium">
 										<button class="edit-link-btn rounded p-2 text-slate-500 hover:cursor-pointer hover:text-mantis-primary" data-link-id="{{ link.id }}" title="Edit">

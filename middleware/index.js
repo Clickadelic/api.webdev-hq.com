@@ -8,7 +8,8 @@ const {
 	loginSchema,
 	resetPasswordSchema,
 	validateSubscribtion,
-	linkSchema
+	linkSchema,
+	postSchema
 } = require("../schemas")
 
 const middleware = {
@@ -81,7 +82,7 @@ const middleware = {
 		next()
 	},
 	validatePost: (req, res, next) => {
-		const { error } = res.locals.postSchema.validate(req.body)
+		const { error } = postSchema.validate(req.body)
 		if (error) {
 			return res.status(400).send({ message: error.details[0].message })
 		}
