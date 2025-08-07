@@ -3,11 +3,10 @@
 		<div class="container mx-auto flex justify-between px-3 sm:px-0">
 			<div class="flex justify-between md:space-x-2 lg:space-x-4 gap-4 sm:gap-8 md:gap-16 lg:gap-32 relative">
 				{% block logo %}
-
-						{% include 'partials/layout/navbar-brand.twig' with {
-							'classes': ['text-2xl', 'my-3']
-						}
-					%}
+					{% include 'partials/layout/navbar-brand.twig' with {
+						'classes': ['text-2xl', 'my-3']
+					}
+				%}
 				{% endblock %}
 				{% block main_menu %}
 				<ul class="flex justify-end gap-3 my-2.5">
