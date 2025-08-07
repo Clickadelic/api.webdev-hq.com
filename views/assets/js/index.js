@@ -1,3 +1,4 @@
+require("./copy-to-clipboard.js")
 require("./account.js")
 require("./dropdown.js")
 require("./newsletter.js")
