@@ -546,15 +546,27 @@
   .transform {
     transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
   }
+<<<<<<< HEAD
   .cursor-default {
     cursor: default;
   }
+=======
+>>>>>>> eb50b0b49b1e2be5f70fd692109de62081266cdc
   .resize {
     resize: both;
   }
   .list-disc {
     list-style-type: disc;
   }
+<<<<<<< HEAD
+=======
+  .grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  .grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+>>>>>>> eb50b0b49b1e2be5f70fd692109de62081266cdc
   .flex-col {
     flex-direction: column;
   }
@@ -774,6 +786,7 @@
   .bg-mantis-primary {
     background-color: var(--color-mantis-primary);
   }
+<<<<<<< HEAD
   .bg-rose-100 {
     background-color: var(--color-rose-100);
   }
@@ -783,6 +796,8 @@
   .bg-sky-100 {
     background-color: var(--color-sky-100);
   }
+=======
+>>>>>>> eb50b0b49b1e2be5f70fd692109de62081266cdc
   .bg-slate-100 {
     background-color: var(--color-slate-100);
   }
@@ -975,6 +990,7 @@
   .text-rose-500 {
     color: var(--color-rose-500);
   }
+<<<<<<< HEAD
   .text-rose-700 {
     color: var(--color-rose-700);
   }
@@ -984,6 +1000,8 @@
   .text-slate-100 {
     color: var(--color-slate-100);
   }
+=======
+>>>>>>> eb50b0b49b1e2be5f70fd692109de62081266cdc
   .text-slate-400 {
     color: var(--color-slate-400);
   }
@@ -1109,6 +1127,7 @@
       }
     }
   }
+<<<<<<< HEAD
   .hover\:bg-rose-600 {
     &:hover {
       @media (hover: hover) {
@@ -1116,6 +1135,8 @@
       }
     }
   }
+=======
+>>>>>>> eb50b0b49b1e2be5f70fd692109de62081266cdc
   .hover\:bg-slate-50 {
     &:hover {
       @media (hover: hover) {
@@ -1243,6 +1264,29 @@
       margin-inline: auto;
     }
   }
+<<<<<<< HEAD
+=======
+  .md\:my-6 {
+    @media (width >= 48rem) {
+      margin-block: calc(var(--spacing) * 6);
+    }
+  }
+  .md\:mt-8 {
+    @media (width >= 48rem) {
+      margin-top: calc(var(--spacing) * 8);
+    }
+  }
+  .md\:mb-4 {
+    @media (width >= 48rem) {
+      margin-bottom: calc(var(--spacing) * 4);
+    }
+  }
+  .md\:mb-6 {
+    @media (width >= 48rem) {
+      margin-bottom: calc(var(--spacing) * 6);
+    }
+  }
+>>>>>>> eb50b0b49b1e2be5f70fd692109de62081266cdc
   .md\:mb-8 {
     @media (width >= 48rem) {
       margin-bottom: calc(var(--spacing) * 8);
@@ -1333,6 +1377,21 @@
         margin-inline-start: calc(calc(var(--spacing) * 3) * var(--tw-space-x-reverse));
         margin-inline-end: calc(calc(var(--spacing) * 3) * calc(1 - var(--tw-space-x-reverse)));
       }
+    }
+  }
+  .md\:p-4 {
+    @media (width >= 48rem) {
+      padding: calc(var(--spacing) * 4);
+    }
+  }
+  .md\:px-4 {
+    @media (width >= 48rem) {
+      padding-inline: calc(var(--spacing) * 4);
+    }
+  }
+  .md\:py-2 {
+    @media (width >= 48rem) {
+      padding-block: calc(var(--spacing) * 2);
     }
   }
   .md\:py-12 {

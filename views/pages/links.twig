@@ -5,16 +5,16 @@
 
 {% block content %}
 <div class="p-2 bg-white/30 backdrop-blur rounded mx-1 sm:mx-0 shadow">
-	<div class="bg-white p-4 rounded">
+	<div class="bg-white p-2 md:p-4 rounded">
 		<div class="flex justify-between gap-6 min-h-[500px]">
 			{% block sidebar %}
 				{% include 'partials/sidebars/sidebar.twig' %}
 			{% endblock %}
-			<section class="flex-1 px-4 py-2">
-				<div class="flex justify-between">
-					<h2 class="text-xl font-medium text-slate-800">Links</h2>
-					<button class="modal-open flex justify-center items-center gap-2 p-3 text-white bg-mantis-primary hover:bg-mantis-primary-hover rounded-sm hover:cursor-pointer">
-						<span class="inline-flex">
+			<section class="flex-1 px-1 md:px-4 md:py-2">
+				<div class="flex justify-between mb-2 md:mb-4">
+					<h2 class="text-xl font-medium text-slate-800 mb-2 md:mb-6">Links</h2>
+					<button class="modal-open flex justify-center items-center gap-2 bg-mantis-primary text-white p-2 hover:cursor-pointer rounded hover:bg-mantis-primary-hover w-32">
+						<span>
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
 								<path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
 							</svg>
@@ -22,7 +22,7 @@
 						<span class="inline-flex">New link</span>
 					</button>
 				</div>
-				<hr class="my-6 border-gray-200" />
+				<hr class="my-2 md:my-6 border-gray-200" />
 				<div class="overflow-x-auto">
 					<table class="min-w-full dark:divide-gray-700">
 						<thead>
@@ -33,7 +33,7 @@
 								<th scope="col" class="px-3 py-1 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
 									Title
 								</th>
-								<th scope="col" class="px-3 py-1 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+								<th scope="col" align="center" class="hidden md:flex px-3 py-1 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
 									Description
 								</th>
 								<th scope="col" class="w-[50px] px-3 py-1 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
@@ -45,6 +45,18 @@
 						<tbody class="divide-y divide-gray-200 space-y-2">
 							{% for link in links %}
 								<tr class="hover:bg-slate-50 hover:cursor-default transition" id="link-{{ link.id }}">
+									<td class="px-3 py-1 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+										<a href="{{ link.url }}" target="_blank" class="text-mantis-primary hover:text-mantis-primary-hover transition" title="{{ link.title }}">{{ link.title }}</a>
+									</td>
+									<td class="hidden md:flex px-3 py-1 whitespace-nowrap text-sm">
+										{{ link.description }}
+									</td>
+									<td class="px-3 py-1 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+											<path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5"/>
+											<path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z"/>
+										</svg>
+									</td>
 									<td class="px-3 py-1 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
 										{% if link.isPublic == true %}
 										<span class="text-emerald-500">
