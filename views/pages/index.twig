@@ -18,7 +18,7 @@
 					<h2 class="text-xl font-medium text-slate-800 mb-6">Welcome, {{ user.username }}</h2>
 					<div class="grid grid-cols-1 md:flex md:flex-row gap-4 justify-start">
 						{% for navLink in navLinks %}
-							{% include 'partials/link-card.twig' %}
+							{% include 'partials/nav-card.twig' %}
 						{% endfor %}
 					</div>
 				</section>
