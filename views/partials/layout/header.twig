@@ -1,10 +1,10 @@
 <div class="w-full z-10">
 	<header class="w-full bg-white shadow-sm">
 		<div class="container mx-auto flex justify-between px-3 sm:px-0">
-			<div class="flex justify-between md:space-x-2 lg:space-x-4 gap-4 sm:gap-8 md:gap-16 lg:gap-32 relative">
+			<div class="flex justify-between items-center content-center md:space-x-2 lg:space-x-4 gap-4 sm:gap-8 md:gap-16 lg:gap-32 relative">
 				{% block logo %}
 					{% include 'partials/layout/navbar-brand.twig' with {
-						'classes': ['text-2xl', 'my-3']
+						'classes': ['text-2xl', 'my-3', 'max-w-[180px]']
 					}
 				%}
 				{% endblock %}

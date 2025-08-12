@@ -513,8 +513,8 @@
   .max-w-96 {
     max-width: calc(var(--spacing) * 96);
   }
-  .max-w-\[175px\] {
-    max-width: 175px;
+  .max-w-\[180px\] {
+    max-width: 180px;
   }
   .max-w-xl {
     max-width: var(--container-xl);
@@ -551,6 +551,9 @@
   }
   .flex-row {
     flex-direction: row;
+  }
+  .content-center {
+    align-content: center;
   }
   .items-center {
     align-items: center;

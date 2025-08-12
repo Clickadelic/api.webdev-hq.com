@@ -4,13 +4,13 @@
         <div class="bg-white rounded py-6 md:py-12 px-12">
             {% block logo %}
                 {% include 'partials/layout/navbar-brand.twig' with {
-                        'classes': ['text-2xl', 'my-3', 'max-w-[175px]', 'mx-auto']
+                        'classes': ['text-2xl', 'my-3', 'max-w-[180px]', 'mx-auto']
                     }
                 %}
-            {% endblock %}  
+            {% endblock %}
             {{ end }}
             <h2 class="text-2xl font-medium text-slate-800 mt-6 mb-2"><span class="text-slate-500">{ </span><span>API</span><span class="text-slate-500"> }</span> Service</h2>
-            <p class="text-lg text-slate-500">This API provides access &shy;to various <br>features and functionalities &shy;of the WebDev HQ platform.</p>
+            <p class="text-sm text-slate-500">This API provides access &shy;to various <br>features and functionalities &shy;of the WebDev HQ platform.</p>
             <div class="flex items-center justify-center gap-4">
                 <code class="mt-3 sm:mt-5 block text-xs sm:text-sm md:text-base text-slate-600 w-[150px] sm:w-[220px] md:w-[355px]">https://api.webdev-hq.com/common/v1/info</code>
                 <button class="mt-4 cursor-default hover:cursor-pointer hover:text-slate-500" title="Copy to clipboard" id="copy-to-clipboard">
