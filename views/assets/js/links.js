@@ -14,13 +14,17 @@ if (window.location.pathname === "/links") {
 		const updateText = document.getElementById("update-link-btn-text")
 		const modal = document.getElementById("modal")
 
-		// Form submit handler
+		/**
+		 * Form submit handler
+		 */
 		linkForm.addEventListener("submit", e => {
 			e.preventDefault()
 			isEditing ? handleLinkUpdate() : handleCreateLink()
 		})
 
-		// Set up edit buttons
+		/**
+		 * Set up edit buttons
+		 */
 		Array.from(editBtns).forEach(btn => {
 			btn.addEventListener("click", e => {
 				e.stopPropagation()
@@ -29,7 +33,9 @@ if (window.location.pathname === "/links") {
 			})
 		})
 
-		// Set up delete buttons
+		/**
+		 * Set up delete buttons
+		 */
 		Array.from(deleteBtns).forEach(btn => {
 			btn.addEventListener("click", e => {
 				e.stopPropagation()
@@ -38,6 +44,9 @@ if (window.location.pathname === "/links") {
 			})
 		})
 
+		/**
+		 * Resets the modal state to default (create link) when the modal is closed.
+		 */
 		function resetModalState() {
 			isEditing = false
 			currentEditId = null
@@ -45,6 +54,14 @@ if (window.location.pathname === "/links") {
 			updateText.classList.add("hidden")
 		}
 
+		/**
+		 * Handles creating a new link.
+		 *
+		 * Submits the form data to /common/v1/links with method POST.
+		 * If the response is OK (200), it redirects to the redirectUrl and shows a success toast.
+		 * If the response is not OK, it shows an error toast with the status text.
+		 * If there is an error with the request, it shows an error toast with the error message and logs the error.
+		 */
 		async function handleCreateLink() {
 			const formData = getFormData()
 			if (!validateFormData(formData)) return
@@ -67,6 +84,12 @@ if (window.location.pathname === "/links") {
 			}
 		}
 
+		/**
+		 * Prepares the link update form by fetching the link data and filling the form with it.
+		 *
+		 * @param {number} id - The ID of the link to update.
+		 * @returns {Promise<void>}
+		 */
 		async function prepareLinkUpdate(id) {
 			if (!id) {
 				toast("Link ID is missing.", "error")
@@ -97,6 +120,15 @@ if (window.location.pathname === "/links") {
 			}
 		}
 
+		/**
+		 * Handles the submission of the link update form.
+		 *
+		 * Sends a PATCH request to the API to update the link with the given ID.
+		 * If the request is successful, displays a success toast and redirects to the link list page.
+		 * If the request fails, displays an error toast.
+		 *
+		 * @returns {Promise<void>}
+		 */
 		async function handleLinkUpdate() {
 			const formData = getFormData()
 			formData.id = currentEditId
@@ -122,6 +154,15 @@ if (window.location.pathname === "/links") {
 			}
 		}
 
+		/**
+		 * Handles deleting a link by sending a DELETE request to the API.
+		 * If the request is successful, removes the link from the link list and shows a success toast.
+		 * If the request fails, shows an error toast.
+		 * If there is an error with the request, shows an error toast with the error message and logs the error.
+		 *
+		 * @param {number} id - The ID of the link to delete.
+		 * @returns {Promise<void>}
+		 */
 		async function handleLinkDeletion(id) {
 
 			try {
@@ -142,7 +183,18 @@ if (window.location.pathname === "/links") {
 			}
 		}
 
-		// Helpers
+		
+		/**
+		 * Returns an object containing the form data.
+		 *
+		 * @return {object} The form data.
+		 * @property {number} userId - The ID of the user who created the link.
+		 * @property {number} id - The ID of the link.
+		 * @property {string} title - The title of the link.
+		 * @property {string} url - The URL of the link.
+		 * @property {string} description - The description of the link.
+		 * @property {boolean} isPublic - Whether the link is public or not.
+		 */
 		function getFormData() {
 			return {
 				userId: document.querySelector("input[name='user-id']").value.trim(),
@@ -154,6 +206,17 @@ if (window.location.pathname === "/links") {
 			}
 		}
 
+		/**
+		 * Fills the form with the given data.
+		 *
+		 * @param {object} data - The data to fill the form with.
+		 * @param {number} [data.userId] - The ID of the user who created the link.
+		 * @param {number} [data.id] - The ID of the link.
+		 * @param {string} [data.title] - The title of the link.
+		 * @param {string} [data.url] - The URL of the link.
+		 * @param {string} [data.description] - The description of the link.
+		 * @param {boolean} [data.isPublic] - Whether the link is public or not.
+		 */
 		function fillFormWithData(data) {
 			document.querySelector("input[name='user-id']").value = data.userId || ""
 			document.querySelector("input[name='id']").value = data.id || ""
@@ -163,6 +226,17 @@ if (window.location.pathname === "/links") {
 			document.querySelector("input[name='is-public']").checked = !!data.isPublic || false
 		}
 
+		/**
+		 * Validates the given form data.
+		 *
+		 * @param {object} data - The data to validate.
+		 * @param {string} data.title - The title of the link.
+		 * @param {string} data.url - The URL of the link.
+		 * @param {string} data.description - The description of the link.
+		 * @param {number} data.userId - The ID of the user who created the link.
+		 *
+		 * @returns {boolean} Whether the data is valid or not.
+		 */
 		function validateFormData({ title, url, description, userId }) {
 			if (!title || !url || !description || !userId) {
 				toast("Please fill out all required fields.", "error")
