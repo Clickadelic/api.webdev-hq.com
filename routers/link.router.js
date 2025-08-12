@@ -8,4 +8,7 @@ linkRouter.post("/links", linkController.createLink)
 linkRouter.patch("/links/:id", linkController.patchLinkById)
 linkRouter.delete("/links/:id", linkController.deleteLinkById)
 
+// Advanced routing
+linkRouter.get("/links/user/:userId", linkController.getLinksByUserId)
+
 module.exports = linkRouter
