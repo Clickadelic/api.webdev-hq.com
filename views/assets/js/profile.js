@@ -24,10 +24,12 @@ if (window.location.pathname === "/profile") {
 
 		// Ersten Tab aktivieren beim Laden
 		tabs[0].click()
+
 	})
-	document.getElementsByTagName("form")[0].addEventListener("submit", e => {
-		e.preventDefault()
-		handleAccountUpdate(e)
+	// Profil Löschen
+	const deleteProfileBtn = document.getElementById("user-delete-btn")
+	deleteProfileBtn.addEventListener("click", (e) => {
+		handleProfileDeletion(e)
 	})
 }
 
@@ -36,7 +38,6 @@ const handleAccountUpdate = async e => {
 	const form = e.target
 	const formData = new FormData(form)
 	const data = Object.fromEntries(formData)
-	console.log(data)
 	try {
 		const response = await fetch(`/common/v1/users/${data.id}`, {
 			method: "PATCH",
@@ -48,6 +49,28 @@ const handleAccountUpdate = async e => {
 			toast("Account updated.", "success")
 		} else {
 			toast("Update failed.", "error")
+		}
+	} catch (error) {
+		toast("Something went wrong.", "error")
+		console.error(error)
+	}
+}
+
+const handleProfileDeletion = async (e) => {
+	e.preventDefault()
+	const userId = document.getElementById("user-id").value
+
+	try {
+		const response = await fetch(`/common/v1/users/${userId}`, {
+			method: "DELETE",
+			headers: { "Content-Type": "application/json" }
+		})
+
+		if (response.ok) {
+			toast("Account deleted, you will be logged out.", "success")
+			
+		} else {
+			toast("Deletion failed.", "error")
 		}
 	} catch (error) {
 		toast("Something went wrong.", "error")

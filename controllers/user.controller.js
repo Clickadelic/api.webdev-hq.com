@@ -62,16 +62,25 @@ const userController = {
 		}
 	},
 	deleteUserById: async (req, res) => {
+		const { id } = req.params
 		try {
-			const user = await prisma.user.delete({
+			const existingUser = await prisma.user.findUnique({
 				where: {
-					id: req.params.id
+					id
 				}
 			})
-			if (user) {
-				user.password = undefined
-				return res.status(200).json({ message: "user_deleted" })
+			if(!existingUser) {
+				return res.status(404).json({ message: "no_such_user_in_database" })
 			}
+			await prisma.user.delete({
+				where: {
+					id
+				}
+			})
+			res.clearCookie("token")
+			return res.status(200).json({
+				message: "user_deleted"
+			})
 		} catch (error) {
 			return res.status(400).json({ message: error })
 		}
