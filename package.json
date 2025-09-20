@@ -17,7 +17,7 @@
 	"author": "Tobias Hopp",
 	"license": "ISC",
 	"dependencies": {
-		"@prisma/client": "^6.10.1",
+		"@prisma/client": "^6.16.2",
 		"@tailwindcss/cli": "^4.1.10",
 		"@tailwindcss/postcss": "^4.1.10",
 		"bcrypt": "^6.0.0",
@@ -50,7 +50,7 @@
 		"jest": "^30.0.2",
 		"nodemon": "^3.1.10",
 		"prettier": "^3.5.3",
-		"prisma": "^6.10.1",
+		"prisma": "^6.16.2",
 		"sass": "^1.89.2",
 		"supertest": "^7.1.1"
 	},
