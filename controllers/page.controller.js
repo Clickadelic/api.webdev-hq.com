@@ -74,13 +74,14 @@ const pageController = {
 			});
 
 			// 3️⃣ Ergebnis senden
-			res.json({ pagination, data });
+			return res.render("./pages/links", { pagination, data })
 		} catch (error) {
 			console.error("getLinks error:", error);
 			res.status(500).json({
 				message: error.message || "Internal server error.",
 			});
 		}
+		
 	},
 	getLinkByIdPage: async (req, res) => {
 		const links = await prisma.link.findMany({

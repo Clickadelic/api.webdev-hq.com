@@ -4,6 +4,7 @@ const prisma = require("../prisma")
 const { paginate } = require("../lib/utils")
 
 const linkController = {
+	
 	/**
 	 * Get a list of all public links, paginated by page and limit
 	 * @param {object} req Express request object
@@ -31,6 +32,7 @@ const linkController = {
 			});
 		}
 	},
+
 	/**
 	 * Gets a link by its ID
 	 * @param {object} req Express request object
@@ -50,6 +52,7 @@ const linkController = {
 			return res.status(500).send({ message: error.message || "Internal server error." })
 		}
 	},
+
 	/**
 	 * Creates a new link.
 	 *
@@ -94,7 +97,6 @@ const linkController = {
 			return res.status(500).send({ message: error.message || "Internal server error." })
 		}
 	},
-
 
 	patchLinkById: async (req, res) => {
 		const { id, title, description, url, isPublic, userId } = req.body
@@ -147,6 +149,7 @@ const linkController = {
 			return res.status(500).send({ message: error.message || "Internal server error." })
 		}
 	},
+
 	getLinksByUserId: async (req, res) => {
 		const { userId } = req.params
 
