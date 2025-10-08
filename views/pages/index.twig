@@ -12,13 +12,13 @@
 		<div class="bg-white p-4 rounded">
 			<div class="flex justify-between gap-6">
 				{% block sidebar %}
-					{% include 'partials/sidebar.twig' with { apps } %}
+					{% include 'partials/sidebars/sidebar.twig' with { apps } %}
 				{% endblock %}
 				<section class="flex-1 px-4 py-2 min-h-[500px]">
 					<h2 class="text-xl font-medium text-slate-800 mb-6">Welcome, {{ user.username }}</h2>
 					<div class="grid grid-cols-1 md:flex md:flex-row gap-4 justify-start">
 						{% for navLink in navLinks %}
-							{% include 'partials/link-card.twig' %}
+							{% include 'partials/nav-card.twig' %}
 						{% endfor %}
 					</div>
 				</section>

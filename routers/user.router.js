@@ -6,5 +6,7 @@ const userController = require("../controllers/user.controller")
 // Protected Routes
 userRouter.get("/users", middleware.verifyTokenFromCookie, userController.getUsers)
 userRouter.get("/users/:id", middleware.verifyTokenFromCookie, userController.getUserById)
+userRouter.patch("/users/:id", middleware.verifyTokenFromCookie, userController.patchUserById)
+userRouter.delete("/users/:id", middleware.verifyTokenFromCookie, userController.deleteUserById)
 
 module.exports = userRouter

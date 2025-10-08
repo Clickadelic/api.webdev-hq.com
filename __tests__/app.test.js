@@ -1,8 +1,7 @@
 const request = require("supertest")
 const app = require("../app.js")
 
-const { PrismaClient } = require("@prisma/client")
-const prisma = new PrismaClient()
+const prisma = require("../prisma")
 describe("API Endpoints", () => {
 	describe("GET /", () => {
 		test("should respond with status 200", async () => {

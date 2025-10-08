@@ -4,25 +4,34 @@
 {% block title %}Terms of Privacy &middot; WebDev HQ API{% endblock %}
 
 {% block content %}
+
 <div class="p-2 bg-white/30 backdrop-blur rounded mx-1 sm:mx-0 shadow">
 	<div class="bg-white p-4 rounded">
-		<h2 class="text-xl font-medium text-slate-800 mb-1">Terms of Privacy</h2>
-		<p>We take the protection of your personal data very seriously. This privacy policy explains how we collect, process, and store your personal data when you visit our website or use our services.</p>
-		<h3 class="text-xl font-medium text-slate-800 mt-6 mb-1">What data is collected?</h3>
-		<p>Personal Data: We collect personal data such as name, email address, and other voluntarily provided information when you contact us or sign up for a service, e.g. this API-service.</p>
-		<p>Automatically Collected Data: When you visit our website, data such as your IP address, the browser you are using, and the pages visited are automatically stored. This data is used solely for improving our website and analyzing user behavior.</p>	
-		<h3 class="text-xl font-medium text-slate-800 mt-6 mb-1">How is your data used?</h3>
-		<p>We use your personal data solely for the following purposes:</p>
-		<ul class="list-disc ml-5 my-5">
-			<li>Providing and improving the website and its services</li>
-			<li>Responding to inquiries or feedback</li>
-			<li>Communicating about services and offers</li>
-			<li>Data Sharing with Third Parties</li>
-		</ul>
-		<p>We do not share your personal data with third parties unless required by law or necessary to provide services.</p>
-		<h3 class="text-xl font-medium text-slate-800 mt-6 mb-1">Your Rights</h3>
-		<p>You have the right to access your stored personal data, correct or delete it, and object to its processing. If you have any questions regarding your personal data or wish to exercise your rights, feel free to contact us at any time.</p>
-		<p>For more details on how we handle your data, please file a request under admin@webdev-hq.com.</p>
+		<div class="flex justify-between gap-6">
+			{% block sidebar %}
+				{% include 'partials/sidebars/law-sidebar.twig' with { apps } %}
+			{% endblock %}
+			<section class="flex-1 px-4 py-2 min-h-[500px]">
+				<h2 class="text-xl font-medium text-slate-800 mb-7">Terms of Privacy</h2>
+				<p>We take the protection of your personal data very seriously. This privacy policy explains how we collect, process, and store your personal data when you visit our website or use our services.</p>
+				<h3 class="text-xl font-medium text-slate-800 mt-6 mb-1">What data is collected?</h3>
+				<p>Personal Data: We collect personal data such as name, email address, and other voluntarily provided information when you contact us or sign up for a service, e.g. this API-service.</p>
+				<p>Automatically Collected Data: When you visit our website, data such as your IP address, the browser you are using, and the pages visited are automatically stored. This data is used solely for improving our website and analyzing user behavior.</p>	
+				<h3 class="text-xl font-medium text-slate-800 mt-6 mb-1">How is your data used?</h3>
+				<p>We use your personal data solely for the following purposes:</p>
+				<ul class="list-disc ml-5 my-5">
+					<li>Providing and improving the website and its services</li>
+					<li>Responding to inquiries or feedback</li>
+					<li>Communicating about services and offers</li>
+					<li>Data Sharing with Third Parties</li>
+				</ul>
+				<p>We do not share your personal data with third parties unless required by law or necessary to provide services.</p>
+				<h3 class="text-xl font-medium text-slate-800 mt-6 mb-1">Your Rights</h3>
+				<p>You have the right to access your stored personal data, correct or delete it, and object to its processing. If you have any questions regarding your personal data or wish to exercise your rights, feel free to contact us at any time.</p>
+				<p>For more details on how we handle your data, please file a request under admin@webdev-hq.com.</p>
+			</section>
+		</div>
 	</div>
 </div>
+
 {% endblock %}

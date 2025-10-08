@@ -2,10 +2,29 @@
 
 {% block title %}Login &middot; WebDev HQ API{% endblock %}
 {% block header %}{% endblock %}
-{% block body_class %}bg-future-hassaan bg-cover{% endblock %}
 {% block content %}
 <div class="h-full flex flex-col items-center justify-center text-center text-slate-800 lg:max-w-96 mx-auto">
 	{% include 'partials/forms/login-form.twig' %}
 </div>
 {% endblock %}
 {% block footer %}{% endblock %}
+{% block footer_scripts %}
+	{% if not user %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.net.min.js"></script>
+	<script>
+		VANTA.NET({
+			el: "#top",
+			mouseControls: false,
+			touchControls: false,
+			gyroControls: false,
+			minHeight: 100.00,
+			minWidth: 100.00,
+			color: 0xfaaff,
+			backgroundColor: 0xf1f5f9,
+			scale: 0.5,
+			scaleMobile: 0.5
+		})
+	</script>
+	{% endif %}
+{% endblock %}

@@ -1,13 +1,4 @@
-const { PrismaClient } = require("@prisma/client")
-const prisma = new PrismaClient()
-
-const jwt = require("jsonwebtoken")
-const bcrypt = require("bcrypt")
-const transporter = require("../mail")
-const path = require("path")
-const fs = require("fs")
-
-const handlebars = require("handlebars")
+const prisma = require("../prisma")
 
 const userController = {
 	getUsers: async (req, res) => {
@@ -36,7 +27,7 @@ const userController = {
 			res.status(400).json({ message: error })
 		}
 	},
-	updateUserById: async (req, res) => {
+	patchUserById: async (req, res) => {
 		// const { username, email, bio, image, password } = req.body
 		try {
 			const { error } = UserSchema.validate(req.body)
@@ -71,16 +62,25 @@ const userController = {
 		}
 	},
 	deleteUserById: async (req, res) => {
+		const { id } = req.params
 		try {
-			const user = await prisma.user.delete({
+			const existingUser = await prisma.user.findUnique({
 				where: {
-					id: req.params.id
+					id
 				}
 			})
-			if (user) {
-				user.password = undefined
-				return res.status(200).json({ message: "user_deleted" })
+			if(!existingUser) {
+				return res.status(404).json({ message: "no_such_user_in_database" })
 			}
+			await prisma.user.delete({
+				where: {
+					id
+				}
+			})
+			res.clearCookie("token")
+			return res.status(200).json({
+				message: "user_deleted"
+			})
 		} catch (error) {
 			return res.status(400).json({ message: error })
 		}

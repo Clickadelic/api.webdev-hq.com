@@ -1,5 +1,4 @@
-const { PrismaClient } = require("@prisma/client")
-const prisma = new PrismaClient()
+const prisma = require("../prisma")
 
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
@@ -52,7 +51,7 @@ const authController = {
 			const templatePath = path.join(__dirname, "../mail/templates/confirm-registration.hbs")
 			const source = fs.readFileSync(templatePath, "utf8")
 			const template = handlebars.compile(source)
-			const confirmationLink = `${process.env.APP_URL}:${process.env.PORT}/auth/confirm?token=${verificationToken}`
+			const confirmationLink = `${process.env.APP_URL}/auth/confirm?token=${verificationToken}`
 			const html = template({
 				name: newUser.username,
 				confirmationLink
@@ -91,11 +90,11 @@ const authController = {
 			})
 
 			if (!verificationToken) {
-				return res.status(400).send({ message: "no_such_verification_token" })
+				return res.status(400).send({ message: "Token is invalid." })
 			}
 
 			if (verificationToken.expires < new Date()) {
-				return res.status(400).send({ message: "verification_token_expired" })
+				return res.status(400).send({ message: "Token has expired." })
 			}
 
 			const user = await prisma.user.findUnique({
@@ -103,7 +102,7 @@ const authController = {
 			})
 
 			if (!user) {
-				return res.status(404).send({ message: "no_such_user_in_database" })
+				return res.status(404).send({ message: "User not found." })
 			}
 
 			await prisma.user.update({
@@ -115,10 +114,10 @@ const authController = {
 				where: { token }
 			})
 
-			return res.status(200).send({ message: "email_verified_successfully" })
+			return res.status(200).send({ message: "Email verified. Redirecting..." })
 		} catch (error) {
 			console.error(error)
-			return res.status(500).send({ message: "internal_server_error" })
+			return res.status(500).send({ message: "Internal server error" })
 		}
 	},
 	login: async (req, res) => {

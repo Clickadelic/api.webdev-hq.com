@@ -6,15 +6,19 @@
 {% block content %}
 <div class="p-2 bg-white/30 backdrop-blur rounded mx-1 sm:mx-0 shadow">
 	<div class="bg-white p-4 rounded">
-		<h2 class="text-xl font-medium text-slate-800 mb-6">Cookie Information</h2>
-		<p>This website uses cookies to improve the user experience. Cookies are small text files that are stored on your device and enable us to analyze your behavior on the website and optimize the use of the site.</p>
-		<h3 class="text-2xl font-medium my-6">What cookies are used?</h3>
-		<p>Necessary Cookies: These cookies are essential for the proper functioning of the website and enable basic features such as page navigation and access to secure areas of the site.</p>
-		<p>Performance Cookies: These cookies collect information about how visitors use the website, e.g., which pages are visited most often. They are used exclusively to improve the website.</p>
-		<p>Functional Cookies: These cookies allow the website to remember your selected preferences (e.g., language settings).</p>
-		<h3 class="text-2xl font-medium my-6">How can cookies be disabled?</h3>
-		<p>You can disable cookies in your browser settings. However, please note that the functionality of the website may be limited if you do so.</p>
-		<p>For more information, please refer to our <a href="/terms-of-privacy" class="text-mantis-primary hover:text-manits-primary-hover" title="Terms of Privacy">Terms of Privacy</a>.</p>
+		<div class="flex justify-between gap-6">
+			{% block sidebar %}
+				{% include 'partials/sidebars/law-sidebar.twig' with { apps } %}
+			{% endblock %}
+			<section class="flex-1 px-4 py-2 min-h-[500px]">
+				<h2 class="text-xl font-medium text-slate-800 mb-7">Cookie Information</h2>
+				<p class="mb-4">This website and the WebDev HQ Chrome Extension may use cookies or similar technologies to improve functionality, analyze usage patterns, and enhance your user experience.</p>
+				<p class="mb-4">Cookies are small text files that your browser stores on your device. Some cookies are essential for the operation of the website ("necessary cookies"), while others are used to collect anonymized statistics or remember user preferences.</p>
+				<p class="mb-4">By continuing to use this website or the Service, you consent to the use of cookies as described. You can manage or disable cookies through your browser settings at any time.</p>
+				<p class="mb-4">Currently, no third-party tracking or advertising cookies are in use. If this changes in the future, users will be notified and given the option to opt in or out in accordance with applicable regulations.</p>
+			</section>
+
+		</div>
 	</div>
 </div>
 {% endblock %}

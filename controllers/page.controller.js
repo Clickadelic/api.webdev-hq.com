@@ -1,5 +1,4 @@
-const { PrismaClient } = require("@prisma/client")
-const prisma = new PrismaClient()
+const prisma = require("../prisma")
 
 const pageController = {
 	getIndexPage: (req, res) => {
@@ -44,11 +43,8 @@ const pageController = {
 	getNewsletterConfirmationPage: (req, res) => {
 		return res.render("./pages/newsletter-confirm", { confirmationToken: req.query.token })
 	},
-	getDashboardPage: (req, res) => {
-		return res.render("./pages/dashboard")
-	},
-	getAccountPage: (req, res) => {
-		return res.render("./pages/account")
+	getProfilePage: (req, res) => {
+		return res.render("./pages/profile")
 	},
 	getPostsPage: async (req, res) => {
 		const posts = await prisma.post.findMany({
@@ -65,12 +61,25 @@ const pageController = {
 		return res.render("./pages/posts/create")
 	},
 	getLinksPage: async (req, res) => {
-		const links = await prisma.link.findMany({
-			orderBy: {
-				createdAt: "desc"
-			}
-		})
-		return res.render("./pages/links", { links })
+		try {
+			// 1️⃣ Page & Limit aus Query holen
+			const page = parseInt(req.query.page) || 1;
+			const limit = parseInt(req.query.limit) || 10;
+
+			// 2️⃣ Pagination-Funktion aufrufen
+			const { data, pagination } = await paginate(prisma.link, page, limit, {
+				where: { isPublic: true },
+				orderBy: { createdAt: "desc" },
+			});
+
+			// 3️⃣ Ergebnis senden
+			res.json({ pagination, data });
+		} catch (error) {
+			console.error("getLinks error:", error);
+			res.status(500).json({
+				message: error.message || "Internal server error.",
+			});
+		}
 	},
 	getLinkByIdPage: async (req, res) => {
 		const links = await prisma.link.findMany({
@@ -79,20 +88,6 @@ const pageController = {
 			}
 		})
 		return res.render("./pages/links", { links })
-	},
-	getAdminPage: (req, res) => {
-		return res.render("./pages/admin")
-	},
-	getAdminUsersPage: async (req, res) => {
-		const users = await prisma.user.findMany()
-		users.forEach(user => {
-			user.password = undefined
-		})
-		return res.render("./pages/admin/users", { users })
-	},
-	getAdminSubscribersPage: async (req, res) => {
-		const subscribers = await prisma.subscriber.findMany()
-		return res.render("./pages/admin/subscribers", { subscribers })
 	}
 }
 

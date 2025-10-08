@@ -1,14 +1,11 @@
 require("dotenv").config()
 
-const port = process.env.PORT || 5000
-
 const express = require("express")
 const cookieParser = require("cookie-parser")
 const cors = require("cors")
 const app = express()
 const chalk = require("chalk")
 const path = require("path")
-const fs = require("fs")
 const twig = require("twig")
 const chokidar = require("chokidar")
 const middleware = require("./middleware")
@@ -20,6 +17,7 @@ const authRouter = require("./routers/auth.router")
 const userRouter = require("./routers/user.router")
 const newsletterRouter = require("./routers/newsletter.router")
 const chromeExtensionRouter = require("./routers/chrome-extension.router")
+const adminpageRouter = require("./routers/adminpage.router")
 
 const clearTwigCache = () => {
 	twig.cache(false)
@@ -47,6 +45,7 @@ app.use(middleware.setBreadcrumbs)
 app.use(middleware.checkAuthStatus)
 
 app.use("/", pageRouter)
+app.use("/", adminpageRouter)
 app.use("/common/v1", infoRouter)
 app.use("/common/v1", authRouter)
 app.use("/common/v1", userRouter)

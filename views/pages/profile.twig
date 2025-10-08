@@ -1,0 +1,86 @@
+{# child.html.twig #}
+{% extends "base.html.twig" %}
+
+{% block title %}Account &middot; WebDev HQ API{% endblock %}
+
+{% block content %}
+	<div class="p-2 bg-white/30 backdrop-blur rounded mx-1 shadow w-full max-w-2xl sm:mx-auto">
+		<div class="bg-white p-4 rounded">
+			<div class="flex items-center justify-center bg-slate-100 rounded">
+				{% if user.image %}
+					<img src="{{ user.image }}" class="size-12 mx-auto border rounded-full border-slate-300 my-8" alt="User Avatar" />
+				{% else %}
+					<img src="./images/Jedi-User.svg" class="size-12 mx-auto border rounded-full border-slate-300 my-8" alt="User Avatar" />
+				{% endif %}
+			</div>
+			<h2 class="text-xl font-medium text-slate-800 my-6 text-center">{{ user.username }}</h2>
+			<div class="container">
+				<div class="w-full max-w-xl mx-auto">
+					<!-- Tabs -->
+					<div class="flex space-x-4 border-b border-b-slate-200 mb-4">
+						<button data-tab="profile-info" class="py-2 px-1 hover:cursor-pointer hover:text-slate-500 focus:outline-none">Information</button>
+						<button data-tab="edit-profile" class="py-2 px-1 hover:cursor-pointer hover:text-slate-500 focus:outline-none">Edit Profile</button>
+						<button data-tab="delete-profile" class="py-2 px-1 hover:cursor-pointer hover:text-slate-500 focus:outline-none">Delete Profile</button>
+					</div>
+					<div>
+						<div data-content="profile-info" class="hidden min-h-96">
+							<table class="table-auto text-left text-gray-800 mt-4">
+								<tbody>
+									<tr>
+										<td class="px-2 py-1 font-semibold">Username:</td>
+										<td class="px-2 py-1">{{ user.username }}</td>
+									</tr>
+									<tr>
+										<td class="px-2 py-1 font-semibold">E-mail:</td>	
+										<td class="px-2 py-1">{{ user.email }}</td>
+									</tr>
+									<tr>
+										<td class="px-2 py-1 font-semibold">Bio:</td>	
+										<td class="px-2 py-1">{{ user.bio }}</td>
+									</tr>
+									<tr>
+										<td class="px-2 py-1 font-semibold">Role:</td>	
+										<td class="px-2 py-1">{{ user.role }}</td>
+									</tr>
+									<tr>
+										<td class="px-2 py-1 font-semibold">Registered on:</td>	
+										<td class="px-2 py-1">{{ user.createdAt|date("d.m.Y") }}</td>
+									</tr>
+									<tr>
+										<td class="px-2 py-1 font-semibold">Last update:</td>	
+										<td class="px-2 py-1">{{ user.updatedAt|date("d.m.Y") }}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div data-content="edit-profile" class="hidden min-h-96">
+							{% include 'partials/forms/profile-form.twig' %}
+						</div>
+						<div data-content="delete-profile" class="hidden min-h-96 text-center flex flex-col items-center justify-center">
+							<p class="mb-4">Sure, you can delete your account<p><p class="mb-4">however, we're surely going to miss you.</p>
+							<p class="text-lg font-medium text-rose-700">Are you sure you want to delete your account?</p>
+							<p class="mb-4">This action cannot be undone.</p>
+							<button class="modal-open w-48 px-4 py-2 mx-auto bg-rose-500 hover:bg-rose-600 text-white rounded-sm hover:cursor-pointer">Yes, delete account</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{# Modal Window with form #}
+{% block modal_icon %}
+	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+		<path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+	</svg>
+{% endblock %}
+{% block modal_title %}
+	Delete profile
+{% endblock %}
+{% block modal_subtitle %}
+	This action cannot be undone
+{% endblock %}
+{% block modal_body %}
+	{% include 'partials/forms/user-delete-form.twig' %}
+{% endblock %}

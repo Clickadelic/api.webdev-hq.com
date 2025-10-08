@@ -1,4 +1,5 @@
 <form class="space-y-3" method="POST" action="/common/v1/posts" id="post-form">
+	<input type="text" name="user-id" hidden value="{{ user.id }}">
 	<div class="md:flex md:flex-row md:flex-start md:justify-start md:items-center md:gap-2">
 		<input type="text" name="title" class="w-full bg-slate-200 rounded-sm p-3" placeholder="Title">
 		<select name="post-status" class="w-56 bg-slate-200 rounded-sm p-3">

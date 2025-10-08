@@ -1,11 +1,16 @@
 const jwt = require("jsonwebtoken")
 const chalk = require("chalk")
-const { PrismaClient } = require("@prisma/client")
-const prisma = new PrismaClient()
-const fs = require("fs")
-const path = require("path")
+const prisma = require("../prisma")
 
-const { registrationSchema, confirmationTokenSchema, loginSchema, resetPasswordSchema, validateSubscribtion } = require("../schemas")
+const {
+	registrationSchema,
+	confirmationTokenSchema,
+	loginSchema,
+	resetPasswordSchema,
+	validateSubscribtion,
+	linkSchema,
+	postSchema
+} = require("../schemas")
 
 const middleware = {
 	logRequests: (req, res, next) => {
@@ -70,14 +75,14 @@ const middleware = {
 		next()
 	},
 	validateLink: (req, res, next) => {
-		const { error } = res.locals.linkSchema.validate(req.body)
+		const { error } = linkSchema.validate(req.body)
 		if (error) {
 			return res.status(400).send({ message: error.details[0].message })
 		}
 		next()
 	},
 	validatePost: (req, res, next) => {
-		const { error } = res.locals.postSchema.validate(req.body)
+		const { error } = postSchema.validate(req.body)
 		if (error) {
 			return res.status(400).send({ message: error.details[0].message })
 		}
@@ -105,15 +110,12 @@ const middleware = {
 	},
 	checkAuthStatus: async (req, res, next) => {
 		const token = req.cookies.token
-
 		if (!token) {
 			res.locals.user = null
 			return next()
 		}
-
 		try {
 			const decoded = jwt.verify(token, process.env.JWT_SECRET)
-
 			// optional: vollständigen User aus DB laden
 			const user = await prisma.user.findUnique({
 				where: { id: decoded.id }

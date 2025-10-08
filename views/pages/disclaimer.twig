@@ -6,10 +6,18 @@
 {% block content %}
 <div class="p-2 bg-white/30 backdrop-blur rounded mx-1 sm:mx-0 shadow">
 	<div class="bg-white p-4 rounded">
-		<h2 class="text-xl font-medium text-slate-800 mb-6">Disclaimer</h2>
-		<p>The content of this website is created with the utmost care.</p>
-		<p>However, we make no guarantees regarding the completeness, accuracy, or timeliness of the information provided. We exclude any liability for damages directly or indirectly arising from the use of this website, unless they are based on intent or gross negligence. We reserve the right to change or add to the content of the website at any time.</p>
-		<p>The use of the website is at the user's own risk. We do not take responsibility for the content of external links. The operators of the linked websites are solely responsible for the content.</p>
+		<div class="flex justify-between gap-6">
+			{% block sidebar %}
+				{% include 'partials/sidebars/law-sidebar.twig' with { apps } %}
+			{% endblock %}
+			<section class="flex-1 px-4 py-2 min-h-[500px]">
+				<h2 class="text-xl font-medium text-slate-800 mb-7">Disclaimer</h2>
+				<p class="mb-1">The content provided on this website and through the WebDev HQ API and its Chrome Extension is created and maintained with the utmost care. However, we do not guarantee the completeness, accuracy, or timeliness of the information.</p>
+				<p class="mb-1">Use of the website and the Service is at your own risk. We exclude liability for any direct or indirect damages that may arise from the use of the Service or its content, except in cases of proven intent or gross negligence.</p>
+				<p class="mb-1">We reserve the right to modify, update, or remove any content or features of the Service at any time without prior notice.</p>
+				<p class="mb-1">This website may contain links to external third-party websites. We are not responsible for the content or availability of those sites. Responsibility for linked content lies solely with the respective operators.</p>
+			</section>
+		</div>
 	</div>
 </div>
 {% endblock %}
