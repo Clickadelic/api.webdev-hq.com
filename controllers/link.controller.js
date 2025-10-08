@@ -1,44 +1,27 @@
+
+
 const prisma = require("../prisma")
+const { paginate } = require("../lib/utils")
 
 const linkController = {
 	getLinks: async (req, res) => {
 		try {
-		// Query-Parameter auslesen (mit Defaultwerten)
+		// 1️⃣ Page & Limit aus Query holen
 		const page = parseInt(req.query.page) || 1;
 		const limit = parseInt(req.query.limit) || 10;
 
-		// Berechne Skip-Wert
-		const skip = (page - 1) * limit;
-
-		// Führe 2 Prisma-Queries gleichzeitig aus
-		const [links, total] = await Promise.all([
-			prisma.link.findMany({
-			skip,
-			take: limit,
-			orderBy: { createdAt: "desc" }, // oder beliebiges Feld
-			}),
-			prisma.link.count(),
-		]);
-
-		const totalPages = Math.ceil(total / limit);
-
-		// Antwort senden
-		return res.status(200).json({
-			pagination: {
-			totalItems: total,
-			totalPages,
-			currentPage: page,
-			nextPage: page < totalPages ? page + 1 : null,
-			prevPage: page > 1 ? page - 1 : null,
-			limit,
-			},
-			data: links,
+		// 2️⃣ Pagination-Funktion aufrufen
+		const { data, pagination } = await paginate(prisma.link, page, limit, {
+			orderBy: { createdAt: "desc" },
 		});
+
+		// 3️⃣ Ergebnis senden
+		res.json({ pagination, data });
 		} catch (error) {
 		console.error("getLinks error:", error);
-		return res
-			.status(500)
-			.json({ message: error.message || "Internal server error." });
+		res.status(500).json({
+			message: error.message || "Internal server error.",
+		});
 		}
 	},
 	getLinkById: async (req, res) => {
