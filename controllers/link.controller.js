@@ -3,11 +3,42 @@ const prisma = require("../prisma")
 const linkController = {
 	getLinks: async (req, res) => {
 		try {
-			const links = await prisma.link.findMany()
-			return res.status(200).send(links)
+		// Query-Parameter auslesen (mit Defaultwerten)
+		const page = parseInt(req.query.page) || 1;
+		const limit = parseInt(req.query.limit) || 10;
+
+		// Berechne Skip-Wert
+		const skip = (page - 1) * limit;
+
+		// Führe 2 Prisma-Queries gleichzeitig aus
+		const [links, total] = await Promise.all([
+			prisma.link.findMany({
+			skip,
+			take: limit,
+			orderBy: { createdAt: "desc" }, // oder beliebiges Feld
+			}),
+			prisma.link.count(),
+		]);
+
+		const totalPages = Math.ceil(total / limit);
+
+		// Antwort senden
+		return res.status(200).json({
+			pagination: {
+			totalItems: total,
+			totalPages,
+			currentPage: page,
+			nextPage: page < totalPages ? page + 1 : null,
+			prevPage: page > 1 ? page - 1 : null,
+			limit,
+			},
+			data: links,
+		});
 		} catch (error) {
-			console.error("getLinks error:", error)
-			return res.status(500).send({ message: error.message || "Internal server error." })
+		console.error("getLinks error:", error);
+		return res
+			.status(500)
+			.json({ message: error.message || "Internal server error." });
 		}
 	},
 	getLinkById: async (req, res) => {
