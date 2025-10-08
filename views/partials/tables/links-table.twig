@@ -18,7 +18,7 @@
             </tr>
         </thead>
         <tbody class="divide-y divide-gray-200 space-y-2">
-            {% for link in links %}
+            {% for link in data %}
                 <tr class="hover:bg-slate-50 hover:cursor-default transition" id="link-{{ link.id }}">
                     <td class="px-3 py-1 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
                         {% if link.isPublic == true %}
@@ -51,12 +51,6 @@
                     </td>
                     <td class="px-3 py-1 whitespace-nowrap text-right text-sm font-medium">
                         <button class="edit-link-btn rounded p-2 text-slate-500 hover:cursor-pointer hover:text-mantis-primary" data-link-id="{{ link.id }}" title="Edit">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
-                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
-                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
-                            </svg>
-                        </button>
-                        <button class="edit-link-btn rounded p-2 text-slate-500 hover:cursor-pointer hover:text-mantis-primary" data-link-id="{{ link.id }}" title="Edit">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                                 <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
                             </svg>
@@ -77,5 +71,57 @@
                 </tr>
             {% endfor %}
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4" class="w-full text-center px-3 py-5 whitespace-nowrap text-sm font-medium">
+                    {% if pagination.totalPages > 1 %}
+                        <nav aria-label="Pagination" class="mb-4 inline-flex items-center mx-auto space-x-1">
+                            {# Zurück-Link #}
+                            {% if pagination.prevPage %}
+                                <a href="?page={{ pagination.prevPage }}"
+                                class="px-3 py-1 rounded border border-gray-200 text-gray-700 hover:bg-gray-100 dark:border-gray-200 dark:text-gray-300 dark:hover:bg-mantis-primary dark:hover:text-white">
+                                    &laquo; Prev
+                                </a>
+                            {% else %}
+                                <span class="px-3 py-1 rounded border border-gray-200 text-gray-400 cursor-not-allowed">
+                                    &laquo; Prev
+                                </span>
+                            {% endif %}
+
+                            {# Seitenzahlen (z. B. 1–n) #}
+                            {% for page in 1..pagination.totalPages %}
+                                {% if page == pagination.currentPage %}
+                                    <span class="px-3 py-1 rounded bg-mantis-primary text-white font-semibold">
+                                        {{ page }}
+                                    </span>
+                                {% else %}
+                                    <a href="?page={{ page }}"
+                                    class="px-3 py-1 rounded border border-gray-200 text-gray-700 hover:bg-gray-100 dark:border-gray-200 dark:text-gray-300 dark:hover:bg-mantis-primary dark:hover:text-white">
+                                        {{ page }}
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
+
+                            {# Weiter-Link #}
+                            {% if pagination.nextPage %}
+                                <a href="?page={{ pagination.nextPage }}"
+                                class="px-3 py-1 rounded border border-gray-300 text-gray-700 hover:bg-gray-100 dark:border-gray-200 dark:text-gray-300 dark:hover:bg-mantis-primary dark:hover:text-white">
+                                    Next &raquo;
+                                </a>
+                            {% else %}
+                                <span class="px-3 py-1 rounded border border-gray-200 text-gray-400 cursor-not-allowed">
+                                    Next &raquo;
+                                </span>
+                            {% endif %}
+                        </nav>
+                    {% endif %}
+                    <p class="text-gray-600 dark:text-gray-400">
+                        Seite {{ pagination.currentPage }} von {{ pagination.totalPages }}
+                        <br>
+                        <span class="text-xs text-gray-500">Insgesamt: {{ pagination.totalItems }} Einträge</span>
+                    </p>
+                </td>
+            </tr>
+        </tfoot>
     </table>
 </div>
