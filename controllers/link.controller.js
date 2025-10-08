@@ -12,6 +12,7 @@ const linkController = {
 
 			// 2️⃣ Pagination-Funktion aufrufen
 			const { data, pagination } = await paginate(prisma.link, page, limit, {
+				where: { isPublic: true },
 				orderBy: { createdAt: "desc" },
 			});
 
