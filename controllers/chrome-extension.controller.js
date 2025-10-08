@@ -6,6 +6,12 @@ const unsplash = createApi({
 })
 
 const extensionController = {
+	/**
+	 * Returns a random image from the Unsplash collection specified in the environment variables.
+	 *
+	 * @returns {Promise<Object>} A JSON object containing the image data.
+	 * @throws {Error} An error occurred while fetching the image from Unsplash.
+	 */
 	getRandomImage: async (req, res) => {
 		try {
 			const response = await unsplash.photos.getRandom({

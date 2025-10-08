@@ -4,6 +4,12 @@ const prisma = require("../prisma")
 const { paginate } = require("../lib/utils")
 
 const linkController = {
+	/**
+	 * Get a list of all public links, paginated by page and limit
+	 * @param {object} req Express request object
+	 * @param {object} res Express response object
+	 * @returns {Promise<object>} A JSON object containing paginated data and pagination metadata
+	 */
 	getLinks: async (req, res) => {
 		try {
 			// 1️⃣ Page & Limit aus Query holen
@@ -25,6 +31,12 @@ const linkController = {
 			});
 		}
 	},
+	/**
+	 * Gets a link by its ID
+	 * @param {object} req Express request object
+	 * @param {object} res Express response object
+	 * @returns {Promise<object>} A JSON object containing the link data
+	 */
 	getLinkById: async (req, res) => {
 		const id = req.params.id
 		try {
@@ -38,6 +50,17 @@ const linkController = {
 			return res.status(500).send({ message: error.message || "Internal server error." })
 		}
 	},
+	/**
+	 * Creates a new link.
+	 *
+	 * @param {object} req Express request object
+	 * @param {object} res Express response object
+	 * @returns {Promise<object>} A JSON object containing the link data
+	 *
+	 * @throws {object} A 400 error if the request body is missing or invalid fields.
+	 * @throws {object} A 409 error if the link already exists.
+	 * @throws {object} A 500 error if there is an internal server error.
+	 */
 	createLink: async (req, res) => {
 		const { title, description, url, isPublic, userId } = req.body
 		if (
@@ -71,6 +94,8 @@ const linkController = {
 			return res.status(500).send({ message: error.message || "Internal server error." })
 		}
 	},
+
+
 	patchLinkById: async (req, res) => {
 		const { id, title, description, url, isPublic, userId } = req.body
 
@@ -101,6 +126,7 @@ const linkController = {
 			return res.status(500).send({ message: error.message || "Internal server error." })
 		}
 	},
+
 	deleteLinkById: async (req, res) => {
 		const { id } = req.params
 
