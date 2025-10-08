@@ -98,6 +98,17 @@ const linkController = {
 		}
 	},
 
+	/**
+	 * Patches a link by its ID.
+	 *
+	 * @param {object} req Express request object
+	 * @param {object} res Express response object
+	 * @returns {Promise<object>} A JSON object containing the link data
+	 *
+	 * @throws {object} A 400 error if the request body is missing or invalid fields.
+	 * @throws {object} A 404 error if the link is not found.
+	 * @throws {object} A 500 error if there is an internal server error.
+	 */
 	patchLinkById: async (req, res) => {
 		const { id, title, description, url, isPublic, userId } = req.body
 
@@ -129,6 +140,17 @@ const linkController = {
 		}
 	},
 
+	/**
+	 * Deletes a link by its ID
+	 *
+	 * @param {object} req Express request object
+	 * @param {object} res Express response object
+	 * @returns {Promise<object>} A JSON object containing the message of the response
+	 *
+	 * @throws {object} A 400 error if the request body is missing or invalid fields.
+	 * @throws {object} A 404 error if the link is not found.
+	 * @throws {object} A 500 error if there is an internal server error.
+	 */
 	deleteLinkById: async (req, res) => {
 		const { id } = req.params
 
@@ -150,6 +172,16 @@ const linkController = {
 		}
 	},
 
+	/**
+	 * Gets a list of all links associated with a given user ID.
+	 *
+	 * @param {object} req Express request object
+	 * @param {object} res Express response object
+	 * @returns {Promise<object>} A JSON object containing the list of links
+	 *
+	 * @throws {object} A 400 error if the request body is missing or invalid fields.
+	 * @throws {object} A 500 error if there is an internal server error.
+	 */
 	getLinksByUserId: async (req, res) => {
 		const { userId } = req.params
 
