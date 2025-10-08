@@ -1,7 +1,7 @@
 
 
 const prisma = require("../prisma")
-const { paginate } = require("../lib/utils")
+const paginate = require("../lib/utils")
 
 const linkController = {
 	/**
@@ -31,6 +31,7 @@ const linkController = {
 			});
 		}
 	},
+	
 	/**
 	 * Gets a link by its ID
 	 * @param {object} req Express request object
@@ -50,6 +51,7 @@ const linkController = {
 			return res.status(500).send({ message: error.message || "Internal server error." })
 		}
 	},
+
 	/**
 	 * Creates a new link.
 	 *

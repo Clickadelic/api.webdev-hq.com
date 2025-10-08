@@ -1,5 +1,5 @@
 const prisma = require("../prisma")
-const { paginate } = require("../lib/utils")
+const paginate = require("../lib/utils")
 
 const pageController = {
 	getIndexPage: (req, res) => {
