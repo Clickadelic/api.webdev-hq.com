@@ -6,22 +6,22 @@ const { paginate } = require("../lib/utils")
 const linkController = {
 	getLinks: async (req, res) => {
 		try {
-		// 1️⃣ Page & Limit aus Query holen
-		const page = parseInt(req.query.page) || 1;
-		const limit = parseInt(req.query.limit) || 10;
+			// 1️⃣ Page & Limit aus Query holen
+			const page = parseInt(req.query.page) || 1;
+			const limit = parseInt(req.query.limit) || 10;
 
-		// 2️⃣ Pagination-Funktion aufrufen
-		const { data, pagination } = await paginate(prisma.link, page, limit, {
-			orderBy: { createdAt: "desc" },
-		});
+			// 2️⃣ Pagination-Funktion aufrufen
+			const { data, pagination } = await paginate(prisma.link, page, limit, {
+				orderBy: { createdAt: "desc" },
+			});
 
-		// 3️⃣ Ergebnis senden
-		res.json({ pagination, data });
+			// 3️⃣ Ergebnis senden
+			res.json({ pagination, data });
 		} catch (error) {
-		console.error("getLinks error:", error);
-		res.status(500).json({
-			message: error.message || "Internal server error.",
-		});
+			console.error("getLinks error:", error);
+			res.status(500).json({
+				message: error.message || "Internal server error.",
+			});
 		}
 	},
 	getLinkById: async (req, res) => {
