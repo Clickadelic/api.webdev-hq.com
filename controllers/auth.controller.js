@@ -9,6 +9,14 @@ const fs = require("fs")
 const handlebars = require("handlebars")
 
 const authController = {
+	/**
+	 * Registers a new user.
+	 * If the email is already taken, it returns a 409 status code.
+	 * It generates a verification token and sends an email with the link to confirm the registration.
+	 * @param {Object} req - The HTTP request object.
+	 * @param {Object} res - The HTTP response object.
+	 * @returns {Promise<void>}
+	 */
 	registerUser: async (req, res) => {
 		try {
 			const existingUser = await prisma.user.findUnique({
@@ -78,6 +86,19 @@ const authController = {
 			return res.status(500).send({ message: "something_went_wrong" })
 		}
 	},
+	/**
+	 * Confirms a user's registration by verifying the email
+	 * 
+	 * @param {Object} req - Request object
+	 * @param {Object} res - Response object
+	 * 
+	 * @returns {Promise<Object>} - Response object
+	 * 
+	 * @example
+	 * const response = await confirmRegistration(req, res)
+	 * const { message } = await response.json()
+	 * console.log(message)
+	 */
 	confirmRegistration: async (req, res) => {
 		try {
 			const { token } = req.query
@@ -120,6 +141,19 @@ const authController = {
 			return res.status(500).send({ message: "Internal server error" })
 		}
 	},
+	/**
+	 * Logs in a user using the provided email and password
+	 * 
+	 * @param {Object} req - Request object
+	 * @param {Object} res - Response object
+	 * 
+	 * @returns {Promise<Object>} - Response object
+	 * 
+	 * @example
+	 * const response = await login(req, res)
+	 * const { message, token, user } = await response.json()
+	 * console.log(message)
+	 */
 	login: async (req, res) => {
 		try {
 			const user = await prisma.user.findUnique({
@@ -172,6 +206,14 @@ const authController = {
 			res.status(400).json({ message: error })
 		}
 	},
+	/**
+	 * Logout user by clearing the token cookie
+	 * 
+	 * @example
+	 * const response = await logout(req, res)
+	 * const { message } = await response.json()
+	 * console.log(message)
+	 */
 	logout: async (req, res) => {
 		try {
 			res.clearCookie("token")
@@ -180,6 +222,17 @@ const authController = {
 			res.status(400).json({ message: error })
 		}
 	},
+	/**
+	 * Resets the password for a user by sending an email to the user with a link to change their password
+	 * 
+	 * @param {Object} req - Request object
+	 * @param {Object} res - Response object
+	 * 
+	 * @example
+	 * const response = await resetPassword(req, res)
+	 * const { message } = await response.json()
+	 * console.log(message)
+	 */
 	resetPassword: async (req, res) => {
 		const { error } = resetPasswordSchema.validate(req.body)
 		if (error) {
