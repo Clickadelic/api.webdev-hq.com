@@ -201,6 +201,17 @@ const myController = {
 			return res.status(500).send({ message: error.message || "Internal server error." })
 		}
 	},
+	
+	/**
+	 * Gets a list of all links associated with a given username.
+	 *
+	 * @param {object} req Express request object
+	 * @param {object} res Express response object
+	 * @returns {Promise<object>} A JSON object containing the list of links
+	 *
+	 * @throws {object} A 400 error if the request body is missing or invalid fields.
+	 * @throws {object} A 500 error if there is an internal server error.
+	 */
 	getLinksByUsername: async (req, res) => {
 		const { username } = req.params
 		console.log(username)
@@ -210,7 +221,7 @@ const myController = {
 		}
 
 		try {
-			const links = await prisma.link.findMany({ where: { user } })
+			const links = await prisma.link.findMany({ where: { username } })
 			return res.status(200).send(links)
 		} catch (error) {
 			console.error("getLinksByUsername error:", error)

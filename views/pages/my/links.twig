@@ -1,7 +1,7 @@
 {# child.html.twig #}
 {% extends "base.html.twig" %}
 
-{% block title %}My &middot; WebDev HQ API{% endblock %}
+{% block title %}Links &middot; WebDev HQ API{% endblock %}
 
 {% block content %}
 <div class="p-2 bg-white/30 backdrop-blur rounded mx-1 sm:mx-0 shadow">
@@ -12,10 +12,18 @@
 			{% endblock %}
 			<section class="flex-1 px-1 md:px-4 md:py-2">
 				<div class="flex justify-between mb-2 md:mb-4">
-					<h2 class="text-xl font-medium text-slate-800 mb-2 md:mb-6">My</h2>
+					<h2 class="text-xl font-medium text-slate-800 mb-2 md:mb-6">My Links</h2>
+					<button class="modal-open flex justify-center items-center gap-2 p-3 text-white bg-mantis-primary hover:bg-mantis-primary-hover rounded-sm hover:cursor-pointer">
+						<span class="inline-flex">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+								<path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+							</svg>
+						</span>
+						<span class="inline-flex">New link</span>
+					</button>
 				</div>
-				<h2>Content</h2>
-				<a href="/my/links">Links</a>
+				<hr class="my-2 md:my-6 border-gray-200" />
+				{% include 'partials/tables/links-table.twig' %}
 			</section>
 		</div>
 	</div>

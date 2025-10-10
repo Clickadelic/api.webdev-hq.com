@@ -22,4 +22,7 @@ pageRouter.get("/posts/create", middleware.verifyTokenFromCookie, pageController
 pageRouter.get("/links", middleware.verifyTokenFromCookie, pageController.getLinksPage)
 pageRouter.get("/links/:id", middleware.verifyTokenFromCookie, pageController.getLinkByIdPage)
 
+pageRouter.get("/my", middleware.verifyTokenFromCookie, pageController.getMyPage)
+pageRouter.get("/my/links", middleware.verifyTokenFromCookie, pageController.getMyLinksPage)
+
 module.exports = pageRouter
