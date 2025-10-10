@@ -3,7 +3,7 @@
 const prisma = require("../prisma")
 const paginate = require("../lib/utils")
 
-const linkController = {
+const myController = {
 	
 	/**
 	 * Get a list of all public links, paginated by page and limit
@@ -11,7 +11,9 @@ const linkController = {
 	 * @param {object} res Express response object
 	 * @returns {Promise<object>} A JSON object containing paginated data and pagination metadata
 	 */
-	getLinks: async (req, res) => {
+	getMyLinks: async (req, res) => {
+		const userId = req.user.id
+		console.log(userId)
 		try {
 			// 1️⃣ Page & Limit aus Query holen
 			const page = parseInt(req.query.page) || 1;
@@ -19,7 +21,7 @@ const linkController = {
 
 			// 2️⃣ Pagination-Funktion aufrufen
 			const { data, pagination } = await paginate(prisma.link, page, limit, {
-				where: { isPublic: true },
+				where: { userId },
 				orderBy: { createdAt: "desc" },
 			});
 
@@ -217,5 +219,4 @@ const linkController = {
 	}
 }
 
-module.exports = linkController
-
+module.exports = myController
