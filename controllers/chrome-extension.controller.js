@@ -1,43 +1,56 @@
-const express = require("express");
-const extensionRouter = express.Router();
-const extensionController = require("../controllers/chrome-extension.controller");
+const createApi = require("unsplash-js").createApi
 
-/**
- * @openapi
- * /common/v1/extension/random-image:
- *   get:
- *     summary: Liefert ein zufälliges Bild aus der konfigurierten Unsplash-Collection
- *     tags:
- *       - Chrome Extension
- *     responses:
- *       200:
- *         description: Erfolgreich ein Bild abgerufen
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *       500:
- *         description: Fehler beim Abrufen des Bildes
- */
-extensionRouter.get("/extension/random-image", extensionController.getRandomImage);
+const unsplash = createApi({
+	accessKey: process.env.UNSPLASH_ACCESS_KEY,
+	fetch: fetch
+})
 
-/**
- * @openapi
- * /common/v1/extension/seasonal-image:
- *   get:
- *     summary: Liefert ein saisonales Bild basierend auf dem aktuellen Monat
- *     tags:
- *       - Chrome Extension
- *     responses:
- *       200:
- *         description: Erfolgreich ein Bild abgerufen
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *       500:
- *         description: Fehler beim Abrufen des Bildes
- */
-extensionRouter.get("/extension/seasonal-image", extensionController.getSeasonalImage);
+const extensionController = {
+	/**
+	 * Returns a random image from the Unsplash collection specified in the environment variables.
+	 *
+	 * @returns {Promise<Object>} A JSON object containing the image data.
+	 * @throws {Error} An error occurred while fetching the image from Unsplash.
+	 */
+	getRandomImage: async (req, res) => {
+		try {
+			const response = await unsplash.photos.getRandom({
+				collectionIds: [process.env.UNSPLASH_COLLECTION_ID],
+				orientation: "landscape"
+			})
+			if (!response || !response.status || response.status !== 200) {
+				return res.status(500).json({ error: "No image found." })
+			}
+			res.status(200).json(response)
+		} catch (error) {
+			console.error("Error loading image from Unsplash:", error)
+			res.status(500).json({ error: error.message })
+		}
+	},
+	getSeasonalImage: async (req, res) => {
+		const currentMonth = new Date().getMonth() + 1
 
-module.exports = extensionRouter;
+		let collectionIds = ""
+		if (currentMonth >= 5 && currentMonth <= 9) {
+			collectionIds = process.env.UNSPLASH_SUMMER_COLLECTION_ID
+		} else if (currentMonth >= 9 && currentMonth <= 11) {
+			collectionIds = process.env.UNSPLASH_FALL_COLLECTION_ID
+		} else if (currentMonth >= 11 && currentMonth <= 4) {
+			collectionIds = process.env.UNSPLASH_WINTER_COLLECTION_ID
+		} else {
+			collectionIds = process.env.UNSPLASH_SPRING_COLLECTION_ID
+		}
+		try {
+			const response = await unsplash.photos.getRandom({
+				collectionIds,
+				orientation: "landscape"
+			})
+			if (!response || !response.status || response.status !== 200) {
+				return res.status(500).json({ error: "No image found." })
+			}
+			res.status(200).json(response)
+		} catch (error) {}
+	}
+}
+
+module.exports = extensionController
