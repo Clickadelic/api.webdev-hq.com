@@ -19,6 +19,11 @@ const userRouter = require("./routers/user.router")
 const newsletterRouter = require("./routers/newsletter.router")
 const chromeExtensionRouter = require("./routers/chrome-extension.router")
 const adminpageRouter = require("./routers/adminpage.router")
+// 🧩 Swagger Setup
+const swaggerUi = require("swagger-ui-express");
+
+const swaggerSpec = require("./swagger/specs");
+
 
 const clearTwigCache = () => {
 	twig.cache(false)
@@ -47,6 +52,8 @@ app.use(middleware.checkAuthStatus)
 
 app.use("/", pageRouter)
 app.use("/", adminpageRouter)
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 app.use("/common/v1", infoRouter)
 app.use("/common/v1", authRouter)
 app.use("/common/v1", userRouter)
