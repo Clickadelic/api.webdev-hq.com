@@ -50,7 +50,7 @@ app.use(middleware.checkAuthStatus)
 
 app.use("/", pageRouter)
 app.use("/", adminpageRouter)
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use("/common/v1", infoRouter)
 app.use("/common/v1", authRouter)

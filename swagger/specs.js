@@ -16,7 +16,7 @@ const swaggerOptions = {
 				User: {
 					type: "object",
 					properties: {
-						id: { type: "integer", example: 1 },
+						id: { type: "string", example: "43132374-5ac1-4db7-8c93-65ef4a8c6573" },
 						username: { type: "string", example: "JohnDev" },
 						email: { type: "string", example: "john@dev.com" },
 					},
