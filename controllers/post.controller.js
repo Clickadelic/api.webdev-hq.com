@@ -55,7 +55,7 @@ const postController = {
             return res.status(500).send({ message: error.message || "Internal server error" })
         }
     },
-    patchPostById: async (req, res) => {
+    patchPost: async (req, res) => {
         const { id, title, description, content, status, slug, } = req.body
 
         if (
@@ -84,7 +84,7 @@ const postController = {
             return res.status(500).send({ message: error.message || "internal_server_error" })
         }
     },
-    deletePostById: async (req, res) => {
+    deletePost: async (req, res) => {
         const { id } = req.params
 
         if (!id) {

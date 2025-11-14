@@ -1,5 +1,6 @@
 const createApi = require("unsplash-js").createApi
 
+// Test
 const unsplash = createApi({
 	accessKey: process.env.UNSPLASH_ACCESS_KEY,
 	fetch: fetch

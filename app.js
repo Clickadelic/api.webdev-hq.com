@@ -8,6 +8,9 @@ const chalk = require("chalk")
 const path = require("path")
 const twig = require("twig")
 const chokidar = require("chokidar")
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./swagger/specs");
+
 const middleware = require("./middleware")
 const pageRouter = require("./routers/page.router")
 const infoRouter = require("./routers/info.router")
@@ -47,6 +50,8 @@ app.use(middleware.checkAuthStatus)
 
 app.use("/", pageRouter)
 app.use("/", adminpageRouter)
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 app.use("/common/v1", infoRouter)
 app.use("/common/v1", authRouter)
 app.use("/common/v1", userRouter)
