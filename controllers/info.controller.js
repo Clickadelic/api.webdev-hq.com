@@ -21,7 +21,7 @@ const infoController = {
 				platform: "web",
 				license: "MIT",
 				contact: "admin@webdev-hq.com",
-				schema: "https://api.webdev-hq.com/docs",
+				schema: "https://api.webdev-hq.com/api-docs",
 				author: "Tobias Hopp"
 			}
 			return res.status(200).json(info)
