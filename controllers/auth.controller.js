@@ -9,6 +9,7 @@ const fs = require("fs")
 const handlebars = require("handlebars")
 
 const authController = {
+	
 	/**
 	 * Registers a new user.
 	 * If the email is already taken, it returns a 409 status code.
@@ -18,6 +19,9 @@ const authController = {
 	 * @returns {Promise<void>}
 	 */
 	registerUser: async (req, res) => {
+		if (!req.body.email || !req.body.password) {
+			return res.status(400).json({ message: "email_and_password_required" });
+		}
 		try {
 			const existingUser = await prisma.user.findUnique({
 				where: {
@@ -86,6 +90,7 @@ const authController = {
 			return res.status(500).send({ message: "something_went_wrong" })
 		}
 	},
+
 	/**
 	 * Confirms a user's registration by verifying the email
 	 * 
@@ -141,6 +146,7 @@ const authController = {
 			return res.status(500).send({ message: "Internal server error" })
 		}
 	},
+
 	/**
 	 * Logs in a user using the provided email and password
 	 * 
@@ -206,6 +212,7 @@ const authController = {
 			res.status(400).json({ message: error })
 		}
 	},
+
 	/**
 	 * Logout user by clearing the token cookie
 	 * 
@@ -222,6 +229,7 @@ const authController = {
 			res.status(400).json({ message: error })
 		}
 	},
+
 	/**
 	 * Resets the password for a user by sending an email to the user with a link to change their password
 	 * 
