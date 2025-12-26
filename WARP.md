@@ -71,6 +71,6 @@ Deployment
 
 ## Notes and nuances
 - Prisma adapter package vs usage: prisma/index.js imports @prisma/adapter-mysql, while package.json declares @prisma/adapter-mariadb. Align these to avoid runtime issues.
-- OpenAPI metadata: swagger/specs.js description references https://api.webbdev-hq.com (typo: double “b”).
+- OpenAPI metadata: swagger/specs.js description references https://api.webdev-hq.com.
 - esbuild outfile path in package.json uses an absolute /public/... path; prefer ./public/... to avoid writing to a root-level directory on some systems.
 - Nodemon watches js, twig, mjs, json (see nodemon.json). Chokidar additionally clears Twig cache on view changes.
