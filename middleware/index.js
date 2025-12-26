@@ -108,7 +108,7 @@ const middleware = {
 			return res.redirect("/auth/login")
 		}
 	},
-	checkAuthStatus: (req, res, next) => {
+	checkAuthStatus: async (req, res, next) => {
 		const token = req.cookies.token
 		if (!token) {
 			res.locals.user = null
