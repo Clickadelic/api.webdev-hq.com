@@ -22,72 +22,89 @@ const authController = {
 		if (!req.body.email || !req.body.password) {
 			return res.status(400).json({ message: "email_and_password_required" });
 		}
+
 		try {
 			const existingUser = await prisma.user.findUnique({
 				where: {
 					email: req.body.email
 				}
-			})
+			});
 
 			if (existingUser) {
-				return res.status(409).send({ message: "email_already_taken" })
+				return res.status(409).json({ message: "email_already_taken" });
 			}
 
-			const salt = await bcrypt.genSalt(10)
-			const hashedPassword = await bcrypt.hash(req.body.password, salt)
+			const salt = await bcrypt.genSalt(10);
+			const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
 			const newUser = {
 				username: req.body.username,
 				email: req.body.email,
 				password: hashedPassword
-			}
+			};
 
 			const createdUser = await prisma.user.create({
 				data: newUser
-			})
+			});
 
-			const verificationToken = String(Math.floor(100000 + Math.random() * 900000))
+			const verificationToken = String(
+				Math.floor(100000 + Math.random() * 900000)
+			);
 
-			const expires = new Date()
-			expires.setHours(expires.getHours() + 24) // Token ist 24 Stunden gültig
+			const expires = new Date();
+			expires.setHours(expires.getHours() + 24);
 
-			// Erstelle den Verifizierungs-Token und verknüpfe ihn mit dem neuen Benutzer
 			await prisma.verificationToken.create({
 				data: {
 					email: createdUser.email,
 					token: verificationToken,
-					expires: expires
+					expires
 				}
-			})
-			// E-Mail Template
-			const templatePath = path.join(__dirname, "../mail/templates/confirm-registration.hbs")
-			const source = fs.readFileSync(templatePath, "utf8")
-			const template = handlebars.compile(source)
-			const confirmationLink = `${process.env.APP_URL}/auth/confirm?token=${verificationToken}`
+			});
+
+			// Mail vorbereiten
+			const templatePath = path.join(
+				__dirname,
+				"../mail/templates/confirm-registration.hbs"
+			);
+			const source = fs.readFileSync(templatePath, "utf8");
+			const template = handlebars.compile(source);
+
+			const confirmationLink =
+				`${process.env.APP_URL}/auth/confirm?token=${verificationToken}`;
+
 			const html = template({
 				name: newUser.username,
 				confirmationLink
-			})
+			});
+
 			const mailOptions = {
 				from: process.env.MAIL_FROM,
 				sender: process.env.MAIL_SENDER,
 				to: newUser.email,
-				// cc: process.env.MAIL_ADMIN,
 				bcc: process.env.MAIL_ADMIN,
 				subject: "Confirm your registration",
 				html
-			}
-			transporter.sendMail(mailOptions, (error, info) => {
-				if (error) {
-					return res.status(504).send({ message: error })
-				}
-				console.log("Success sending mail.")
-			})
+			};
 
-			return res.status(200).send({ message: "register_successful" })
+			// ✅ HTTP-Response sofort senden
+			res.status(200).json({ message: "register_successful" });
+
+			// ✅ Side-Effect: Mail async, ohne Einfluss auf Response
+			transporter.sendMail(mailOptions)
+				.then(() => {
+					console.log("Registration mail sent to", newUser.email);
+				})
+				.catch(err => {
+					console.error("Registration mail failed:", {
+						email: newUser.email,
+						error: err.message
+					});
+				});
+
 		} catch (error) {
-			console.error(error)
-			return res.status(500).send({ message: "something_went_wrong" })
+			console.error(error);
+			return res.status(500).json({ message: "something_went_wrong" });
 		}
 	},
 
