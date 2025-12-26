@@ -6,7 +6,7 @@ const swaggerOptions = {
 		info: {
 			title: "WebDev HQ Api-Documentation",
 			version: "0.1.6",
-			description: "API Endpoints for https://api.webbdev-hq.com",
+			description: "API Endpoints for https://api.webdev-hq.com",
 		},
 		servers: [
 			{ url: process.env.API_URL || "http://localhost:5000" },
@@ -25,8 +25,18 @@ const swaggerOptions = {
 					type: "object",
 					properties: {
 						id: { type: "integer", example: 1 },
-						title: { type: "string", example: "Mein erster Post" },
-						content: { type: "string", example: "Hier steht der Inhalt..." },
+						title: { type: "string", example: "My first post" },
+						content: { type: "string", example: "with some content..." },
+					},
+				},
+				Links: {
+					type: "object",
+					properties: {
+						id: { type: "string", example: "5e542d11-bce6-4665-abd1-3d728a8c9983" },
+						title: { type: "string", example: "Best Library" },
+						description: { type: "string", example: "Description with some content..." },
+						url: { type: "string", example: "https://mybestlibrary.com" },
+						isPublic: { type: "boolean", example: "https://mybestlibrary.com" },
 					},
 				},
 			},

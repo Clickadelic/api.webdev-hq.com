@@ -53,7 +53,7 @@ const middleware = {
 		}
 		next()
 	},
-	validateConfirmationToken: async (req, res, next) => {
+	validateConfirmationToken: (req, res, next) => {
 		const { error } = confirmationTokenSchema.validate(req.body)
 		if (error) {
 			return res.status(400).send({ message: error.details[0].message })
@@ -108,7 +108,7 @@ const middleware = {
 			return res.redirect("/auth/login")
 		}
 	},
-	checkAuthStatus: async (req, res, next) => {
+	checkAuthStatus: (req, res, next) => {
 		const token = req.cookies.token
 		if (!token) {
 			res.locals.user = null
