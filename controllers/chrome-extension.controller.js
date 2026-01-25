@@ -29,47 +29,70 @@ const extensionController = {
 		}
 	},
 	getSeasonalImage: async (req, res) => {
-  	const currentMonth = new Date().getMonth() + 1; // 1 = Januar
-  	console.log("Current Month:", currentMonth);
+		const today = new Date();
+		const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
-	// Monatslogik sauber aufgeteilt
-	let collectionId;
-	if (currentMonth >= 5 && currentMonth <= 9) {
-		// Mai - September: Sommer
-		collectionId = process.env.UNSPLASH_SUMMER_COLLECTION_ID;
-	} else if (currentMonth >= 10 && currentMonth <= 11) {
-		// Oktober - November: Herbst
-		collectionId = process.env.UNSPLASH_FALL_COLLECTION_ID;
-	} else if (currentMonth === 12 || (currentMonth >= 1 && currentMonth <= 2)) {
-		// Dezember - Februar: Winter
-		collectionId = process.env.UNSPLASH_WINTER_COLLECTION_ID;
-	} else {
-		// März - April: Frühling
-		collectionId = process.env.UNSPLASH_SPRING_COLLECTION_ID;
-	}
+		try {
+			// Prüfen, ob heute schon ein Bild existiert
+			const existingImage = await prisma.backgroundImage.findFirst({
+			where: {
+				createdAt: {
+				gte: startOfDay,
+				},
+			},
+			});
 
-	console.log("Using Collection ID:", collectionId);
+			if (existingImage) {
+				// Falls ja, einfach zurückgeben
+				return res.status(200).json(existingImage);
+			}
 
-	// collectionIds muss ein Array sein
-	const collectionIds = [collectionId];
+			// Sonst neue Collection bestimmen
+			const currentMonth = today.getMonth() + 1;
+			
+			let collectionId;
 
-	try {
-		const response = await unsplash.photos.getRandom({
-		collectionIds,
-		orientation: "landscape",
-		});
+			if (currentMonth >= 5 && currentMonth <= 9) {
+				collectionId = process.env.UNSPLASH_SUMMER_COLLECTION_ID;
+			} else if (currentMonth >= 10 && currentMonth <= 11) {
+				collectionId = process.env.UNSPLASH_FALL_COLLECTION_ID;
+			} else if (currentMonth === 12 || (currentMonth >= 1 && currentMonth <= 2)) {
+				collectionId = process.env.UNSPLASH_WINTER_COLLECTION_ID;
+			} else {
+				collectionId = process.env.UNSPLASH_SPRING_COLLECTION_ID;
+			}
 
-		if (!response || !response.status || response.status !== 200) {
-		return res.status(500).json({ error: "No image found." });
+			const collectionIds = [collectionId];
+
+			// Bild von Unsplash laden
+			const response = await unsplash.photos.getRandom({
+				collectionIds,
+				orientation: "landscape",
+			});
+
+			if (!response || !response.status || response.status !== 200) {
+				return res.status(500).json({ error: "No image found." });
+			}
+
+			const photo = response.response.results
+			? response.response.results[0]
+			: response.response;
+
+			// Bild in DB speichern
+			const savedImage = await prisma.backgroundImage.create({
+				data: {
+					url: photo.urls.full,
+					altText: photo.alt_description || null,
+					collection: collectionId,
+				},
+			});
+
+			res.status(200).json(savedImage);
+		} catch (error) {
+			console.error("Error loading image from Unsplash:", error);
+			res.status(500).json({ error: error.message });
 		}
-
-		res.status(200).json(response);
-	} catch (error) {
-		console.error("Error loading image from Unsplash:", error);
-		res.status(500).json({ error: error.message });
 	}
-	}
-
 }
 
 module.exports = extensionController
