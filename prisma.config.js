@@ -7,7 +7,7 @@ export default defineConfig({
   schema: "prisma/schema.prisma",
   datasource: {
     provider: "mysql",
-    url: env(DATABASE_URL),
+    url: databaseUrl,
   },
   migrations: {
     path: "prisma/migrations",
