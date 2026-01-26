@@ -1,13 +1,12 @@
 import "dotenv/config";
 import { defineConfig, env } from "prisma/config";
 
-const DATABASE_URL = process.env.DATABASE_URL;
 // Test
 export default defineConfig({
   schema: "prisma/schema.prisma",
   datasource: {
     provider: "mysql",
-    url: DATABASE_URL,
+    url: process.env.DATABASE_URL,
   },
   migrations: {
     path: "prisma/migrations",
