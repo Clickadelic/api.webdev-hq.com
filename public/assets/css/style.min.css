@@ -348,9 +348,6 @@
   .my-8 {
     margin-block: calc(var(--spacing) * 8);
   }
-  .my-12 {
-    margin-block: calc(var(--spacing) * 12);
-  }
   .-mt-1 {
     margin-top: calc(var(--spacing) * -1);
   }
@@ -371,6 +368,12 @@
   }
   .mt-6 {
     margin-top: calc(var(--spacing) * 6);
+  }
+  .mt-8 {
+    margin-top: calc(var(--spacing) * 8);
+  }
+  .mt-12 {
+    margin-top: calc(var(--spacing) * 12);
   }
   .mt-\[2px\] {
     margin-top: 2px;
@@ -528,6 +531,9 @@
   }
   .max-w-\[180px\] {
     max-width: 180px;
+  }
+  .max-w-\[680px\] {
+    max-width: 680px;
   }
   .max-w-xl {
     max-width: var(--container-xl);
