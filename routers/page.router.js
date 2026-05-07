@@ -1,28 +1,28 @@
-const express = require("express")
-const middleware = require("../middleware")
-const pageRouter = express.Router()
-const pageController = require("../controllers/page.controller")
+const express = require("express");
+const middleware = require("../middleware");
+const pageRouter = express.Router();
+const pageController = require("../controllers/page.controller");
 
-pageRouter.get("/", pageController.getIndexPage)
-pageRouter.get("/docs", pageController.getDocsPage)
-pageRouter.get("/disclaimer", pageController.getDisclaimerPage)
-pageRouter.get("/cookie-information", pageController.getCookieInformationPage)
-pageRouter.get("/terms-of-privacy", pageController.getTermsOfPrivacyPage)
-pageRouter.get("/terms-of-use", pageController.getTermsOfUsePage)
-pageRouter.get("/newsletter", pageController.getNewsletterPage)
-pageRouter.get("/newsletter-confirm", pageController.getNewsletterConfirmationPage)
-pageRouter.get("/auth/login", pageController.getLoginPage)
-pageRouter.get("/auth/register", pageController.getRegisterPage)
-pageRouter.get("/auth/confirm", pageController.getRegisterConfirmationPage)
-pageRouter.get("/auth/reset-password", pageController.getResetPasswordPage)
+pageRouter.get("/", pageController.getIndexPage);
+pageRouter.get("/disclaimer", pageController.getDisclaimerPage);
+pageRouter.get("/cookie-information", pageController.getCookieInformationPage);
+pageRouter.get("/terms-of-privacy", pageController.getTermsOfPrivacyPage);
+pageRouter.get("/terms-of-use", pageController.getTermsOfUsePage);
+pageRouter.get("/newsletter", pageController.getNewsletterPage);
+pageRouter.get("/newsletter-confirm", pageController.getNewsletterConfirmationPage);
+pageRouter.get("/auth/login", pageController.getLoginPage);
+pageRouter.get("/auth/register", pageController.getRegisterPage);
+pageRouter.get("/auth/confirm", pageController.getRegisterConfirmationPage);
+pageRouter.get("/auth/reset-password", pageController.getResetPasswordPage);
 
-pageRouter.get("/profile", middleware.verifyTokenFromCookie, pageController.getProfilePage)
-pageRouter.get("/posts", middleware.verifyTokenFromCookie, pageController.getPostsPage)
-pageRouter.get("/posts/create", middleware.verifyTokenFromCookie, pageController.getPostsCreatePage)
-pageRouter.get("/links", middleware.verifyTokenFromCookie, pageController.getLinksPage)
-pageRouter.get("/links/:id", middleware.verifyTokenFromCookie, pageController.getLinkByIdPage)
+pageRouter.get("/profile", middleware.verifyTokenFromCookie, pageController.getProfilePage);
+pageRouter.get("/posts", middleware.verifyTokenFromCookie, pageController.getPostsPage);
+pageRouter.get("/posts/create", middleware.verifyTokenFromCookie, pageController.getPostsCreatePage);
+pageRouter.get("/links", middleware.verifyTokenFromCookie, pageController.getLinksPage);
+pageRouter.get("/links/:id", middleware.verifyTokenFromCookie, pageController.getLinkByIdPage);
 
-pageRouter.get("/my", middleware.verifyTokenFromCookie, pageController.getMyPage)
-pageRouter.get("/my/links", middleware.verifyTokenFromCookie, pageController.getMyLinksPage)
+pageRouter.get("/my", middleware.verifyTokenFromCookie, pageController.getMyPage);
+pageRouter.get("/my/links", middleware.verifyTokenFromCookie, pageController.getMyLinksPage);
+pageRouter.get("/emails", pageController.showEmails);
 
-module.exports = pageRouter
+module.exports = pageRouter;
