@@ -4,7 +4,7 @@
 	"description": "WebDev HQ Web API",
 	"main": "index.js",
 	"scripts": {
-		"build": "echo BUILD_RUNNING && prisma generate && prisma migrate deploy",
+		"build": "echo BUILD_RUNNING && prisma generate && prisma migrate deploy && npm run build-scripts && npm run build-css",
 		"start": "node index.js",
 		"update-check": "npx npm-check-updates",
 		"update-execute": "npx npm-check-updates -u -x chalk",
