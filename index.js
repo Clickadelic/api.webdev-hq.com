@@ -11,3 +11,8 @@ const server = app.listen(PORT, () => {
 	console.log(chalk.whiteBright(">>>>>>> @" + `${process.env.APP_URL}:${PORT}`, " <<<<<<<<"))
 	console.log(chalk.whiteBright("----------------------------------------"))
 })
+
+// Test DB connection
+// prisma.$connect().then(() => {
+// 	console.log(chalk.greenBright("Connected to DB"))
+// })
