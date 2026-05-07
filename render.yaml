@@ -1,46 +1,27 @@
 # render.yaml
 
 services:
-  - type: web # Dies definiert einen Web-Service
-    name: webdev-hq-api # Ersetze dies mit dem Namen deiner Anwendung
-    runtime: node # <-- HIER IST DIE KORREKTUR
-    plan: free # Oder ein anderes Plan-Tier (free, starter, pro, etc.)
-    region: frankfurt # Wähle die Region, die am besten zu deiner Datenbank passt
-    buildCommand: |
-      # Installiere Abhängigkeiten
-      npm install
+  - type: web
+    name: webdev-hq-api
+    runtime: node
+    plan: free
+    region: frankfurt
 
-      # Generiere den Prisma Client
-      npx prisma generate
+    # Runs once during the build phase: install deps and generate the Prisma client.
+    buildCommand: npm install && npx prisma generate --schema=prisma/schema.prisma
 
-      # Führe dein Build-Skript aus, falls vorhanden (z.B. für TypeScript-Kompilierung)
-      # Wenn du kein separates Build-Skript hast (z.B. reines JavaScript), kannst du die folgende Zeile weglassen.
-      # npm run build
+    # Runs after build but BEFORE new instances go live.
+    # If this fails the deploy is aborted - the old version keeps serving traffic.
+    # DATABASE_URL must be set as an environment variable in the Render dashboard.
+    preDeployCommand: npx prisma migrate deploy --schema=prisma/schema.prisma
 
-    startCommand: |
-      # Führe Prisma Migrations aus (optional, aber empfohlen für Produktivumgebungen)
-      # Verwende "deploy" für die Anwendung von Migrationen in Produktionsumgebungen
-      npx prisma migrate deploy
+    # Only starts the server - migrations have already been applied above.
+    startCommand: node index.js
 
-      # Starte deine ExpressJS-Anwendung
-      node index.js
-
-    # Umgebungsvariablen
     envVars:
       - key: NODE_ENV
         value: production
-      # Die DATABASE_URL sollte bereits im Render-Dashboard als "Secret File" oder
-      # als Environment Variable direkt auf dem Service hinterlegt sein.
-      # Du könntest sie hier hinzufügen, aber es ist sicherer, sie im Dashboard zu verwalten.
-      # - key: DATABASE_URL
-      #   fromService:
-      #     name: your-database-service-name # Wenn du eine Render PostgreSQL Datenbank hast
-      #     property: connectionString
-      # Oder direkt den String, wenn es eine externe Datenbank ist:
-      # - key: DATABASE_URL
-      #   value: postgresql://user:password@host:port/database
+      # Set DATABASE_URL in the Render dashboard as a secret environment variable.
+      # Format: mysql://user:password@host:port/database
 
-    # Eine Health Check Path (optional, aber empfohlen)
-    # Render wird diesen Pfad regelmäßig auf einen 200 OK Status überprüfen, um zu sehen,
-    # ob deine Anwendung läuft. Passe ihn an einen existierenden Endpunkt in deiner App an.
     healthCheckPath: /common/v1/healthcheck
