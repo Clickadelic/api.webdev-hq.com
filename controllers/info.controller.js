@@ -21,12 +21,12 @@ const infoController = {
 				platform: "web",
 				license: "MIT",
 				contact: "admin@webdev-hq.com",
-				schema: "https://api.webdev-hq.com/api-docs",
+				schema: "https://api.webdev-hq.com/docs",
 				author: "Tobias Hopp"
-			}
-			return res.status(200).json(info)
+			};
+			return res.status(200).json(info);
 		} catch (error) {
-			return res.status(400).json({ error: error })
+			return res.status(400).json({ error: error });
 		}
 	},
 	/**
@@ -38,11 +38,11 @@ const infoController = {
 	 */
 	getHealthCheck: (req, res) => {
 		try {
-			return res.status(200).json({ status: "ok", timestamp: new Date().toISOString() })
+			return res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
 		} catch (error) {
-			return res.status(400).json({ error: error })
+			return res.status(400).json({ error: error });
 		}
 	}
-}
+};
 
-module.exports = infoController
+module.exports = infoController;
