@@ -7,16 +7,13 @@ services:
     plan: free
     region: frankfurt
 
-    # Runs once during the build phase: install deps and generate the Prisma client.
+    # Install deps and generate the Prisma client.
     buildCommand: npm install && npx prisma generate --schema=prisma/schema.prisma
 
-    # Runs after build but BEFORE new instances go live.
-    # If this fails the deploy is aborted - the old version keeps serving traffic.
+    # prisma migrate deploy is idempotent - safe to run on every start.
+    # (preDeployCommand requires a paid Render plan; this is the free-tier equivalent)
     # DATABASE_URL must be set as an environment variable in the Render dashboard.
-    preDeployCommand: npx prisma migrate deploy --schema=prisma/schema.prisma
-
-    # Only starts the server - migrations have already been applied above.
-    startCommand: node index.js
+    startCommand: npx prisma migrate deploy --schema=prisma/schema.prisma && node index.js
 
     envVars:
       - key: NODE_ENV
