@@ -11,6 +11,15 @@ const swaggerOptions = {
 		servers: [{ url: process.env.API_URL || "http://localhost:5000" }],
 		components: {
 			schemas: {
+				Auth: {
+					type: "object",
+					properties: {
+						token: {
+							type: "string",
+							example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzMTMyMzQ3NC01YWMxLTRkYjctOGM5My02NWVmNGE4YzY1NzMifQ.8H3d1Lb9lN5xgUQ1Kf2J5KXeXu9t9oKc3rY6M9lY"
+						}
+					}
+				},
 				User: {
 					type: "object",
 					properties: {
@@ -27,7 +36,7 @@ const swaggerOptions = {
 						content: { type: "string", example: "with some content..." }
 					}
 				},
-				Links: {
+				Link: {
 					type: "object",
 					properties: {
 						id: { type: "string", example: "5e542d11-bce6-4665-abd1-3d728a8c9983" },
