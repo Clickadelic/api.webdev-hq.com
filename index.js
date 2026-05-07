@@ -11,3 +11,5 @@ const server = app.listen(PORT, () => {
 	console.log(chalk.whiteBright(">>>>>>> @" + `${process.env.APP_URL}:${PORT}`, " <<<<<<<<"))
 	console.log(chalk.whiteBright("----------------------------------------"))
 })
+
+// Test Autodeploy
