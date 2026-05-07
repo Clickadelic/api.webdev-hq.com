@@ -139,4 +139,4 @@ postRouter.patch("/posts/:id", postController.patchPost);
  */
 postRouter.delete("/posts/:id", postController.deletePost);
 
-module.exports = postRouter
+module.exports = postRouter;

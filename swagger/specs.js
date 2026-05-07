@@ -5,7 +5,7 @@ const swaggerOptions = {
 		openapi: "3.0.0",
 		info: {
 			title: "WebDev HQ - Api-Documentation",
-			version: "0.1.6",
+			version: "0.1.8",
 			description: "API Endpoints for https://api.webdev-hq.com"
 		},
 		servers: [{ url: process.env.API_URL || "http://localhost:5000" }],
@@ -14,9 +14,13 @@ const swaggerOptions = {
 				Auth: {
 					type: "object",
 					properties: {
-						token: {
+						email: {
 							type: "string",
-							example: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzMTMyMzQ3NC01YWMxLTRkYjctOGM5My02NWVmNGE4YzY1NzMifQ.8H3d1Lb9lN5xgUQ1Kf2J5KXeXu9t9oKc3rY6M9lY"
+							example: "john@dev.com"
+						},
+						password: {
+							type: "string",
+							example: "supersecretpassword"
 						}
 					}
 				},
