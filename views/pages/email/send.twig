@@ -10,7 +10,11 @@
 			{% endblock %}
 			<section class="flex-1 px-4 py-2 min-h-[500px]">
 				<h2 class="text-xl font-medium text-slate-800 mb-7">Test E-Mail</h2>
-				<p class="mb-1 text-center bg-emerald-200 p-2 rounded text-gray-800">Sending test e-mail...</p>
+				{% if success %}
+					<p class="mb-1 text-center bg-emerald-200 p-2 rounded text-gray-800">Sending test e-mail...</p>
+				{% else %}
+					z<p class="mb-1 text-center bg-rose-200 p-2 rounded text-gray-800">Error - something went wrong.</p>
+				{% endif %}
 			</section>
 		</div>
 	</div>
