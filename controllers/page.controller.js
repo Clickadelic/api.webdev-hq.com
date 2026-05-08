@@ -281,8 +281,8 @@ const pageController = {
 		return res.render("./pages/my/links", { links });
 	},
 
-	showEmails: async (req, res) => {
-		return res.render("./pages/emails");
+	sendEmail: async (req, res) => {
+		return res.render("./pages/emails/send");
 	}
 };
 

@@ -23,6 +23,6 @@ pageRouter.get("/links/:id", middleware.verifyTokenFromCookie, pageController.ge
 
 pageRouter.get("/my", middleware.verifyTokenFromCookie, pageController.getMyPage);
 pageRouter.get("/my/links", middleware.verifyTokenFromCookie, pageController.getMyLinksPage);
-pageRouter.get("/emails", pageController.showEmails);
+pageRouter.get("/send/email", pageController.sendEmail);
 
 module.exports = pageRouter;
