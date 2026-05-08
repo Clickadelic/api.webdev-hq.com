@@ -1,5 +1,13 @@
 const prisma = require("../prisma");
 const paginate = require("../lib/utils");
+const fs = require("fs");
+const path = require("path");
+const crypto = require("crypto");
+
+const prisma = require("../prisma");
+
+const handlebars = require("handlebars");
+const transporter = require("../mail");
 
 const pageController = {
 	/**
@@ -281,8 +289,43 @@ const pageController = {
 		return res.render("./pages/my/links", { links });
 	},
 
-	sendEmail: async (req, res) => {
-		return res.render("./pages/emails/send");
+	/**
+	 * Renders the send e-mail page and sends an e-mail
+	 *
+	 * @param {Request} req
+	 * @param {Response} res
+	 * @returns {Promise<void>}
+	 */
+	getSendEmailPage: async (req, res) => {
+		let success = false;
+		// Mail vorbereiten
+		const templatePath = path.join(__dirname, "../mail/templates/confirm-registration.hbs");
+		const source = fs.readFileSync(templatePath, "utf8");
+		const template = handlebars.compile(source);
+
+		const confirmationLink = `${process.env.APP_URL}/auth/confirm?token=${verificationToken}`;
+
+		const html = template();
+
+		const mailOptions = {
+			from: process.env.MAIL_FROM,
+			sender: process.env.MAIL_SENDER,
+			to: newUser.email,
+			bcc: process.env.MAIL_ADMIN,
+			subject: "Test E-Mail",
+			html
+		};
+
+		// ✅ HTTP-Response sofort senden
+		res.status(200).json({ message: "register_successful" });
+
+		// ✅ E-Mail versenden
+		await transporter.sendMail(mailOptions);
+
+		// ✅ E-Mail versendet
+		success = true;
+
+		return res.render("./pages/email/send", { success });
 	}
 };
 

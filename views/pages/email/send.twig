@@ -1,0 +1,40 @@
+{# child.html.twig #}
+{% extends "base.html.twig" %}
+
+{% block content %}
+<div class="p-2 bg-white/30 backdrop-blur rounded mx-1 sm:mx-0 shadow">
+	<div class="bg-white p-4 rounded">
+		<div class="flex justify-between gap-6">
+			{% block sidebar %}
+				<!-- Sidebar -->
+			{% endblock %}
+			<section class="flex-1 px-4 py-2 min-h-[500px]">
+				<h2 class="text-xl font-medium text-slate-800 mb-7">Test E-Mail</h2>
+				<p class="mb-1 text-center bg-emerald-200 p-2 rounded text-gray-800">Sending test e-mail...</p>
+			</section>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+{% block footer_scripts %}
+	{% if not user %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.net.min.js"></script>
+	<script>
+		VANTA.NET({
+			el: "#top",
+			mouseControls: false,
+			touchControls: false,
+			gyroControls: false,
+			minHeight: 100.00,
+			minWidth: 100.00,
+			color: 0xfaaff,
+			backgroundColor: 0xf1f5f9,
+			scale: 0.5,
+			scaleMobile: 0.5
+		})
+	</script>
+	{% endif %}
+{% endblock %}
