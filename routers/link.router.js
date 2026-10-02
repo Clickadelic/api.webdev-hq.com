@@ -7,7 +7,7 @@ const middleware = require("../middleware");
  * @swagger
  * tags:
  *   - name: Links
- *     description: Link management API
+ *     description: Endpoints for link management
  */
 
 /**
