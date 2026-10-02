@@ -1,7 +1,7 @@
-const express = require("express")
-const linkRouter = express.Router()
-const linkController = require("../controllers/link.controller")
-const middleware = require("../middleware")
+const express = require("express");
+const linkRouter = express.Router();
+const linkController = require("../controllers/link.controller");
+const middleware = require("../middleware");
 
 /**
  * @swagger
@@ -12,7 +12,7 @@ const middleware = require("../middleware")
 
 /**
  * @swagger
- * /links:
+ * /common/v1/links:
  *   get:
  *     summary: Get all links
  *     tags: [Links]
@@ -26,11 +26,11 @@ const middleware = require("../middleware")
  *               items:
  *                 $ref: '#/components/schemas/Link'
  */
-linkRouter.get("/links", linkController.getLinks)
+linkRouter.get("/links", linkController.getLinks);
 
 /**
  * @swagger
- * /links/{id}:
+ * /common/v1/links/{id}:
  *   get:
  *     summary: Get link by ID
  *     tags: [Links]
@@ -50,7 +50,7 @@ linkRouter.get("/links", linkController.getLinks)
  *       404:
  *         description: Link not found
  */
-linkRouter.get("/links/:id", linkController.getLinkById)
+linkRouter.get("/links/:id", linkController.getLinkById);
 
 /**
  * @swagger
@@ -78,11 +78,7 @@ linkRouter.get("/links/:id", linkController.getLinkById)
  *       401:
  *         description: Unauthorized
  */
-linkRouter.post(
-    "/links",
-    middleware.verifyTokenFromCookie,
-    linkController.createLink
-)
+linkRouter.post("/links", middleware.verifyTokenFromCookie, linkController.createLink);
 
 /**
  * @swagger
@@ -116,11 +112,7 @@ linkRouter.post(
  *       404:
  *         description: Link not found
  */
-linkRouter.patch(
-    "/links/:id",
-    middleware.verifyTokenFromCookie,
-    linkController.patchLinkById
-)
+linkRouter.patch("/links/:id", middleware.verifyTokenFromCookie, linkController.patchLinkById);
 
 /**
  * @swagger
@@ -144,11 +136,7 @@ linkRouter.patch(
  *       404:
  *         description: Link not found
  */
-linkRouter.delete(
-    "/links/:id",
-    middleware.verifyTokenFromCookie,
-    linkController.deleteLinkById
-)
+linkRouter.delete("/links/:id", middleware.verifyTokenFromCookie, linkController.deleteLinkById);
 
 /**
  * @swagger
@@ -174,6 +162,6 @@ linkRouter.delete(
  *       404:
  *         description: User not found
  */
-linkRouter.get("/links/user/:username", linkController.getLinksByUsername)
+linkRouter.get("/links/user/:username", linkController.getLinksByUsername);
 
-module.exports = linkRouter
+module.exports = linkRouter;

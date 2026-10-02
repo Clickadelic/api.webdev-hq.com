@@ -1,7 +1,14 @@
-const express = require("express")
-const authRouter = express.Router()
-const middleware = require("../middleware")
-const authController = require("../controllers/auth.controller")
+const express = require("express");
+const authRouter = express.Router();
+const middleware = require("../middleware");
+const authController = require("../controllers/auth.controller");
+
+/**
+ * @openapi
+ * tags:
+ *   - name: Auth
+ *     description: Endpoints for user authentication and management
+ */
 
 /**
  * @swagger
@@ -35,7 +42,7 @@ const authController = require("../controllers/auth.controller")
  *       400:
  *         description: Invalid inputs
  */
-authRouter.post("/auth/register", middleware.validateRegistration, authController.registerUser)
+authRouter.post("/auth/register", middleware.validateRegistration, authController.registerUser);
 
 /**
  * @swagger
@@ -61,7 +68,7 @@ authRouter.post("/auth/register", middleware.validateRegistration, authControlle
  *       400:
  *         description: Token invalid of expired
  */
-authRouter.post("/auth/confirm", middleware.validateConfirmationToken, authController.confirmRegistration)
+authRouter.post("/auth/confirm", middleware.validateConfirmationToken, authController.confirmRegistration);
 
 /**
  * @swagger
@@ -91,7 +98,7 @@ authRouter.post("/auth/confirm", middleware.validateConfirmationToken, authContr
  *       401:
  *         description: Invalid data
  */
-authRouter.post("/auth/login", middleware.validateLogin, authController.login)
+authRouter.post("/auth/login", middleware.validateLogin, authController.login);
 
 /**
  * @swagger
@@ -103,7 +110,7 @@ authRouter.post("/auth/login", middleware.validateLogin, authController.login)
  *       200:
  *         description: Logout successful
  */
-authRouter.post("/auth/logout", authController.logout)
+authRouter.post("/auth/logout", authController.logout);
 
 /**
  * @swagger
@@ -129,6 +136,6 @@ authRouter.post("/auth/logout", authController.logout)
  *       404:
  *         description: user not found
  */
-authRouter.post("/auth/reset-password", authController.resetPassword)
+authRouter.post("/auth/reset-password", authController.resetPassword);
 
-module.exports = authRouter
+module.exports = authRouter;
