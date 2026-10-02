@@ -1,7 +1,7 @@
-const express = require("express")
-const middleware = require("../middleware")
-const userRouter = express.Router()
-const userController = require("../controllers/user.controller")
+const express = require("express");
+const middleware = require("../middleware");
+const userRouter = express.Router();
+const userController = require("../controllers/user.controller");
 
 /**
  * @openapi
@@ -12,7 +12,7 @@ const userController = require("../controllers/user.controller")
 
 /**
  * @openapi
- * /common/v1/users:
+ * /users:
  *   get:
  *     summary: returns all users
  *     tags: [Users]
@@ -30,18 +30,18 @@ const userController = require("../controllers/user.controller")
  *       401:
  *         description: Not authorized
  */
-userRouter.get("/users", middleware.verifyTokenFromCookie, userController.getUsers)
+userRouter.get("/users", middleware.verifyTokenFromCookie, userController.getUsers);
 
 /**
  * @openapi
- * /common/v1/users/{id}:
+ * /users/{userId}:
  *   get:
  *     summary: Returns a user by id
  *     tags: [Users]
  *     security:
  *       - cookieAuth: []
  *     parameters:
- *       - name: id
+ *       - name: userId
  *         in: path
  *         required: true
  *         description: The Id of the user
@@ -59,18 +59,18 @@ userRouter.get("/users", middleware.verifyTokenFromCookie, userController.getUse
  *       401:
  *         description: Not authorized
  */
-userRouter.get("/users/:id", middleware.verifyTokenFromCookie, userController.getUserById)
+userRouter.get("/users/:userId", middleware.verifyTokenFromCookie, userController.getUserById);
 
 /**
  * @openapi
- * /common/v1/users/{id}:
+ * /users/{userId}:
  *   patch:
  *     summary: Partially updates a user
  *     tags: [Users]
  *     security:
  *       - cookieAuth: []
  *     parameters:
- *       - name: id
+ *       - name: userId
  *         in: path
  *         required: true
  *         description: The Id of the user
@@ -90,18 +90,18 @@ userRouter.get("/users/:id", middleware.verifyTokenFromCookie, userController.ge
  *       401:
  *         description: Not authorized
  */
-userRouter.patch("/users/:id", middleware.verifyTokenFromCookie, userController.patchUserById)
+userRouter.patch("/users/:userId", middleware.verifyTokenFromCookie, userController.patchUserById);
 
 /**
  * @openapi
- * /common/v1/users/{id}:
+ * /users/{userId}:
  *   delete:
  *     summary: Deletes a user
  *     tags: [Users]
  *     security:
  *       - cookieAuth: []
  *     parameters:
- *       - name: id
+ *       - name: userId
  *         in: path
  *         required: true
  *         description: The Id of the user
@@ -115,6 +115,6 @@ userRouter.patch("/users/:id", middleware.verifyTokenFromCookie, userController.
  *       401:
  *         description: Not authorized
  */
-userRouter.delete("/users/:id", middleware.verifyTokenFromCookie, userController.deleteUserById)
+userRouter.delete("/users/:userId", middleware.verifyTokenFromCookie, userController.deleteUserById);
 
-module.exports = userRouter
+module.exports = userRouter;

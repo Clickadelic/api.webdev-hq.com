@@ -12,7 +12,7 @@ const authController = require("../controllers/auth.controller");
 
 /**
  * @swagger
- * /common/v1/auth/register:
+ * /auth/register:
  *   post:
  *     summary: Registriers a new user
  *     tags: [Auth]
@@ -72,7 +72,7 @@ authRouter.post("/auth/confirm", middleware.validateConfirmationToken, authContr
 
 /**
  * @swagger
- * /common/v1/auth/login:
+ * /auth/login:
  *   post:
  *     summary: Logs in a user
  *     tags: [Auth]
@@ -102,7 +102,7 @@ authRouter.post("/auth/login", middleware.validateLogin, authController.login);
 
 /**
  * @swagger
- * /common/v1/auth/logout:
+ * /auth/logout:
  *   post:
  *     summary: Logs out a user
  *     tags: [Auth]
@@ -114,7 +114,7 @@ authRouter.post("/auth/logout", authController.logout);
 
 /**
  * @swagger
- * /common/v1/auth/reset-password:
+ * /auth/reset-password:
  *   post:
  *     summary: Resets the password of a user
  *     tags: [Auth]

@@ -12,7 +12,7 @@ const middleware = require("../middleware");
 
 /**
  * @swagger
- * /common/v1/links:
+ * /links:
  *   get:
  *     summary: Get all links
  *     tags: [Links]
@@ -30,7 +30,7 @@ linkRouter.get("/links", linkController.getLinks);
 
 /**
  * @swagger
- * /common/v1/links/{userId}:
+ * /links/{userId}:
  *   get:
  *     summary: Get link by user ID
  *     tags: [Links]
@@ -54,7 +54,7 @@ linkRouter.get("/links/:userId", linkController.getLinkById);
 
 /**
  * @swagger
- * /common/v1/links:
+ * /links:
  *   post:
  *     summary: Create a new link
  *     tags: [Links]
@@ -82,7 +82,7 @@ linkRouter.post("/links", middleware.verifyTokenFromCookie, linkController.creat
 
 /**
  * @swagger
- * /common/v1/links/{userId}:
+ * /links/{userId}:
  *   patch:
  *     summary: Update a link partially
  *     tags: [Links]
@@ -116,7 +116,7 @@ linkRouter.patch("/links/:userId", middleware.verifyTokenFromCookie, linkControl
 
 /**
  * @swagger
- * /common/v1/links/{userId}:
+ * /links/{userId}:
  *   delete:
  *     summary: Delete a link
  *     tags: [Links]
