@@ -12,7 +12,7 @@ const postController = require("../controllers/post.controller");
 
 /**
  * @openapi
- * /common/v1/posts:
+ * /posts:
  *   get:
  *     summary: Returns all posts
  *     tags: [Posts]
@@ -30,7 +30,7 @@ postRouter.get("/posts", postController.getPosts);
 
 /**
  * @openapi
- * /common/v1/posts:
+ * /posts:
  *   post:
  *     summary: Creates a new post
  *     tags: [Posts]
@@ -58,7 +58,7 @@ postRouter.post("/posts", postController.createPost);
 
 /**
  * @openapi
- * /common/v1/posts/{postId}:
+ * /posts/{postId}:
  *   get:
  *     summary: Returns a certain post by it's id
  *     tags: [Posts]
@@ -83,7 +83,7 @@ postRouter.get("/posts/:postId", postController.getPostById);
 
 /**
  * @openapi
- * /common/v1/posts/{postId}:
+ * /posts/{postId}:
  *   patch:
  *     summary: Partially updates a post
  *     tags: [Posts]
@@ -116,7 +116,7 @@ postRouter.patch("/posts/:postId", postController.patchPost);
 
 /**
  * @openapi
- * /common/v1/posts/{postId}:
+ * /posts/{postId}:
  *   delete:
  *     summary: Deletes a post by it's id
  *     tags: [Posts]
