@@ -30,13 +30,13 @@ linkRouter.get("/links", linkController.getLinks);
 
 /**
  * @swagger
- * /common/v1/links/{id}:
+ * /common/v1/links/{userId}:
  *   get:
- *     summary: Get link by ID
+ *     summary: Get link by user ID
  *     tags: [Links]
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: userId
  *         required: true
  *         schema:
  *           type: string
@@ -50,7 +50,7 @@ linkRouter.get("/links", linkController.getLinks);
  *       404:
  *         description: Link not found
  */
-linkRouter.get("/links/:id", linkController.getLinkById);
+linkRouter.get("/links/:userId", linkController.getLinkById);
 
 /**
  * @swagger
@@ -82,7 +82,7 @@ linkRouter.post("/links", middleware.verifyTokenFromCookie, linkController.creat
 
 /**
  * @swagger
- * /common/v1/links/{id}:
+ * /common/v1/links/{userId}:
  *   patch:
  *     summary: Update a link partially
  *     tags: [Links]
@@ -90,7 +90,7 @@ linkRouter.post("/links", middleware.verifyTokenFromCookie, linkController.creat
  *       - cookieAuth: []
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: userId
  *         required: true
  *         schema:
  *           type: string
@@ -112,11 +112,11 @@ linkRouter.post("/links", middleware.verifyTokenFromCookie, linkController.creat
  *       404:
  *         description: Link not found
  */
-linkRouter.patch("/links/:id", middleware.verifyTokenFromCookie, linkController.patchLinkById);
+linkRouter.patch("/links/:userId", middleware.verifyTokenFromCookie, linkController.patchLinkById);
 
 /**
  * @swagger
- * /common/v1/links/{id}:
+ * /common/v1/links/{userId}:
  *   delete:
  *     summary: Delete a link
  *     tags: [Links]
@@ -124,7 +124,7 @@ linkRouter.patch("/links/:id", middleware.verifyTokenFromCookie, linkController.
  *       - cookieAuth: []
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: userId
  *         required: true
  *         schema:
  *           type: string
@@ -136,32 +136,6 @@ linkRouter.patch("/links/:id", middleware.verifyTokenFromCookie, linkController.
  *       404:
  *         description: Link not found
  */
-linkRouter.delete("/links/:id", middleware.verifyTokenFromCookie, linkController.deleteLinkById);
-
-/**
- * @swagger
- * /links/user/{username}:
- *   get:
- *     summary: Get all links by username
- *     tags: [Links]
- *     parameters:
- *       - in: path
- *         name: username
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: List of links for user
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Link'
- *       404:
- *         description: User not found
- */
-linkRouter.get("/links/user/:username", linkController.getLinksByUsername);
+linkRouter.delete("/links/:userId", middleware.verifyTokenFromCookie, linkController.deleteLinkById);
 
 module.exports = linkRouter;

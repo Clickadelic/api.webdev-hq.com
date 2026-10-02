@@ -1,10 +1,7 @@
-
-
-const prisma = require("../prisma")
-const paginate = require("../lib/utils")
+const prisma = require("../prisma");
+const paginate = require("../lib/utils");
 
 const linkController = {
-	
 	/**
 	 * Get a list of all public links, paginated by page and limit
 	 * @param {object} req Express request object
@@ -20,7 +17,7 @@ const linkController = {
 			// 2️⃣ Pagination-Funktion aufrufen
 			const { data, pagination } = await paginate(prisma.link, page, limit, {
 				where: { isPublic: true },
-				orderBy: { createdAt: "desc" },
+				orderBy: { createdAt: "desc" }
 			});
 
 			// 3️⃣ Ergebnis senden
@@ -28,11 +25,11 @@ const linkController = {
 		} catch (error) {
 			console.error("getLinks error:", error);
 			res.status(500).json({
-				message: error.message || "Internal server error.",
+				message: error.message || "Internal server error."
 			});
 		}
 	},
-	
+
 	/**
 	 * Gets a link by its ID
 	 * @param {object} req Express request object
@@ -40,16 +37,16 @@ const linkController = {
 	 * @returns {Promise<object>} A JSON object containing the link data
 	 */
 	getLinkById: async (req, res) => {
-		const id = req.params.id
+		const id = req.params.id;
 		try {
-			const link = await prisma.link.findUnique({ where: { id } })
+			const link = await prisma.link.findUnique({ where: { id } });
 			if (!link) {
-				return res.status(404).send({ message: "Link not found." })
+				return res.status(404).send({ message: "Link not found." });
 			}
-			return res.status(200).send(link)
+			return res.status(200).send(link);
 		} catch (error) {
-			console.error("getLinkById error:", error)
-			return res.status(500).send({ message: error.message || "Internal server error." })
+			console.error("getLinkById error:", error);
+			return res.status(500).send({ message: error.message || "Internal server error." });
 		}
 	},
 
@@ -65,21 +62,27 @@ const linkController = {
 	 * @throws {object} A 500 error if there is an internal server error.
 	 */
 	createLink: async (req, res) => {
-		const { title, description, url, isPublic, userId } = req.body
+		const { title, description, url, isPublic, userId } = req.body;
 		if (
-			!title || typeof title !== "string" || title.trim() === "" ||
-			!description || typeof description !== "string" ||
-			!url || typeof url !== "string" ||
+			!title ||
+			typeof title !== "string" ||
+			title.trim() === "" ||
+			!description ||
+			typeof description !== "string" ||
+			!url ||
+			typeof url !== "string" ||
 			typeof isPublic === "undefined" ||
-			!userId || typeof userId !== "string" || userId.trim() === ""
+			!userId ||
+			typeof userId !== "string" ||
+			userId.trim() === ""
 		) {
-			return res.status(400).send({ message: "Missing or invalid fields." })
+			return res.status(400).send({ message: "Missing or invalid fields." });
 		}
 
 		try {
-			const existingLink = await prisma.link.findFirst({ where: { url } })
+			const existingLink = await prisma.link.findFirst({ where: { url } });
 			if (existingLink) {
-				return res.status(409).send({ message: "Link already exists." })
+				return res.status(409).send({ message: "Link already exists." });
 			}
 
 			await prisma.link.create({
@@ -90,11 +93,11 @@ const linkController = {
 					isPublic,
 					userId
 				}
-			})
-			return res.status(201).send({ message: "Link created." })
+			});
+			return res.status(201).send({ message: "Link created." });
 		} catch (error) {
-			console.error("createLink error:", error)
-			return res.status(500).send({ message: error.message || "Internal server error." })
+			console.error("createLink error:", error);
+			return res.status(500).send({ message: error.message || "Internal server error." });
 		}
 	},
 
@@ -110,33 +113,41 @@ const linkController = {
 	 * @throws {object} A 500 error if there is an internal server error.
 	 */
 	patchLinkById: async (req, res) => {
-		const { id, title, description, url, isPublic, userId } = req.body
+		const { id, title, description, url, isPublic, userId } = req.body;
 
 		if (
-			!id || typeof id !== "string" || id.trim() === "" ||
-			!title || typeof title !== "string" || title.trim() === "" ||
-			!description || typeof description !== "string" ||
-			!url || typeof url !== "string" ||
+			!id ||
+			typeof id !== "string" ||
+			id.trim() === "" ||
+			!title ||
+			typeof title !== "string" ||
+			title.trim() === "" ||
+			!description ||
+			typeof description !== "string" ||
+			!url ||
+			typeof url !== "string" ||
 			typeof isPublic === "undefined" ||
-			!userId || typeof userId !== "string" || userId.trim() === ""
+			!userId ||
+			typeof userId !== "string" ||
+			userId.trim() === ""
 		) {
-			return res.status(400).send({ message: "Missing or invalid fields." })
+			return res.status(400).send({ message: "Missing or invalid fields." });
 		}
 
 		try {
-			const existingLink = await prisma.link.findUnique({ where: { id } })
+			const existingLink = await prisma.link.findUnique({ where: { id } });
 			if (!existingLink) {
-				return res.status(404).send({ message: "Link not found." })
+				return res.status(404).send({ message: "Link not found." });
 			}
 
 			await prisma.link.update({
 				where: { id },
 				data: { title, description, url, isPublic }
-			})
-			return res.status(200).send({ message: "Link edited." })
+			});
+			return res.status(200).send({ message: "Link edited." });
 		} catch (error) {
-			console.error("patchLink error:", error)
-			return res.status(500).send({ message: error.message || "Internal server error." })
+			console.error("patchLink error:", error);
+			return res.status(500).send({ message: error.message || "Internal server error." });
 		}
 	},
 
@@ -152,23 +163,23 @@ const linkController = {
 	 * @throws {object} A 500 error if there is an internal server error.
 	 */
 	deleteLinkById: async (req, res) => {
-		const { id } = req.params
+		const { id } = req.params;
 
 		if (!id) {
-			return res.status(400).send({ message: "Missing fields." })
+			return res.status(400).send({ message: "Missing fields." });
 		}
 
 		try {
-			const link = await prisma.link.findUnique({ where: { id } })
+			const link = await prisma.link.findUnique({ where: { id } });
 			if (!link) {
-				return res.status(404).send({ message: "Link not found." })
+				return res.status(404).send({ message: "Link not found." });
 			}
 
-			await prisma.link.delete({ where: { id } })
-			return res.status(200).send({ message: "Link deleted." })
+			await prisma.link.delete({ where: { id } });
+			return res.status(200).send({ message: "Link deleted." });
 		} catch (error) {
-			console.error("deleteLink error:", error)
-			return res.status(500).send({ message: error.message || "Internal server error." })
+			console.error("deleteLink error:", error);
+			return res.status(500).send({ message: error.message || "Internal server error." });
 		}
 	},
 
@@ -184,38 +195,21 @@ const linkController = {
 	 */
 	getLinksByUserId: async (req, res) => {
 		// const { userId } = req.params
-		
-		const userId = req.user.id
+
+		const userId = req.user.id;
 
 		if (!userId) {
-			return res.status(400).send({ message: "Missing fields." })
+			return res.status(400).send({ message: "Missing fields." });
 		}
 
 		try {
-			const links = await prisma.link.findMany({ where: { userId } })
-			return res.status(200).send(links)
+			const links = await prisma.link.findMany({ where: { userId } });
+			return res.status(200).send(links);
 		} catch (error) {
-			console.error("getLinksByUserId error:", error)
-			return res.status(500).send({ message: error.message || "Internal server error." })
-		}
-	},
-	getLinksByUsername: async (req, res) => {
-		const { username } = req.params
-		console.log(username)
-		
-		if (!username) {
-			return res.status(400).send({ message: "Missing fields." })
-		}
-
-		try {
-			const links = await prisma.link.findMany({ where: { user } })
-			return res.status(200).send(links)
-		} catch (error) {
-			console.error("getLinksByUsername error:", error)
-			return res.status(500).send({ message: error.message || "Internal server error." })
+			console.error("getLinksByUserId error:", error);
+			return res.status(500).send({ message: error.message || "Internal server error." });
 		}
 	}
-}
+};
 
-module.exports = linkController
-
+module.exports = linkController;

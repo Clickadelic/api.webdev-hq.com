@@ -58,12 +58,12 @@ postRouter.post("/posts", postController.createPost);
 
 /**
  * @openapi
- * /common/v1/posts/{id}:
+ * /common/v1/posts/{postId}:
  *   get:
  *     summary: Returns a certain post by it's id
  *     tags: [Posts]
  *     parameters:
- *       - name: id
+ *       - name: postId
  *         in: path
  *         required: true
  *         description: The id of the post
@@ -79,18 +79,18 @@ postRouter.post("/posts", postController.createPost);
  *       404:
  *         description: Post not found
  */
-postRouter.get("/posts/:id", postController.getPostById);
+postRouter.get("/posts/:postId", postController.getPostById);
 
 /**
  * @openapi
- * /common/v1/posts/{id}:
+ * /common/v1/posts/{postId}:
  *   patch:
  *     summary: Partially updates a post
  *     tags: [Posts]
  *     security:
  *       - cookieAuth: []
  *     parameters:
- *       - name: id
+ *       - name: postId
  *         in: path
  *         required: true
  *         description: the id of the post
@@ -112,31 +112,31 @@ postRouter.get("/posts/:id", postController.getPostById);
  *       404:
  *         description: Post not found
  */
-postRouter.patch("/posts/:id", postController.patchPost);
+postRouter.patch("/posts/:postId", postController.patchPost);
 
 /**
  * @openapi
- * /common/v1/posts/{id}:
+ * /common/v1/posts/{postId}:
  *   delete:
  *     summary: Deletes a post by it's id
  *     tags: [Posts]
  *     security:
  *       - cookieAuth: []
  *     parameters:
- *       - name: id
+ *       - name: postId
  *         in: path
  *         required: true
  *         description: The id of the post
  *         schema:
- *           type: integer
+ *           type: string
  *     responses:
  *       204:
  *         description: Post successfully deleted
- *       404:
- *         description: Post not found
  *       401:
  *         description: Not authorized
+ *       404:
+ *         description: Post not found
  */
-postRouter.delete("/posts/:id", postController.deletePost);
+postRouter.delete("/posts/:postId", postController.deletePost);
 
 module.exports = postRouter;
