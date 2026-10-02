@@ -54,7 +54,7 @@ linkRouter.get("/links/:id", linkController.getLinkById);
 
 /**
  * @swagger
- * /links:
+ * /common/v1/links:
  *   post:
  *     summary: Create a new link
  *     tags: [Links]
@@ -82,7 +82,7 @@ linkRouter.post("/links", middleware.verifyTokenFromCookie, linkController.creat
 
 /**
  * @swagger
- * /links/{id}:
+ * /common/v1/links/{id}:
  *   patch:
  *     summary: Update a link partially
  *     tags: [Links]
@@ -116,7 +116,7 @@ linkRouter.patch("/links/:id", middleware.verifyTokenFromCookie, linkController.
 
 /**
  * @swagger
- * /links/{id}:
+ * /common/v1/links/{id}:
  *   delete:
  *     summary: Delete a link
  *     tags: [Links]
